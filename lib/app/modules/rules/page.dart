@@ -67,7 +67,7 @@ class RulesPage extends GetView<RulesController> {
               _buildMarkdown(context, rule.body[language] ?? ''),
             ],
           );
-        }).toList(),
+        }),
         FilledButton(
           child: Text(t.rules.accept),
           onPressed: () {

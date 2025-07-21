@@ -9,8 +9,7 @@ import 'play_pause_btn.dart';
 class BottomControl extends StatelessWidget implements PreferredSizeWidget {
   final PlPlayerController? controller;
   final Function? triggerFullScreen;
-  const BottomControl({this.controller, this.triggerFullScreen, Key? key})
-      : super(key: key);
+  const BottomControl({this.controller, this.triggerFullScreen, super.key});
 
   @override
   Size get preferredSize => const Size(double.infinity, kToolbarHeight);
@@ -46,8 +45,10 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
                   buffered: Duration(seconds: buffer),
                   total: Duration(seconds: max),
                   progressBarColor: colorTheme,
-                  baseBarColor: Colors.white.withOpacity(0.2),
-                  bufferedBarColor: colorTheme.withOpacity(0.4),
+                  baseBarColor:
+                      Colors.white.withAlpha((0.2 * 255).round()),
+                  bufferedBarColor:
+                      colorTheme.withAlpha((0.4 * 255).round()),
                   timeLabelLocation: TimeLabelLocation.none,
                   thumbColor: colorTheme,
                   barHeight: 3.5,

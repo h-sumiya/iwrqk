@@ -167,7 +167,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
 
   Future<void> setBrightness(double value) async {
     try {
-      await ScreenBrightness().setScreenBrightness(value);
+      await ScreenBrightness().setApplicationScreenBrightness(value);
     } catch (_) {}
     _ctr.brightnessIndicator.value = true;
     _brightnessTimer?.cancel();
@@ -615,9 +615,12 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                 buffered: Duration(seconds: buffer),
                 total: Duration(seconds: max),
                 progressBarColor: colorTheme,
-                baseBarColor: Colors.white.withOpacity(0.2),
-                bufferedBarColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                baseBarColor:
+                    Colors.white.withAlpha((0.2 * 255).round()),
+                bufferedBarColor: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .withAlpha((0.4 * 255).round()),
                 timeLabelLocation: TimeLabelLocation.none,
                 thumbColor: colorTheme,
                 barHeight: 3,

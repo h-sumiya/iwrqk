@@ -53,13 +53,15 @@ class _CustomColorPageState extends State<CustomColorPage> {
                                 width: 46,
                                 height: 46,
                                 decoration: BoxDecoration(
-                                  color: e['color'].withOpacity(0.8),
+                                  color:
+                                      e['color'].withAlpha((0.8 * 255).round()),
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                     width: 2,
                                     color: _configService.customColor == index
                                         ? Colors.black
-                                        : e['color'].withOpacity(0.8),
+                                        : e['color']
+                                            .withAlpha((0.8 * 255).round()),
                                   ),
                                 ),
                                 child: AnimatedOpacity(

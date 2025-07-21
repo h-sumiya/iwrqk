@@ -10,11 +10,11 @@ class EditPlaylistDialog extends GetWidget<EditPlaylistDialogController> {
   final bool isEdit;
 
   const EditPlaylistDialog({
-    Key? key,
+    super.key,
     this.onChanged,
     this.editId,
     this.isEdit = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

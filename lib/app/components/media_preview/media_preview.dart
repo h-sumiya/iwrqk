@@ -14,9 +14,9 @@ class MediaPreview extends StatelessWidget {
   final MediaModel media;
 
   const MediaPreview({
-    Key? key,
+    super.key,
     required this.media,
-  }) : super(key: key);
+  });
 
   Widget _buildBadges(BuildContext context) {
     Duration? duration;

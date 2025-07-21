@@ -21,7 +21,7 @@ class CommentsList extends StatefulWidget {
   final Widget? parentComment;
 
   const CommentsList({
-    Key? key,
+    super.key,
     required this.tag,
     required this.sourceType,
     required this.sourceId,
@@ -33,7 +33,7 @@ class CommentsList extends StatefulWidget {
     this.showBottomPagination = false,
     this.scrollController,
     this.parentComment,
-  }) : super(key: key);
+  });
 
   @override
   State<CommentsList> createState() => _CommentsListState();

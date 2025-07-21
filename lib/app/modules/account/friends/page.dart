@@ -7,7 +7,7 @@ import 'widgets/friend_requests_list/widget.dart';
 import 'widgets/friends_preview_list/widget.dart';
 
 class FriendsPage extends GetView<FriendsController> {
-  const FriendsPage({Key? key}) : super(key: key);
+  const FriendsPage({super.key});
 
   Widget _buildTabBar(BuildContext context) {
     return Container(

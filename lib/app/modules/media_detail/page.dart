@@ -376,11 +376,19 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               t.media.share,
               () {
                 if (_controller.mediaType == MediaType.video) {
-                  Share.share(IwaraConst.videoPageUrl
-                      .replaceAll("{id}", _controller.media.id));
+                  SharePlus.instance.share(
+                    ShareParams(
+                      text: IwaraConst.videoPageUrl
+                          .replaceAll("{id}", _controller.media.id),
+                    ),
+                  );
                 } else {
-                  Share.share(IwaraConst.imagePageUrl
-                      .replaceAll("{id}", _controller.media.id));
+                  SharePlus.instance.share(
+                    ShareParams(
+                      text: IwaraConst.imagePageUrl
+                          .replaceAll("{id}", _controller.media.id),
+                    ),
+                  );
                 }
               },
             ),
@@ -796,7 +804,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   Widget _buildPLPlayer([bool inPip = false]) {
     return PopScope(
       canPop: plPlayerController?.isFullScreen.value != true,
-      onPopInvoked: (bool didPop) {
+      onPopInvokedWithResult: (bool didPop, Object? result) {
         if (plPlayerController?.isFullScreen.value == true) {
           plPlayerController!.triggerFullScreen(status: false);
         }

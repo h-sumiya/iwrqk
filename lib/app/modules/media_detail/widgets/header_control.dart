@@ -94,10 +94,11 @@ class _HeaderControlState extends State<HeaderControl> {
             fuc: () async {
               // 销毁播放器实例
               await widget.controller!.dispose(type: 'all');
-              if (mounted) {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(AppRoutes.home));
-              }
+              if (!mounted) return;
+              Navigator.popUntil(
+                context,
+                ModalRoute.withName(AppRoutes.home),
+              );
             },
           ),
           const Spacer(),

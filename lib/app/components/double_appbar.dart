@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
+    super.key,
     required this.child,
     required this.controller,
     required this.visible,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final PreferredSizeWidget child;
   final AnimationController controller;

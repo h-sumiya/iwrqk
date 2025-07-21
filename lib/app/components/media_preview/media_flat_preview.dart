@@ -17,12 +17,12 @@ class MediaFlatPreview extends StatelessWidget {
   final void Function()? onLongPress;
 
   const MediaFlatPreview({
-    Key? key,
+    super.key,
     required this.media,
     this.coverOverlay,
     this.onTap,
     this.onLongPress,
-  }) : super(key: key);
+  });
 
   Widget _buildBadges(BuildContext context) {
     Duration? duration;
