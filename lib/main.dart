@@ -58,7 +58,7 @@ Future<void> main() async {
   } else {
     StorageProvider.config[DynamicConfigKey.firstRun] = false;
     StorageProvider.config[ConfigKey.localeCode] =
-        LocaleSettings.useDeviceLocale().languageCode;
+        (await LocaleSettings.useDeviceLocale()).languageCode;
   }
 
   if (GetPlatform.isDesktop) {
