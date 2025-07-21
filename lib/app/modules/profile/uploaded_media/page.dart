@@ -7,7 +7,7 @@ import '../../../data/models/account/settings/media_sort_setting.dart';
 import 'controller.dart';
 
 class UploadedMediaPage extends StatefulWidget {
-  const UploadedMediaPage({Key? key}) : super(key: key);
+  const UploadedMediaPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _UploadedMediaPageState();

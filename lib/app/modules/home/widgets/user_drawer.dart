@@ -11,7 +11,7 @@ class UserDrawer extends StatelessWidget {
   UserService get _userService => Get.find();
   AccountService get _accountService => Get.find();
 
-  const UserDrawer({Key? key}) : super(key: key);
+  const UserDrawer({super.key});
 
   Widget _buildUserItem(
     BuildContext context, {

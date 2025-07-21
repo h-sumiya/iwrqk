@@ -11,12 +11,12 @@ class IwrGallery extends StatefulWidget {
   final void Function(int index)? onPageChanged;
 
   const IwrGallery({
-    Key? key,
+    super.key,
     required this.imageUrls,
     this.isfullScreen = false,
     this.lastPage,
     this.onPageChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<IwrGallery> createState() => _IwrGalleryState();
@@ -72,7 +72,7 @@ class _IwrGalleryState extends State<IwrGallery> {
   Widget _buildDotPageFooter() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withAlpha((0.3 * 255).round()),
         borderRadius: BorderRadius.circular(16),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -96,7 +96,7 @@ class _IwrGalleryState extends State<IwrGallery> {
                 shape: BoxShape.circle,
                 color: _currentIndex == index
                     ? Colors.white
-                    : Colors.white.withOpacity(0.4),
+                    : Colors.white.withAlpha((0.4 * 255).round()),
               ),
             ),
           );
@@ -108,7 +108,7 @@ class _IwrGalleryState extends State<IwrGallery> {
   Widget _buildTextPageFooter() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withAlpha((0.5 * 255).round()),
         borderRadius: BorderRadius.circular(16),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -129,7 +129,7 @@ class _IwrGalleryState extends State<IwrGallery> {
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: Colors.black.withOpacity(0.5),
+          backgroundColor: Colors.black.withAlpha((0.5 * 255).round()),
           elevation: 0,
           iconTheme: const IconThemeData(color: Colors.white),
           title: widget.imageUrls.length > 1
@@ -183,7 +183,8 @@ class _IwrGalleryState extends State<IwrGallery> {
                 top: 4,
                 child: IconButton(
                   style: IconButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.3),
+                    backgroundColor:
+                        Colors.black.withAlpha((0.3 * 255).round()),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();

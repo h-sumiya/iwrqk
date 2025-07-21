@@ -12,7 +12,7 @@ import '../../../data/models/user.dart';
 class GuestbookPage extends StatefulWidget {
   final UserModel user;
 
-  const GuestbookPage({Key? key, required this.user}) : super(key: key);
+  const GuestbookPage({super.key, required this.user});
 
   @override
   State<GuestbookPage> createState() => _GuestbookPageState();
