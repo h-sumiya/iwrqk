@@ -123,7 +123,7 @@ class DownloadTaskDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       elevation: 0,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 500),
@@ -199,7 +199,7 @@ class DownloadTaskDialog extends StatelessWidget {
                         ),
                       Positioned.fill(
                         child: Material(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha: 0.4),
                           child: InkWell(
                             onTap: gotoPlayer,
                             child: const Icon(

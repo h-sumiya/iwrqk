@@ -46,7 +46,7 @@ class LogUtil {
         stackTraceBeginIndex: 0,
         methodCount: 6,
         colors: false,
-        printTime: true);
+        dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart);
     LogPrinter prodPrinterWithoutBox = PrettyPrinter(
         stackTraceBeginIndex: 0,
         methodCount: 6,

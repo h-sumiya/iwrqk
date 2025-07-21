@@ -84,8 +84,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
 
   // 双击播放、暂停
   void onDoubleTapCenter() {
-    final PlPlayerController _ = widget.controller;
-    _.videoPlayerController!.playOrPause();
+    final PlPlayerController controller = widget.controller;
+    controller.videoPlayerController!.playOrPause();
   }
 
   void doubleTapFuc(String type) {
@@ -136,8 +136,10 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
 
     Future.microtask(() async {
       try {
-        _ctr.brightnessValue.value = await ScreenBrightness().current;
-        ScreenBrightness().onCurrentBrightnessChanged.listen((double value) {
+        _ctr.brightnessValue.value = await ScreenBrightness().application;
+        ScreenBrightness()
+            .onApplicationScreenBrightnessChanged
+            .listen((double value) {
           if (mounted) {
             _ctr.brightnessValue.value = value;
           }

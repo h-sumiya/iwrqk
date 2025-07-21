@@ -18,7 +18,7 @@ class MediaGridTabPage extends StatefulWidget {
   final TabAlignment tabAlignment;
 
   const MediaGridTabPage({
-    Key? key,
+    super.key,
     this.showFilter = true,
     required this.tag,
     required this.tabNameList,

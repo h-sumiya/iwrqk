@@ -72,7 +72,7 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.only(left: 16, right: 16),
       height: Get.height - Get.width / 16 * 9 - Get.mediaQuery.padding.top,
       child: Column(

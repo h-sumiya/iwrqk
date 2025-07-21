@@ -10,9 +10,9 @@ class VideosTabPage extends GetView<VideosTabController> {
   final String tabTag;
 
   const VideosTabPage({
-    Key? key,
+    super.key,
     required this.tabTag,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

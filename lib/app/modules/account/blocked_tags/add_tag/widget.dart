@@ -182,9 +182,9 @@ class AddTagPage extends GetWidget<AddTagController> {
     return OpenContainer(
       closedElevation: 0,
       openElevation: 0,
-      openColor: Theme.of(context).colorScheme.background,
-      middleColor: Theme.of(context).colorScheme.background,
-      closedColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).colorScheme.surface,
+      middleColor: Theme.of(context).colorScheme.surface,
+      closedColor: Theme.of(context).colorScheme.surface,
       closedShape: const CircleBorder(),
       closedBuilder: (context, action) {
         return IconButton(

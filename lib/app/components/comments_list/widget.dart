@@ -163,9 +163,9 @@ class _CommentsListState extends State<CommentsList>
                                   margin: const EdgeInsets.symmetric(
                                     vertical: 4,
                                   ),
-                                  color: Theme.of(context)
-                                      .dividerColor
-                                      .withOpacity(0.1),
+                                    color: Theme.of(context)
+                                        .dividerColor
+                                        .withValues(alpha: 0.1),
                                 ),
                                 comment,
                               ],

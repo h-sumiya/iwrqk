@@ -87,7 +87,7 @@ class AddToPlaylistBottomSheet
     controller.init(videoId);
     return Material(
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         height: Get.height - Get.width / 16 * 9 - Get.mediaQuery.padding.top,
         child: Column(
           children: [

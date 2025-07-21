@@ -7,7 +7,7 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import '../../../data/providers/storage_provider.dart';
 
 class ProxyDialog extends StatelessWidget {
-  ProxyDialog({Key? key}) : super(key: key);
+  const ProxyDialog({super.key});
 
   final FocusNode blankNode = FocusNode();
   final FocusNode focusNode = FocusNode();

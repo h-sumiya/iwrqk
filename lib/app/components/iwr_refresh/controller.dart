@@ -62,8 +62,8 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
   }
 
   Future<void> refreshData({
-    showSplash = false,
-    paginated = false,
+    bool showSplash = false,
+    bool paginated = false,
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!accountService.isLogin && _requireLogin) {
@@ -85,8 +85,8 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
   Future<GroupResult<T>> getNewData(int currentPage);
 
   Future<void> loadData({
-    showSplash = false,
-    isRefresh = false,
+    bool showSplash = false,
+    bool isRefresh = false,
   }) async {
     if (showSplash) {
       change({"state": "loading"}, status: RxStatus.success());

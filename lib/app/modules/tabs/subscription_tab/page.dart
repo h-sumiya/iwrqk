@@ -9,9 +9,9 @@ class SubscriptionTabPage extends GetView<SubscriptionTabController> {
   final String tabTag;
 
   const SubscriptionTabPage({
-    Key? key,
+    super.key,
     required this.tabTag,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
