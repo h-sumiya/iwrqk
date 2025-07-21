@@ -6,24 +6,16 @@ class ImageModel extends FileModel {
   String? mime;
 
   ImageModel({
-    required String id,
+    required super.id,
     this.animatedPreview,
     this.mime,
-    String? path,
-    String? name,
-    int? duration,
-    int? numThumbnails,
-    String? createdAt,
-    String? updatedAt,
-  }) : super(
-          id: id,
-          path: path,
-          name: name,
-          duration: duration,
-          numThumbnails: numThumbnails,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-        );
+    super.path,
+    super.name,
+    super.duration,
+    super.numThumbnails,
+    super.createdAt,
+    super.updatedAt,
+  });
 
   factory ImageModel.fromJson(Map<String, dynamic> json) {
     return ImageModel(

@@ -18,14 +18,13 @@ class VideoDownloadTask extends MediaDownloadTask {
   int expireTime;
   String resolutionName;
 
-  VideoDownloadTask(
-      {required this.expireTime,
-      required DateTime createTime,
-      required DownloadTaskMediaModel offlineMedia,
-      required String taskId,
-      required this.resolutionName})
-      : super(
-            createTime: createTime, offlineMedia: offlineMedia, taskId: taskId);
+  VideoDownloadTask({
+    required this.expireTime,
+    required super.createTime,
+    required super.offlineMedia,
+    required super.taskId,
+    required this.resolutionName,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -52,12 +51,11 @@ class VideoDownloadTask extends MediaDownloadTask {
 }
 
 class ImageDownloadTask extends MediaDownloadTask {
-  ImageDownloadTask(
-      {required DateTime createTime,
-      required DownloadTaskMediaModel offlineMedia,
-      required String taskId})
-      : super(
-            createTime: createTime, offlineMedia: offlineMedia, taskId: taskId);
+  ImageDownloadTask({
+    required super.createTime,
+    required super.offlineMedia,
+    required super.taskId,
+  });
 
   Map<String, dynamic> toJson() {
     return {

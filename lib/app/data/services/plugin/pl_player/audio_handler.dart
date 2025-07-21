@@ -29,7 +29,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     revalidateSetting();
   }
 
-  revalidateSetting() {
+  void revalidateSetting() {
     enableBackgroundPlay = setting.get(PLPlayerConfigKey.enableBackgroundPlay,
         defaultValue: false);
   }
@@ -85,14 +85,14 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     ));
   }
 
-  onStatusChange(PlayerStatus status, bool isBuffering) {
+  void onStatusChange(PlayerStatus status, bool isBuffering) {
     if (!enableBackgroundPlay) return;
 
     if (_item.isEmpty) return;
     setPlaybackState(status, isBuffering);
   }
 
-  onVideoChange(Map data) {
+  void onVideoChange(Map data) {
     if (!enableBackgroundPlay) return;
 
     late MediaItem? mediaItem;
@@ -108,7 +108,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     _item.add(mediaItem);
   }
 
-  onVideoDetailDispose() {
+  void onVideoDetailDispose() {
     if (!enableBackgroundPlay) return;
 
     playbackState.add(playbackState.value.copyWith(
@@ -126,7 +126,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     stop();
   }
 
-  clear() {
+  void clear() {
     if (!enableBackgroundPlay) return;
 
     mediaItem.add(null);
@@ -138,7 +138,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     stop();
   }
 
-  onPositionChange(Duration position) {
+  void onPositionChange(Duration position) {
     if (!enableBackgroundPlay) return;
 
     playbackState.add(playbackState.value.copyWith(
