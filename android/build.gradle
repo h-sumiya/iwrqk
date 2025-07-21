@@ -1,16 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.7.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 allprojects {
     repositories {
         google()
@@ -28,4 +15,13 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
+}
+
+subprojects { sub ->
+    sub.plugins.withId("com.android.library") {
+        if (sub.android.namespace == null) {
+            def fallback = "com.depfix." + sub.name.replace('-', '_')
+            sub.android.namespace = (sub.group ?: fallback)
+        }
+    }
 }

@@ -1,27 +1,28 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:iwrqk/app/data/providers/network/network_provider.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'app/const/colors.dart';
 import 'app/data/providers/config_provider.dart';
-import 'app/data/services/plugin/pl_player/service_locator.dart';
-import 'app/modules/media_detail/page.dart';
-import 'app/utils/path_util.dart';
-import 'app/utils/proxy_util.dart';
-import 'i18n/strings.g.dart';
 import 'app/data/providers/storage_provider.dart';
 import 'app/data/services/config_service.dart';
+import 'app/data/services/plugin/pl_player/service_locator.dart';
+import 'app/modules/media_detail/page.dart';
 import 'app/routes/pages.dart';
 import 'app/utils/log_util.dart';
+import 'app/utils/path_util.dart';
+import 'app/utils/proxy_util.dart';
 import 'getx.dart';
+import 'i18n/strings.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -163,6 +164,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     _configService.resetEasyRefresh();
+    NetworkProvider().setContext(context);
 
     Widget mainApp() => DynamicColorBuilder(
           builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {

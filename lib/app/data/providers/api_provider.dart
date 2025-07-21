@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
+
 import '../enums/result.dart';
 import '../enums/types.dart';
-import '../models/account/friend_request.dart';
-import '../models/app_user.dart';
-import '../models/comment.dart';
 import '../models/account/conversations/conversation.dart';
 import '../models/account/conversations/message.dart';
+import '../models/account/friend_request.dart';
+import '../models/account/notifications/counts.dart';
+import '../models/app_user.dart';
+import '../models/comment.dart';
 import '../models/forum/channel.dart';
 import '../models/forum/post.dart';
 import '../models/forum/thread.dart';
 import '../models/media/image.dart';
 import '../models/media/media.dart';
 import '../models/media/video.dart';
-import '../models/account/notifications/counts.dart';
 import '../models/playlist/light_playlist.dart';
 import '../models/playlist/playlist.dart';
 import '../models/profile.dart';
@@ -37,6 +39,7 @@ class ApiProvider {
         token = value.data["token"];
       }
     }).catchError((e, stackTrace) {
+      debugPrint("Login error: $e $stackTrace");
       message = e.toString();
     });
     return ApiResult(data: token, success: message == null, message: message);
@@ -84,7 +87,7 @@ class ApiProvider {
     String? message;
     List<RuleModel> rules = [];
 
-    await networkProvider.get("/rules").then((value) {
+    await networkProvider.get("/rules").then((value) async {
       if (value.data["message"] != null) {
         message = value.data["message"];
       } else {

@@ -1,7 +1,31 @@
+import 'dart:convert';
+
+import 'package:cloudflare_interceptor/cloudflare_interceptor.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:html/dom.dart';
+import 'package:html/parser.dart' show parse;
 
 import '../../../const/iwara.dart';
 import 'refresh_token_interceptor.dart';
+
+dynamic tryToJson(dynamic data) {
+  if (data is String) {
+    final Document document = parse(data);
+    final element = document.querySelector("pre");
+    if (element != null) {
+      final String jsonString = element.text;
+      debugPrint("Automatically converted to JSON string: $jsonString");
+      return json.decode(jsonString);
+    } else {
+      return data;
+    }
+  } else {
+    return data;
+  }
+}
 
 class NetworkProvider {
   static final NetworkProvider _singleton = NetworkProvider._internal();
@@ -11,8 +35,10 @@ class NetworkProvider {
   }
 
   late Dio _dio;
+  BuildContext? _context;
 
   NetworkProvider._internal() {
+    final cookieJar = CookieJar();
     _dio = Dio();
 
     _dio.options.validateStatus = (status) => (status ?? 0) < 500;
@@ -21,30 +47,42 @@ class NetworkProvider {
       "referer": IwaraConst.referer,
       "accept-encoding": "gzip",
       "user-agent":
-          "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5672.76 Mobile Safari/537.36"
+          "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36"
     };
     _dio.options.sendTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);
     _dio.options.connectTimeout = const Duration(seconds: 15);
+    _dio.interceptors.add(CookieManager(cookieJar));
+    if (_context != null) {
+      _dio.interceptors.add(CloudflareInterceptor(
+        dio: _dio,
+        cookieJar: cookieJar,
+        context: _context!,
+      ));
+    }
     _dio.interceptors.add(RefreshTokenInterceptor(_dio));
     _dio.interceptors.add(LogInterceptor());
+  }
 
-    // if (StorageProvider.config[StorageKey.proxyEnable] ?? false) {
-    //   String? proxyHost = StorageProvider.config[StorageKey.proxyHost];
-    //   String? proxyPort = StorageProvider.config[StorageKey.proxyPort];
+  void setContext(BuildContext context) {
+    _context = context;
+    _reinitializeWithContext();
+  }
 
-    //   if (proxyHost != null && proxyPort != null) {
-    //     _dio.httpClientAdapter = IOHttpClientAdapter(createHttpClient: () {
-    //       final client = HttpClient();
-    //       client.findProxy = (uri) {
-    //         return 'PROXY $proxyHost:$proxyPort';
-    //       };
-    //       client.badCertificateCallback =
-    //           (X509Certificate cert, String host, int port) => true;
-    //       return client;
-    //     });
-    //   }
-    // }
+  void _reinitializeWithContext() {
+    if (_context != null) {
+      final cookieJar =
+          _dio.interceptors.whereType<CookieManager>().firstOrNull?.cookieJar;
+      _dio.interceptors
+          .removeWhere((interceptor) => interceptor is CloudflareInterceptor);
+      _dio.interceptors.insert(
+          1,
+          CloudflareInterceptor(
+            dio: _dio,
+            cookieJar: cookieJar ?? CookieJar(),
+            context: _context!,
+          ));
+    }
   }
 
   void dispose() {
@@ -62,7 +100,7 @@ class NetworkProvider {
         headers: headers,
       );
 
-  Future<Response> getFullUrl(
+  Future<Response<dynamic>> getFullUrl(
     String url, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
@@ -73,10 +111,18 @@ class NetworkProvider {
       options: Options(headers: headers),
     );
 
-    return response;
+    return Response(
+      data: tryToJson(response.data),
+      requestOptions: response.requestOptions,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      redirects: response.redirects,
+    );
   }
 
-  Future<Response> postFullUrl(
+  Future<Response<dynamic>> postFullUrl(
     String url, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
@@ -89,7 +135,15 @@ class NetworkProvider {
       data: data,
     );
 
-    return response;
+    return Response(
+      data: tryToJson(response.data),
+      requestOptions: response.requestOptions,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      redirects: response.redirects,
+    );
   }
 
   Future<Response> post(

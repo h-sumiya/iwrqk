@@ -10,7 +10,6 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:screen_brightness/screen_brightness.dart';
-import 'package:status_bar_control/status_bar_control.dart';
 
 import '../../../data/providers/storage_provider.dart';
 import '../../../data/services/plugin/pl_player/service_locator.dart';
@@ -841,58 +840,26 @@ class PlPlayerController {
     _isFullScreen.value = val;
   }
 
-  // 全屏
   Future<void> triggerFullScreen({bool status = true}) async {
     FullScreenMode mode = FullScreenModeCode.fromCode(
         setting.get(PLPlayerConfigKey.fullScreenMode, defaultValue: 0))!;
-    await StatusBarControl.setHidden(true, animation: StatusBarAnimation.FADE);
-    if (!isFullScreen.value && status) {
-      /// 按照视频宽高比决定全屏方向
-      toggleFullScreen(true);
 
-      /// 进入全屏
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
+    if (!isFullScreen.value && status) {
+      toggleFullScreen(true);
       await enterFullScreen();
+
       if (mode == FullScreenMode.vertical ||
           (mode == FullScreenMode.auto && direction.value == 'vertical')) {
         await verticalScreen();
       } else {
         await landScape();
       }
-
-      // bool isValid =
-      //     direction.value == 'vertical' || mode == FullScreenMode.vertical
-      //         ? true
-      //         : false;
-      // var result = await showDialog(
-      //   context: Get.context!,
-      //   useSafeArea: false,
-      //   builder: (context) => Dialog.fullscreen(
-      //     backgroundColor: Colors.black,
-      //     child: SafeArea(
-      //       // 忽略手机安全区域
-      //       top: isValid,
-      //       left: false,
-      //       right: false,
-      //       bottom: isValid,
-      //       child: PLVideoPlayer(
-      //         controller: this,
-      //         headerControl: headerControl,
-      //         bottomControl: bottomControl,
-      //         danmuWidget: danmuWidget,
-      //       ),
-      //     ),
-      //   ),
-      // );
-      // if (result == null) {
-      //   // 退出全屏
-      //   StatusBarControl.setHidden(false, animation: StatusBarAnimation.FADE);
-      //   exitFullScreen();
-      //   await verticalScreen();
-      //   toggleFullScreen(false);
-      // }
     } else if (isFullScreen.value) {
-      StatusBarControl.setHidden(false, animation: StatusBarAnimation.FADE);
-      // Get.back();
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+          overlays: SystemUiOverlay.values);
+
       exitFullScreen();
       await verticalScreen();
       toggleFullScreen(false);

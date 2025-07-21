@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
-import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import 'package:listen_sharing_intent/listen_sharing_intent.dart';
 
 import '../../data/services/config_service.dart';
 import '../../routes/pages.dart';
@@ -192,23 +192,37 @@ class HomeController extends GetxController {
       return;
     }
 
-    ReceiveSharingIntent.getInitialText().then(
-      (String? rawText) {
-        if (rawText == null || rawText.isEmpty) {
-          return;
+    ReceiveSharingIntent.instance
+        .getInitialMedia()
+        .then((List<SharedMediaFile> value) {
+      final textFiles =
+          value.where((file) => file.type == SharedMediaType.text).toList();
+
+      if (textFiles.isNotEmpty) {
+        final rawText = textFiles.first.path;
+        if (rawText.isNotEmpty) {
+          UrlUtil.jumpTo(rawText);
         }
+      }
 
-        UrlUtil.jumpTo(rawText);
-      },
-    );
+      ReceiveSharingIntent.instance.reset();
+    });
 
-    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(
-      (String url) {
-        if (url.isEmpty) {
-          return;
+    _intentDataStreamSubscription =
+        ReceiveSharingIntent.instance.getMediaStream().listen(
+      (List<SharedMediaFile> mediaList) {
+        final textFiles = mediaList
+            .where((file) =>
+                file.type == SharedMediaType.text ||
+                file.type == SharedMediaType.url)
+            .toList();
+
+        for (final file in textFiles) {
+          final url = file.path;
+          if (url.isNotEmpty) {
+            UrlUtil.jumpTo(url);
+          }
         }
-
-        UrlUtil.jumpTo(url);
       },
       onError: (e, stackTrace) {
         LogUtil.error('ReceiveSharingIntent Error!', e, stackTrace);
