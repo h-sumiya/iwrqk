@@ -6,25 +6,16 @@ class DownloadTaskMediaModel extends OfflineMediaModel {
   int size;
 
   DownloadTaskMediaModel({
-    required MediaType type,
-    required String title,
-    required String id,
-    String? coverUrl,
-    int? galleryLength,
-    required UserModel uploader,
-    int? duration,
-    required String ratingType,
+    required super.type,
+    required super.title,
+    required super.id,
+    super.coverUrl,
+    super.galleryLength,
+    required super.uploader,
+    super.duration,
+    required super.ratingType,
     required this.size,
-  }) : super(
-          type: type,
-          title: title,
-          id: id,
-          coverUrl: coverUrl,
-          galleryLength: galleryLength,
-          uploader: uploader,
-          duration: duration,
-          ratingType: ratingType,
-        );
+  });
 
   factory DownloadTaskMediaModel.fromOfflineMediaModel(
       OfflineMediaModel mediaData, int size) {

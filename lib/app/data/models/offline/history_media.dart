@@ -10,26 +10,17 @@ class HistoryMediaModel extends OfflineMediaModel {
   bool isPrivate;
 
   HistoryMediaModel({
-    required MediaType type,
+    required super.type,
     required this.viewedDate,
-    required String title,
-    required String id,
-    String? coverUrl,
-    int? galleryLength,
-    required UserModel uploader,
-    int? duration,
-    required String ratingType,
+    required super.title,
+    required super.id,
+    super.coverUrl,
+    super.galleryLength,
+    required super.uploader,
+    super.duration,
+    required super.ratingType,
     this.isPrivate = false,
-  }) : super(
-          type: type,
-          title: title,
-          id: id,
-          coverUrl: coverUrl,
-          galleryLength: galleryLength,
-          uploader: uploader,
-          duration: duration,
-          ratingType: ratingType,
-        );
+  });
 
   @override
   Map<String, dynamic> toJson() {

@@ -17,7 +17,7 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     Color colorTheme = Theme.of(context).colorScheme.primary;
-    final _ = controller!;
+    final c = controller!;
     const textStyle = TextStyle(
       color: Colors.white,
       fontSize: 12,
@@ -32,9 +32,9 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Obx(
             () {
-              final int value = _.sliderPositionSeconds.value;
-              final int max = _.durationSeconds.value;
-              final int buffer = _.bufferedSeconds.value;
+              final int value = c.sliderPositionSeconds.value;
+              final int max = c.durationSeconds.value;
+              final int buffer = c.bufferedSeconds.value;
               if (value > max || max <= 0) {
                 return const SizedBox.shrink();
               }
@@ -55,15 +55,15 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
                   thumbRadius: 7,
                   onDragStart: (duration) {
                     HapticFeedback.lightImpact();
-                    _.onChangedSliderStart();
+                    c.onChangedSliderStart();
                   },
                   onDragUpdate: (duration) {
-                    _.onUpdatedSliderProgress(duration.timeStamp);
+                    c.onUpdatedSliderProgress(duration.timeStamp);
                   },
                   onSeek: (duration) {
-                    _.onChangedSliderEnd();
-                    _.onChangedSlider(duration.inSeconds.toDouble());
-                    _.seekTo(Duration(seconds: duration.inSeconds),
+                    c.onChangedSliderEnd();
+                    c.onChangedSlider(duration.inSeconds.toDouble());
+                    c.seekTo(Duration(seconds: duration.inSeconds),
                         type: 'slider');
                   },
                 ),
@@ -73,17 +73,17 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
           Row(
             children: [
               PlayOrPauseButton(
-                controller: _,
+                controller: c,
               ),
               const SizedBox(width: 4),
               // 播放时间
               Obx(() {
                 return Text(
-                  _.durationSeconds.value >= 3600
+                  c.durationSeconds.value >= 3600
                       ? printDurationWithHours(
-                          Duration(seconds: _.positionSeconds.value))
+                          Duration(seconds: c.positionSeconds.value))
                       : printDuration(
-                          Duration(seconds: _.positionSeconds.value)),
+                          Duration(seconds: c.positionSeconds.value)),
                   style: textStyle,
                 );
               }),
@@ -92,11 +92,11 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
               const SizedBox(width: 2),
               Obx(
                 () => Text(
-                  _.durationSeconds.value >= 3600
+                  c.durationSeconds.value >= 3600
                       ? printDurationWithHours(
-                          Duration(seconds: _.durationSeconds.value))
+                          Duration(seconds: c.durationSeconds.value))
                       : printDuration(
-                          Duration(seconds: _.durationSeconds.value)),
+                          Duration(seconds: c.durationSeconds.value)),
                   style: textStyle,
                 ),
               ),
@@ -124,7 +124,7 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
               Obx(
                 () => ComBtn(
                   icon: Icon(
-                    _.isFullScreen.value
+                    c.isFullScreen.value
                         ? Icons.fullscreen_exit
                         : Icons.fullscreen,
                     color: Colors.white,

@@ -91,15 +91,15 @@ class _HeaderControlState extends State<HeaderControl> {
               Icons.home,
               color: Colors.white,
             ),
-            fuc: () async {
-              // 销毁播放器实例
-              await widget.controller!.dispose(type: 'all');
-              if (!mounted) return;
-              Navigator.popUntil(
-                context,
-                ModalRoute.withName(AppRoutes.home),
-              );
-            },
+              fuc: () async {
+                // 销毁播放器实例
+                await widget.controller!.dispose(type: 'all');
+                if (!context.mounted) return;
+                Navigator.popUntil(
+                  context,
+                  ModalRoute.withName(AppRoutes.home),
+                );
+              },
           ),
           const Spacer(),
           SizedBox(width: buttonSpace),
