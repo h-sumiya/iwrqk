@@ -13,10 +13,10 @@ class CreateVideoDownloadDialog
   final OfflineMediaModel previewData;
 
   const CreateVideoDownloadDialog({
-    Key? key,
+    super.key,
     required this.resolutions,
     required this.previewData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

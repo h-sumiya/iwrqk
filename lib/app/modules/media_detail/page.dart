@@ -36,9 +36,7 @@ import 'widgets/add_to_playlist/widget.dart';
 import 'widgets/media_desc.dart';
 
 class MediaDetailPage extends StatefulWidget {
-  const MediaDetailPage({
-    Key? key,
-  }) : super(key: key);
+  const MediaDetailPage({super.key});
 
   static final RouteObserver<PageRoute> routeObserver =
       RouteObserver<PageRoute>();
@@ -223,7 +221,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         plPlayerController!.removeStatusLister(playerListener);
         plPlayerController!.dispose();
       }
-      _controller.floating?.dispose();
+      _controller.floating?.cancelOnLeavePiP();
       videoPlayerServiceHandler.onVideoDetailDispose();
       _lifecycleListener.dispose();
     }

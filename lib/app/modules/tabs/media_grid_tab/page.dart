@@ -27,7 +27,7 @@ class MediaGridTabPage extends StatefulWidget {
     this.sourceType,
     this.customSourceTypeList,
     this.tabAlignment = TabAlignment.start,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _MediaGridTabPageState();

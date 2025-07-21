@@ -48,7 +48,7 @@ class _HeaderControlState extends State<HeaderControl> {
 
   @override
   Widget build(BuildContext context) {
-    final _ = widget.controller!;
+    final controller = widget.controller!;
     const TextStyle textStyle = TextStyle(
       color: Colors.white,
       fontSize: 12,
@@ -121,7 +121,8 @@ class _HeaderControlState extends State<HeaderControl> {
                   final Rational aspectRatio =
                       widget.videoDetailCtr?.aspectRatio ??
                           const Rational(16, 9);
-                  await widget.floating!.enable(aspectRatio: aspectRatio);
+                  await widget.floating!
+                      .enable(ImmediatePiP(aspectRatio: aspectRatio));
                 } else {}
               },
             ),
@@ -134,7 +135,7 @@ class _HeaderControlState extends State<HeaderControl> {
                 child: TextButton(
                   onPressed: () => showSetSpeedSheet(),
                   child: Text(
-                    '${_.playbackSpeed}X',
+                    '${controller.playbackSpeed}X',
                     style: textStyle,
                   ),
                 ),
@@ -183,7 +184,7 @@ class _HeaderControlState extends State<HeaderControl> {
           height: Get.height * 0.6,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
@@ -198,7 +199,7 @@ class _HeaderControlState extends State<HeaderControl> {
                       color: Theme.of(context)
                           .colorScheme
                           .onSecondaryContainer
-                          .withOpacity(0.5),
+                          .withAlpha((0.5 * 255).round()),
                       borderRadius: const BorderRadius.all(
                         Radius.circular(4),
                       ),
@@ -272,7 +273,7 @@ class _HeaderControlState extends State<HeaderControl> {
           padding: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
@@ -328,7 +329,7 @@ class _HeaderControlState extends State<HeaderControl> {
           padding: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
@@ -380,7 +381,7 @@ class _HeaderControlState extends State<HeaderControl> {
           padding: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
