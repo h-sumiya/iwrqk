@@ -11,9 +11,9 @@ class ImagesTabPage extends GetView<ImagesTabController> {
   final String tabTag;
 
   const ImagesTabPage({
-    Key? key,
+    super.key,
     required this.tabTag,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

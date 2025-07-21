@@ -24,7 +24,10 @@ class _SearchPageState extends State<SearchPage> {
       elevation: 0,
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(8),
-      color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+      color: Theme.of(context)
+          .colorScheme
+          .surfaceContainerHighest
+          .withValues(alpha: 0.5),
       child: InkWell(
         onTap: () {
           String currentText = _controller.searchEditingController.text;
@@ -62,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         shape: Border(
           bottom: BorderSide(
-            color: Theme.of(context).dividerColor.withOpacity(0.08),
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.08),
             width: 1,
           ),
         ),
@@ -194,9 +197,9 @@ class _SearchPageState extends State<SearchPage> {
     return OpenContainer(
       closedElevation: 0,
       openElevation: 0,
-      openColor: Theme.of(context).colorScheme.background,
-      middleColor: Theme.of(context).colorScheme.background,
-      closedColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).colorScheme.surface,
+      middleColor: Theme.of(context).colorScheme.surface,
+      closedColor: Theme.of(context).colorScheme.surface,
       closedShape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(32),
@@ -212,7 +215,7 @@ class _SearchPageState extends State<SearchPage> {
               splashColor: Theme.of(context)
                   .colorScheme
                   .primaryContainer
-                  .withOpacity(0.3),
+                  .withValues(alpha: 0.3),
               onTap: action,
               child: Row(
                 children: [

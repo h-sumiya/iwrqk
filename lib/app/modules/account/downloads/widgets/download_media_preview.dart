@@ -345,8 +345,8 @@ class DownloadMediaPreview extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colors.black.withOpacity(
-                          downloadsController!.enableMultipleSelection &&
+                      color: Colors.black.withValues(
+                          alpha: downloadsController!.enableMultipleSelection &&
                                   checked
                               ? 0.6
                               : 0),
@@ -367,7 +367,7 @@ class DownloadMediaPreview extends StatelessWidget {
                                           Brightness.light
                                       ? Colors.white
                                       : Colors.black)
-                                  .withOpacity(0.8),
+                                  .withValues(alpha: 0.8),
                             ),
                             child: Icon(
                               Icons.check,

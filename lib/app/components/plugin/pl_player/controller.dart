@@ -696,7 +696,7 @@ class PlPlayerController {
   }
 
   /// 调整播放时间
-  onChangedSlider(double v) {
+  void onChangedSlider(double v) {
     _sliderPosition.value = Duration(seconds: v.floor());
     updateSliderPositionSecond();
   }
@@ -756,7 +756,7 @@ class PlPlayerController {
   /// 亮度
   Future<void> getCurrentBrightness() async {
     try {
-      _currentBrightness.value = await ScreenBrightness().current;
+      _currentBrightness.value = await ScreenBrightness().application;
     } catch (e) {
       throw 'Failed to get current brightness';
       //return 0;
@@ -766,7 +766,7 @@ class PlPlayerController {
   Future<void> setBrightness(double brightnes) async {
     try {
       brightness.value = brightnes;
-      ScreenBrightness().setScreenBrightness(brightnes);
+      ScreenBrightness().setApplicationScreenBrightness(brightnes);
       // setVideoBrightness();
     } catch (e) {
       throw 'Failed to set brightness';
@@ -775,7 +775,7 @@ class PlPlayerController {
 
   Future<void> resetBrightness() async {
     try {
-      await ScreenBrightness().resetScreenBrightness();
+      await ScreenBrightness().resetApplicationScreenBrightness();
     } catch (e) {
       throw 'Failed to reset brightness';
     }

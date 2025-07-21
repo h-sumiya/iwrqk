@@ -36,7 +36,7 @@ class EditCommentBottomSheet
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
         ),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       ),
       padding: EdgeInsets.only(
         bottom: Get.mediaQuery.padding.bottom,
