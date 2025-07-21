@@ -238,7 +238,7 @@ class MediaDetailController extends GetxController
   /// 更新画质、音质
   /// TODO 继续进度播放
   updatePlayer({
-    video,
+    String? video,
   }) {
     defaultST = plPlayerController.position.value;
     plPlayerController.removeListeners();
@@ -249,18 +249,18 @@ class MediaDetailController extends GetxController
   }
 
   Future playerInit({
-    video,
-    audio,
-    seekToTime,
+    String? video,
+    String? audio,
+    Duration? seekToTime,
     bool autoplay = true,
   }) async {
     _isLoadingPlayer.value = true;
 
     /// 设置/恢复 屏幕亮度
     if (brightness != null) {
-      ScreenBrightness().setScreenBrightness(brightness!);
+      ScreenBrightness().setApplicationScreenBrightness(brightness!);
     } else {
-      ScreenBrightness().resetScreenBrightness();
+      ScreenBrightness().resetApplicationScreenBrightness();
     }
 
     await plPlayerController.setDataSource(

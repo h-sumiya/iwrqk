@@ -21,14 +21,14 @@ class Post extends StatefulWidget {
   final void Function(Map)? onUpdated;
 
   const Post({
-    Key? key,
+    super.key,
     required this.post,
     required this.index,
     this.showDivider = true,
     required this.starterUserName,
     this.isMyComment = false,
     this.onUpdated,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _PostState();

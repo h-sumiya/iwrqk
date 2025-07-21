@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppBarSwitcher extends StatelessWidget implements PreferredSizeWidget {
   const AppBarSwitcher({
+    super.key,
     required this.primary,
     required this.secondary,
     required this.visible,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final PreferredSizeWidget primary;
   final PreferredSizeWidget secondary;

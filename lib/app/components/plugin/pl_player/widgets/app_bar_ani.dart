@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppBarAni extends StatelessWidget implements PreferredSizeWidget {
   const AppBarAni({
+    super.key,
     required this.child,
     required this.controller,
     required this.visible,
     this.position,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final PreferredSizeWidget child;
   final AnimationController controller;

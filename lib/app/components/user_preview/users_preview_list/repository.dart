@@ -26,8 +26,6 @@ class UsersPreviewListRepository {
         path = "/search";
         queryParameters.addAll({"type": "user", "query": sortSetting.keyword});
         break;
-      default:
-        break;
     }
 
     return ApiProvider.getUsers(

@@ -16,14 +16,14 @@ class NetworkImg extends StatefulWidget {
   final bool isAdult;
 
   const NetworkImg({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.width,
     this.height,
     this.fit,
     this.aspectRatio,
     this.isAdult = false,
-  }) : super(key: key);
+  });
 
   @override
   State<NetworkImg> createState() => _NetworkImgState();

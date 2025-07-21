@@ -34,7 +34,7 @@ class CreateThreadPage extends GetView<CreateThreadController> {
                   color: Theme.of(context)
                       .colorScheme
                       .secondaryContainer
-                      .withOpacity(0.3),
+                      .withAlpha((0.3 * 255).round()),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 padding:
@@ -66,7 +66,7 @@ class CreateThreadPage extends GetView<CreateThreadController> {
                     color: Theme.of(context)
                         .colorScheme
                         .secondaryContainer
-                        .withOpacity(0.3),
+                        .withAlpha((0.3 * 255).round()),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),

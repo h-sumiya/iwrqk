@@ -28,7 +28,7 @@ class UserComment extends StatefulWidget {
   final void Function(Map)? onUpdated;
 
   const UserComment({
-    Key? key,
+    super.key,
     required this.comment,
     required this.uploaderUserName,
     this.showReplies = true,
@@ -38,7 +38,7 @@ class UserComment extends StatefulWidget {
     this.sourceType,
     this.isMyComment = false,
     this.onUpdated,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _UserCommentState();

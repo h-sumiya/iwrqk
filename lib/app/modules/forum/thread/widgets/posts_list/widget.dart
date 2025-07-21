@@ -15,14 +15,14 @@ class PostList extends StatefulWidget {
   final ScrollController? scrollController;
 
   const PostList({
-    Key? key,
+    super.key,
     required this.tag,
     required this.title,
     required this.starterUserName,
     required this.channelName,
     required this.threadId,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   State<PostList> createState() => _PostListState();

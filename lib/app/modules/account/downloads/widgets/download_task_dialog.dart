@@ -220,7 +220,7 @@ class DownloadTaskDialog extends StatelessWidget {
                 child: _buildStateWidget(context),
               ),
             Obx(
-              () => ButtonBar(
+              () => OverflowBar(
                 alignment: MainAxisAlignment.end,
                 children: [
                   if (taskStatus?.value.status == null ||

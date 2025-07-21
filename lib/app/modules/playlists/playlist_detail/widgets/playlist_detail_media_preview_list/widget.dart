@@ -68,10 +68,12 @@ class _PlaylistDetailMediaPreviewListState
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.black.withOpacity(
-                    _parentController.enableMultipleSelection && checked
-                        ? 0.6
-                        : 0),
+                color: Colors.black.withAlpha(
+                    ((_parentController.enableMultipleSelection && checked
+                                ? 0.6
+                                : 0) *
+                            255)
+                        .round()),
               ),
               child: Center(
                 child: SizedBox(
@@ -88,7 +90,7 @@ class _PlaylistDetailMediaPreviewListState
                         color: (Theme.of(context).brightness == Brightness.light
                                 ? Colors.white
                                 : Colors.black)
-                            .withOpacity(0.8),
+                            .withAlpha((0.8 * 255).round()),
                       ),
                       child: Icon(
                         Icons.check,

@@ -18,14 +18,14 @@ class HistoryMediaPreview extends StatelessWidget {
   final void Function()? onLongPress;
 
   const HistoryMediaPreview({
-    Key? key,
+    super.key,
     required this.historyController,
     required this.media,
     this.checked = false,
     this.showType = true,
     this.onTap,
     this.onLongPress,
-  }) : super(key: key);
+  });
 
   Widget _buildBadges(BuildContext context) {
     Duration? duration;
@@ -152,10 +152,12 @@ class HistoryMediaPreview extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black.withOpacity(
-                        historyController.enableMultipleSelection && checked
-                            ? 0.6
-                            : 0),
+                    color: Colors.black.withAlpha(
+                        ((historyController.enableMultipleSelection && checked
+                                    ? 0.6
+                                    : 0) *
+                                255)
+                            .round()),
                   ),
                   child: Center(
                     child: SizedBox(
@@ -173,7 +175,7 @@ class HistoryMediaPreview extends StatelessWidget {
                                         Brightness.light
                                     ? Colors.white
                                     : Colors.black)
-                                .withOpacity(0.8),
+                                .withAlpha((0.8 * 255).round()),
                           ),
                           child: Icon(
                             Icons.check,

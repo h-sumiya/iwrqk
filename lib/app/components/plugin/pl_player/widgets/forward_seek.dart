@@ -7,10 +7,10 @@ class ForwardSeekIndicator extends StatefulWidget {
   final void Function(Duration) onChanged;
   final void Function(Duration) onSubmitted;
   const ForwardSeekIndicator({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.onSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   State<ForwardSeekIndicator> createState() => ForwardSeekIndicatorState();

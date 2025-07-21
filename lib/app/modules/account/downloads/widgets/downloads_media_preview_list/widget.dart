@@ -164,18 +164,23 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                           },
                           onOpen: (taskId) async {
                             OpenFile.open(
-                                (await _controller.downloadService
-                                    .getTaskFilePath(taskId))!,
-                                type: 'video/mp4',
-                                uti: 'public.mpeg-4');
+                              (await _controller.downloadService
+                                  .getTaskFilePath(taskId))!,
+                              type: 'video/mp4',
+                            );
                           },
                           onShare: (taskId) async {
-                            Share.shareXFiles([
-                              XFile(
-                                  (await _controller.downloadService
-                                      .getTaskFilePath(taskId))!,
-                                  mimeType: 'video/mp4')
-                            ]);
+                            SharePlus.instance.share(
+                              ShareParams(
+                                files: [
+                                  XFile(
+                                    (await _controller.downloadService
+                                        .getTaskFilePath(taskId))!,
+                                    mimeType: 'video/mp4',
+                                  )
+                                ],
+                              ),
+                            );
                           },
                           gotoPlayer: gotoPlayer,
                           gotoDetail: gotoDetail,

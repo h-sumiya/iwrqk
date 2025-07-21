@@ -12,7 +12,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) async {
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
         controller.onBackPressed(context);
       },
       child: Scaffold(

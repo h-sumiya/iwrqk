@@ -12,13 +12,13 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
   final String? errorMessage;
 
   const LoadingDialog({
-    Key? key,
+    super.key,
     required this.task,
     this.successMessage,
     this.errorMessage,
     this.onSuccess,
     this.onFail,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
