@@ -22,23 +22,23 @@ jobs:
         include:
           - target: android
             os: ubuntu-latest
-            flutter_version: '3.16'
-            flutter_channel: 'stable'
+            flutter_version: "3.32.7"
+            flutter_channel: "stable"
             artifact_name: release-apk
             artifact_path: build/app/outputs/apk/release/*.apk
           - target: ios
-            os: macos-12
-            flutter_version: '3.16'
-            flutter_channel: 'stable'
+            os: macos-14
+            flutter_version: "3.32.7"
+            flutter_channel: "stable"
             artifact_name: release-ios
             artifact_path: build/ios/ipa/*.ipa
-    
+
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -46,14 +46,14 @@ jobs:
           flutter-version: ${{matrix.flutter_version}}
           channel: ${{matrix.flutter_channel}}
 
-      - name: Setup JDK 11 (Android)
+      - name: Setup JDK 21 (Android)
         if: matrix.target == 'android'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '11'
+          distribution: "zulu"
+          java-version: "21"
           cache: gradle
-      
+
       - name: Decode keystore (Android)
         if: matrix.target == 'android'
         run: echo $ENCODED_KEYSTORE | base64 -di > android/app/keystore.jks
@@ -71,8 +71,8 @@ jobs:
         id: get_version
         shell: bash
         run: |
-          echo "::set-output name=version::$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')"
-      
+          echo "version=$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+
       - name: Build APKs (Android)
         if: matrix.target == 'android'
         run: flutter build apk --release
@@ -80,7 +80,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{secrets.KEYSTORE_PASSWORD}}
           KEY_ALIAS: ${{secrets.KEY_ALIAS}}
           KEY_PASSWORD: ${{secrets.KEY_PASSWORD}}
-      
+
       - name: Build release (iOS)
         if: matrix.target == 'ios'
         run: flutter build ios --release --no-codesign
@@ -92,13 +92,13 @@ jobs:
           cd build/ios/ipa/
           mv ../iphoneos/Runner.app Payload
           zip -9 ${APP_PACK_NAME}-${{steps.get_version.outputs.version}}.ipa -r Payload
-      
+
       - name: Publish artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.artifact_name}}
           path: ${{matrix.artifact_path}}
-  
+
   publish_release:
     if: startsWith(github.ref, 'refs/tags/')
     name: Publish release
@@ -106,14 +106,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-        
+
       - run: mkdir /tmp/artifacts
-      
+
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: /tmp/artifacts
 
@@ -121,8 +121,8 @@ jobs:
         id: get_version
         shell: bash
         run: |
-          echo "::set-output name=version::$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')"
-      
+          echo "version=$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+
       - name: Publish release
         uses: ncipollo/release-action@v1
         with:

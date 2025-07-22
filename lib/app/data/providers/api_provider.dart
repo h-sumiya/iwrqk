@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:iwrqk/app/const/iwara.dart';
+import 'package:iwrqk/app/data/providers/storage_provider.dart';
 
 import '../enums/result.dart';
 import '../enums/types.dart';
@@ -29,19 +34,48 @@ class ApiProvider {
   static Future<ApiResult<String>> login(String email, String password) async {
     String? message;
     String? token;
-    await networkProvider.post("/user/login", data: {
-      "email": email,
-      "password": password,
-    }).then((value) {
-      if (value.data["message"] != null) {
-        message = value.data["message"];
+    // await networkProvider.post(
+    //   "/user/login",
+    //   data: {
+    //     "email": email,
+    //     "password": password,
+    //   },
+    // ).then((value) {
+    //   if (value.data["message"] != null) {
+    //     message = value.data["message"];
+    //   } else {
+    //     token = value.data["token"];
+    //   }
+    // }).catchError((e, stackTrace) {
+    //   debugPrint("Login error: $e $stackTrace");
+    //   message = e.toString();
+    // });
+
+    //TODO: I don't know why it works (dio -> fail, http -> success)
+    final url = "https://${IwaraConst.apiHost}/user/login";
+    try {
+      final res = await http.post(Uri.parse(url),
+          body: json.encode({
+            "email": email,
+            "password": password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          });
+      if (res.statusCode == 200) {
+        final data = json.decode(res.body);
+        if (data["message"] != null) {
+          message = data["message"];
+        } else {
+          token = data["token"];
+        }
       } else {
-        token = value.data["token"];
+        message = "Login failed with status code: ${res.statusCode}";
       }
-    }).catchError((e, stackTrace) {
+    } catch (e, stackTrace) {
       debugPrint("Login error: $e $stackTrace");
       message = e.toString();
-    });
+    }
     return ApiResult(data: token, success: message == null, message: message);
   }
 
@@ -70,15 +104,45 @@ class ApiProvider {
   static Future<ApiResult<String>> getAccessToken() async {
     String? message;
     String? accessToken;
-    await networkProvider.post("/user/token").then((value) {
-      if (value.data["message"] != null) {
-        throw value.data["message"];
+    // await networkProvider.post("/user/token").then((value) {
+    //   if (value.data["message"] != null) {
+    //     throw value.data["message"];
+    //   } else {
+    //     accessToken = value.data["accessToken"];
+    //   }
+    // }).catchError((e, stackTrace) {
+    //   message = e.toString();
+    // });
+
+    //TODO: I don't know why it works
+    final String? token = await StorageProvider.userToken.get();
+    if (token == null || token.isEmpty) {
+      return ApiResult(
+          data: null, success: false, message: "No user token found");
+    }
+
+    try {
+      final response = await http.post(
+        Uri.parse("https://${IwaraConst.apiHost}/user/token"),
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data["message"] != null) {
+          message = data["message"];
+        } else {
+          accessToken = data["accessToken"];
+        }
       } else {
-        accessToken = value.data["accessToken"];
+        message =
+            "Failed to get access token with status code: ${response.statusCode}";
       }
-    }).catchError((e, stackTrace) {
+    } catch (e, stackTrace) {
+      debugPrint("Get access token error: $e $stackTrace");
       message = e.toString();
-    });
+    }
     return ApiResult(
         data: accessToken, success: message == null, message: message);
   }

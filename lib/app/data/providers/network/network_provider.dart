@@ -47,18 +47,20 @@ class NetworkProvider {
       "referer": IwaraConst.referer,
       "accept-encoding": "gzip",
       "user-agent":
-          "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36"
+          "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
     };
     _dio.options.sendTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);
     _dio.options.connectTimeout = const Duration(seconds: 15);
     _dio.interceptors.add(CookieManager(cookieJar));
     if (_context != null) {
-      _dio.interceptors.add(CloudflareInterceptor(
-        dio: _dio,
-        cookieJar: cookieJar,
-        context: _context!,
-      ));
+      _dio.interceptors.add(
+        CloudflareInterceptor(
+          dio: _dio,
+          cookieJar: cookieJar,
+          context: _context!,
+        ),
+      );
     }
     _dio.interceptors.add(RefreshTokenInterceptor(_dio));
     _dio.interceptors.add(LogInterceptor());
@@ -73,15 +75,17 @@ class NetworkProvider {
     if (_context != null) {
       final cookieJar =
           _dio.interceptors.whereType<CookieManager>().firstOrNull?.cookieJar;
-      _dio.interceptors
-          .removeWhere((interceptor) => interceptor is CloudflareInterceptor);
+      _dio.interceptors.removeWhere(
+        (interceptor) => interceptor is CloudflareInterceptor,
+      );
       _dio.interceptors.insert(
-          1,
-          CloudflareInterceptor(
-            dio: _dio,
-            cookieJar: cookieJar ?? CookieJar(),
-            context: _context!,
-          ));
+        1,
+        CloudflareInterceptor(
+          dio: _dio,
+          cookieJar: cookieJar ?? CookieJar(),
+          context: _context!,
+        ),
+      );
     }
   }
 
@@ -131,7 +135,7 @@ class NetworkProvider {
     final response = await _dio.post(
       url,
       queryParameters: queryParameters,
-      options: Options(headers: headers),
+      options: Options(headers: headers, contentType: Headers.jsonContentType),
       data: data,
     );
 
@@ -197,7 +201,7 @@ class NetworkProvider {
     final response = await _dio.delete(
       url,
       queryParameters: queryParameters,
-      options: Options(headers: headers),
+      options: Options(headers: headers, contentType: Headers.jsonContentType),
       data: data,
     );
 

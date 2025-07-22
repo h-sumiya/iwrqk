@@ -40,7 +40,12 @@ dependencies:
   crypto: ^3.0.3
   cached_network_image: ^3.3.1
   intl: ^0.20.2
-  cloudflare_interceptor: ^0.0.3
+  #cloudflare_interceptor: ^0.0.3
+  cloudflare_interceptor:
+    git:
+      url: https://github.com/h-sumiya/cloudflare_interceptor-fix.git
+      ref: main
+  http: ^1.4.0
   dio_cookie_manager: ^3.2.0
   cookie_jar: ^4.0.8
   html: ^0.15.6
