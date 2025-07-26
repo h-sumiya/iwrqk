@@ -42,13 +42,13 @@ class NetworkProvider {
     _dio = Dio();
 
     _dio.options.validateStatus = (status) => (status ?? 0) < 500;
-    _dio.options.headers = {
-      "origin": IwaraConst.origin,
-      "referer": IwaraConst.referer,
-      "accept-encoding": "gzip",
-      "user-agent":
-          "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
-    };
+    // _dio.options.headers = {
+    //   "origin": IwaraConst.origin,
+    //   "referer": IwaraConst.referer,
+    //   "accept-encoding": "gzip",
+    //   "user-agent":
+    //       "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
+    // };
     _dio.options.sendTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);
     _dio.options.connectTimeout = const Duration(seconds: 15);
