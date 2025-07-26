@@ -11,18 +11,13 @@ Future<void> landScape() async {
   try {
     if (kIsWeb) {
       await document.documentElement?.requestFullscreen();
-    } else if (Platform.isAndroid || Platform.isIOS) {
-      // await SystemChrome.setEnabledSystemUIMode(
-      //   SystemUiMode.immersiveSticky,
-      //   overlays: [],
-      // );
-      // await SystemChrome.setPreferredOrientations(
-      //   [
-      //     DeviceOrientation.landscapeLeft,
-      //     DeviceOrientation.landscapeRight,
-      //   ],
-      // );
+    } else if (Platform.isAndroid) {
       await AutoOrientation.landscapeAutoMode(forceSensor: true);
+    } else if (Platform.isIOS) {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
     } else if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
       await const MethodChannel('com.alexmercerind/media_kit_video')
           .invokeMethod(
@@ -37,9 +32,13 @@ Future<void> landScape() async {
 
 //竖屏
 Future<void> verticalScreen() async {
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  if (Platform.isAndroid) {
+    await AutoOrientation.portraitUpMode();
+  } else {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+  }
 }
 
 Future<void> enterFullScreen() async {
