@@ -2,9 +2,6 @@ name: Build Release
 
 on:
   push:
-    # branches:
-    #   - 'master'
-    #   - 'build'
     tags:
       - v*
   workflow_dispatch:
@@ -129,7 +126,6 @@ jobs:
         with:
           artifacts: "/tmp/artifacts/release-apk/*.apk,/tmp/artifacts/release-ios/*.ipa"
           tag: ${{github.ref_name}}
-          bodyFile: changelogs/v${{steps.get_version.outputs.version}}.md
           prerelease: contains(github.ref, 'pre')
           allowUpdates: true
           artifactErrorsFailBuild: true
