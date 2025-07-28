@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -71,11 +73,12 @@ class SettingsController extends GetxController {
     StorageProvider.config[PLPlayerConfigKey.enableBackgroundPlay] = value;
   }
 
-  final RxString _downloadPath = ''.obs;
-  String get downloadPath => _downloadPath.value;
-  set downloadPath(String value) {
+  final Rx<Directory?> _downloadPath = Rx<Directory?>(null);
+  Directory? get downloadPath => _downloadPath.value;
+  String get downloadPathText => _downloadPath.value?.path ?? 'N/A';
+  set downloadPath(Directory? value) {
     _downloadPath.value = value;
-    StorageProvider.config[StorageKey.downloadDirectory] = value;
+    StorageProvider.config[StorageKey.downloadDirectory] = value?.path;
     downloadService.resetAllowMediaScan();
   }
 
@@ -105,7 +108,7 @@ class SettingsController extends GetxController {
     _autoPlay.value =
         configService.setting[PLPlayerConfigKey.enableQuickDouble] ?? true;
 
-    _downloadPath.value = downloadService.downloadDirectory ?? "N/A";
+    _downloadPath.value = downloadService.downloadDirectory;
 
     _backgroundPlay.value =
         configService.setting[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
@@ -145,7 +148,7 @@ class SettingsController extends GetxController {
       return;
     }
 
-    downloadPath = result;
+    downloadPath = Directory(result);
   }
 
   void clearLogs() async {

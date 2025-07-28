@@ -259,7 +259,7 @@ class SettingsPage extends GetView<SettingsController> {
       () => _buildButton(
         context,
         title: t.settings.download_path,
-        description: controller.downloadPath,
+        description: controller.downloadPathText,
         iconData: Icons.download,
         onPressed: controller.changeDownloadPath,
       ),
