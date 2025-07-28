@@ -1,0 +1,64 @@
+name: Build Release (Android)
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+env:
+  APP_PACK_NAME: iwrqk
+
+permissions:
+  contents: write
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.7"
+          channel: stable
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: "21"
+          cache: gradle
+
+      - name: Decode keystore
+        run: echo $ENCODED_KEYSTORE | base64 -di > android/app/keystore.jks
+        env:
+          ENCODED_KEYSTORE: ${{ secrets.ENCODED_KEYSTORE }}
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Get app version
+        id: get_version
+        shell: bash
+        run: |
+          echo "version=$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+
+      - name: Build APK (release)
+        run: flutter build apk --release
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Publish release (append APK)
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref_name }}
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          allowUpdates: true
+          replacesArtifacts: false
+          prerelease: contains(github.ref, 'pre')
+          artifactErrorsFailBuild: true

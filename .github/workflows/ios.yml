@@ -1,0 +1,58 @@
+name: Build Release (iOS)
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+env:
+  APP_PACK_NAME: iwrqk
+
+permissions:
+  contents: write
+
+jobs:
+  build_ios:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.7"
+          channel: stable
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Resolve Swift packages
+        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release
+
+      - name: Get app version
+        id: get_version
+        shell: bash
+        run: |
+          echo "version=$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+
+      - name: Build iOS (release, no codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: Make IPA (ad-hoc zip)
+        run: |
+          mkdir -p build/ios/ipa/Payload
+          cd build/ios/ipa/
+          mv ../iphoneos/Runner.app Payload
+          zip -9 ${APP_PACK_NAME}-${{ steps.get_version.outputs.version }}.ipa -r Payload
+
+      - name: Publish release (append IPA)
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref_name }}
+          artifacts: "build/ios/ipa/*.ipa"
+          allowUpdates: true
+          replacesArtifacts: false # ← 既存の .apk を消さない
+          prerelease: contains(github.ref, 'pre')
+          artifactErrorsFailBuild: true

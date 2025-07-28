@@ -48,13 +48,13 @@ jobs:
         with:
           type: "zip"
           filename: ${{ env.APP_PACK_NAME }}-${{ steps.get_version.outputs.version }}-windows.zip
-          directory: build/windows/runner/Release
+          directory: build/windows/x64/runner/Release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-windows
-          path: build/windows/runner/Release/${{ env.APP_PACK_NAME }}-${{ steps.get_version.outputs.version }}-windows.zip
+          path: build/windows/x64/runner/Release/${{ env.APP_PACK_NAME }}-${{ steps.get_version.outputs.version }}-windows.zip
 
   publish_release:
     if: startsWith(github.ref, 'refs/tags/')
@@ -82,4 +82,4 @@ jobs:
           prerelease: contains(github.ref, 'pre')
           allowUpdates: true
           artifactErrorsFailBuild: true
-          replacesArtifacts: true
+          replacesArtifacts: false
