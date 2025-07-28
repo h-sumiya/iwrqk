@@ -81,6 +81,7 @@ dependencies:
 
   # desktop
   window_manager: ^0.5.1
+  background_downloader: ^9.2.3
 
 dev_dependencies:
   flutter_test:
