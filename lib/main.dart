@@ -63,13 +63,12 @@ Future<void> main() async {
   }
 
   if (GetPlatform.isDesktop) {
-    WindowOptions windowOptions = WindowOptions(
+    WindowOptions windowOptions = const WindowOptions(
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
       title: 'IwrQk',
-      titleBarStyle:
-          GetPlatform.isWindows ? TitleBarStyle.hidden : TitleBarStyle.normal,
+      titleBarStyle: TitleBarStyle.normal,
     );
 
     windowManager.waitUntilReadyToShow(windowOptions, () async {

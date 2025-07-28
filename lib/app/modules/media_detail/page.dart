@@ -808,7 +808,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         if (plPlayerController?.isFullScreen.value == true) {
           plPlayerController!.triggerFullScreen(status: false);
         }
-        if (MediaQuery.of(context).orientation == Orientation.landscape) {
+        if (!GetPlatform.isDesktop &&
+            MediaQuery.of(context).orientation == Orientation.landscape) {
           verticalScreen();
         }
       },
@@ -833,8 +834,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   Widget _buildPageFuture([bool inPip = false]) {
     Widget child;
     return Obx(() {
-      if (Get.mediaQuery.orientation == Orientation.landscape ||
-          plPlayerController?.isFullScreen.value == true) {
+      if (plPlayerController?.isFullScreen.value == true) {
+        enterFullScreen();
+      } else if (!GetPlatform.isDesktop &&
+          Get.mediaQuery.orientation == Orientation.landscape) {
         enterFullScreen();
       } else {
         exitFullScreen();
@@ -854,7 +857,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           } else {
             Widget child;
             if (plPlayerController?.isFullScreen.value == true ||
-                Get.mediaQuery.orientation == Orientation.landscape) {
+                (!GetPlatform.isDesktop &&
+                    Get.mediaQuery.orientation == Orientation.landscape)) {
               child = _controller.mediaType == MediaType.video
                   ? _buildPlayer()
                   : _buildGallery();
@@ -889,7 +893,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                   ),
                 ),
                 body: plPlayerController?.isFullScreen.value == true ||
-                        Get.mediaQuery.orientation == Orientation.landscape
+                        (!GetPlatform.isDesktop &&
+                            Get.mediaQuery.orientation == Orientation.landscape)
                     ? buildMedia()
                     : Column(
                         children: [
