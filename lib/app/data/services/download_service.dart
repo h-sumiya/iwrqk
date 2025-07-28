@@ -9,6 +9,8 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 import 'package:path/path.dart';
+
+import '../../utils/directory_extension.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../utils/log_util.dart';
@@ -110,7 +112,7 @@ class DownloadService extends GetxService {
       return;
     }
 
-    final File noMediaFile = File(join(downloadPath, '.nomedia'));
+    final File noMediaFile = downloadPath.file('.nomedia');
 
     if (allow && await noMediaFile.exists()) {
       noMediaFile.delete(recursive: true);
@@ -119,20 +121,20 @@ class DownloadService extends GetxService {
     }
   }
 
-  String? get downloadDirectory {
-    final String? savedDir = StorageProvider.config
-        .get(StorageKey.downloadDirectory, defaultValue: null);
+  Directory? get downloadDirectory {
+    final String? savedDir =
+        StorageProvider.config.get(StorageKey.downloadDirectory, defaultValue: null);
 
     if (savedDir != null) {
-      return savedDir;
+      return Directory(savedDir);
     }
 
-    return join(PathUtil.getVisibleDir().path, 'downloads');
+    return PathUtil.getVisibleDir().dir('downloads');
   }
 
   // User has chosen a directory that is not in the SAF
-  bool get downloadPathInSAF =>
-      downloadDirectory != join(PathUtil.getVisibleDir().path, 'downloads');
+  bool get downloadPathInSAF => downloadDirectory?.path !=
+      PathUtil.getVisibleDir().dir('downloads').path;
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
@@ -196,7 +198,7 @@ class DownloadService extends GetxService {
       }
 
       // Try to write a temporary file to ensure the directory is writable.
-      final testFile = File(join(dir.path, '.iwrqktest'));
+      final testFile = dir.file('.iwrqktest');
       testFile.writeAsStringSync('');
       testFile.deleteSync();
     } on FileSystemException catch (e) {
@@ -228,23 +230,23 @@ class DownloadService extends GetxService {
       }
     }
 
-    String? directory = downloadDirectory;
+    Directory? directory = downloadDirectory;
 
     if (directory == null) {
       SmartDialog.showToast(t.message.download.no_provide_storage_permission);
       return null;
     }
 
-    String path = join(directory, subDirectory);
+    Directory path = directory.dir(subDirectory);
 
-    if (!Directory(path).existsSync()) {
-      Directory(path).createSync(recursive: true);
+    if (!path.existsSync()) {
+      path.createSync(recursive: true);
     }
 
     return await FlutterDownloader.enqueue(
       url: downloadUrl,
       fileName: fileName,
-      savedDir: path,
+      savedDir: path.path,
       showNotification: false,
       openFileFromNotification: false,
     );
@@ -334,7 +336,7 @@ class DownloadService extends GetxService {
       if (value == null) {
         return null;
       }
-      return join(value.savedDir, value.filename!);
+      return Directory(value.savedDir).file(value.filename!).path;
     });
   }
 
