@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:background_downloader/background_downloader.dart' as bg;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
@@ -49,29 +50,67 @@ class DownloadService extends GetxService {
 
     resetAllowMediaScan();
 
-    _bindBackgroundIsolate();
+    if (GetPlatform.isDesktop) {
+      bg.FileDownloader().registerCallbacks(
+        taskStatusCallback: (bg.TaskStatusUpdate update) {
+          int progress =
+              _downloadTasksStatus[update.task.taskId]?.value.progress ?? 0;
+          _downloadTasksStatus[update.task.taskId]?.value =
+              IwrDownloadTaskStatus(
+            status: _convertBgStatus(update.status),
+            progress: progress,
+          );
 
-    FlutterDownloader.registerCallback(downloadCallback);
+          if (update.status == bg.TaskStatus.enqueued) {
+            currentDownloading++;
+          } else if (update.status == bg.TaskStatus.complete ||
+              update.status == bg.TaskStatus.failed ||
+              update.status == bg.TaskStatus.canceled) {
+            currentDownloading--;
+          }
 
-    _getTasksStatusFromRecords();
+          _downloadTasksStatus.refresh();
+        },
+        taskProgressCallback: (bg.TaskProgressUpdate update) {
+          if (_downloadTasksStatus.containsKey(update.task.taskId)) {
+            _downloadTasksStatus[update.task.taskId]?.value.progress =
+                _convertBgProgress(update.progress);
+            _downloadTasksStatus.refresh();
+          }
+        },
+      );
+      bg.FileDownloader().start();
+      _getTasksStatusFromRecordsDesktop();
+    } else {
+      _bindBackgroundIsolate();
+      FlutterDownloader.registerCallback(downloadCallback);
+      _getTasksStatusFromRecords();
+    }
   }
 
   @override
   void onClose() {
-    _unbindBackgroundIsolate();
+    if (!GetPlatform.isDesktop) {
+      _unbindBackgroundIsolate();
+    }
     super.onClose();
   }
 
   void resetAllowMediaScan() {
     allowMediaScan(
-      StorageProvider.config
-          .get(StorageKey.allowMediaScan, defaultValue: false),
+      StorageProvider.config.get(
+        StorageKey.allowMediaScan,
+        defaultValue: false,
+      ),
     );
   }
 
   void _bindBackgroundIsolate() {
-    final isSuccess =
-        IsolateNameServer.registerPortWithName(_port.sendPort, _portName);
+    if (GetPlatform.isDesktop) return;
+    final isSuccess = IsolateNameServer.registerPortWithName(
+      _port.sendPort,
+      _portName,
+    );
 
     if (!isSuccess) {
       _unbindBackgroundIsolate();
@@ -102,7 +141,9 @@ class DownloadService extends GetxService {
   }
 
   void _unbindBackgroundIsolate() {
-    IsolateNameServer.removePortNameMapping(_portName);
+    if (!GetPlatform.isDesktop) {
+      IsolateNameServer.removePortNameMapping(_portName);
+    }
   }
 
   Future<void> allowMediaScan(bool allow) async {
@@ -122,8 +163,10 @@ class DownloadService extends GetxService {
   }
 
   Directory? get downloadDirectory {
-    final String? savedDir =
-        StorageProvider.config.get(StorageKey.downloadDirectory, defaultValue: null);
+    final String? savedDir = StorageProvider.config.get(
+      StorageKey.downloadDirectory,
+      defaultValue: null,
+    );
 
     if (savedDir != null) {
       return Directory(savedDir);
@@ -133,8 +176,8 @@ class DownloadService extends GetxService {
   }
 
   // User has chosen a directory that is not in the SAF
-  bool get downloadPathInSAF => downloadDirectory?.path !=
-      PathUtil.getVisibleDir().dir('downloads').path;
+  bool get downloadPathInSAF =>
+      downloadDirectory?.path != PathUtil.getVisibleDir().dir('downloads').path;
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
@@ -151,12 +194,54 @@ class DownloadService extends GetxService {
           record.taskId: IwrDownloadTaskStatus(
             status: record.status,
             progress: record.progress,
-          ).obs
+          ).obs,
         });
       }
     }
 
     _downloadTasksStatus.refresh();
+  }
+
+  void _getTasksStatusFromRecordsDesktop() async {
+    var records = await bg.FileDownloader().database.allRecords();
+
+    if (records.isNotEmpty) {
+      for (var record in records) {
+        _downloadTasksStatus.addAll({
+          record.task.taskId: IwrDownloadTaskStatus(
+            status: _convertBgStatus(record.status),
+            progress: _convertBgProgress(record.progress),
+          ).obs,
+        });
+      }
+    }
+
+    _downloadTasksStatus.refresh();
+  }
+
+  DownloadTaskStatus _convertBgStatus(bg.TaskStatus status) {
+    switch (status) {
+      case bg.TaskStatus.enqueued:
+        return DownloadTaskStatus.enqueued;
+      case bg.TaskStatus.running:
+        return DownloadTaskStatus.running;
+      case bg.TaskStatus.complete:
+        return DownloadTaskStatus.complete;
+      case bg.TaskStatus.canceled:
+        return DownloadTaskStatus.canceled;
+      case bg.TaskStatus.paused:
+        return DownloadTaskStatus.paused;
+      case bg.TaskStatus.failed:
+      case bg.TaskStatus.notFound:
+        return DownloadTaskStatus.failed;
+      case bg.TaskStatus.waitingToRetry:
+        return DownloadTaskStatus.enqueued;
+    }
+  }
+
+  int _convertBgProgress(double progress) {
+    if (progress.isNegative) return 0;
+    return (progress * 100).round();
   }
 
   Future<bool> checkPermission([bool checkExternalStorage = false]) async {
@@ -219,16 +304,6 @@ class DownloadService extends GetxService {
       SmartDialog.showToast(t.message.download.no_provide_storage_permission);
       return null;
     }
-    var records = await FlutterDownloader.loadTasks() ?? [];
-    if (records.isNotEmpty) {
-      bool hasExisted = records.any((var record) =>
-          basename(record.savedDir) == subDirectory &&
-          record.filename == fileName);
-      if (hasExisted) {
-        SmartDialog.showToast(t.message.download.task_already_exists);
-        return null;
-      }
-    }
 
     Directory? directory = downloadDirectory;
 
@@ -241,6 +316,46 @@ class DownloadService extends GetxService {
 
     if (!path.existsSync()) {
       path.createSync(recursive: true);
+    }
+
+    if (GetPlatform.isDesktop) {
+      var records = await bg.FileDownloader().database.allRecords();
+      if (records.isNotEmpty) {
+        bool hasExisted = records.any(
+          (var record) =>
+              basename(record.task.directory) == subDirectory &&
+              record.task.filename == fileName,
+        );
+        if (hasExisted) {
+          SmartDialog.showToast(t.message.download.task_already_exists);
+          return null;
+        }
+      }
+
+      var task = bg.DownloadTask(
+        url: downloadUrl,
+        filename: fileName,
+        directory: path.path,
+        baseDirectory: bg.BaseDirectory.root,
+        updates: bg.Updates.statusAndProgress,
+        allowPause: true,
+      );
+
+      bool success = await bg.FileDownloader().enqueue(task);
+      return success ? task.taskId : null;
+    }
+
+    var records = await FlutterDownloader.loadTasks() ?? [];
+    if (records.isNotEmpty) {
+      bool hasExisted = records.any(
+        (var record) =>
+            basename(record.savedDir) == subDirectory &&
+            record.filename == fileName,
+      );
+      if (hasExisted) {
+        SmartDialog.showToast(t.message.download.task_already_exists);
+        return null;
+      }
     }
 
     return await FlutterDownloader.enqueue(
@@ -302,7 +417,7 @@ class DownloadService extends GetxService {
         task.taskId: IwrDownloadTaskStatus(
           status: DownloadTaskStatus.enqueued,
           progress: 0,
-        ).obs
+        ).obs,
       });
 
       StorageProvider.downloadVideoRecords.add(task);
@@ -313,25 +428,55 @@ class DownloadService extends GetxService {
   }
 
   Future<DownloadTask?> getTask(String taskId) async {
+    if (GetPlatform.isDesktop) {
+      var record = await bg.FileDownloader().database.recordForId(taskId);
+      if (record == null) return null;
+      var task = record.task;
+      return DownloadTask(
+        taskId: task.taskId,
+        status: _convertBgStatus(record.status),
+        progress: _convertBgProgress(record.progress),
+        url: task.url,
+        filename: task.filename,
+        savedDir: task.directory,
+        timeCreated: task.creationTime.millisecondsSinceEpoch,
+        allowCellular: true,
+      );
+    }
+
     return FlutterDownloader.loadTasksWithRawQuery(
-            query: "SELECT * FROM task WHERE task_id = '$taskId'")
-        .then((value) {
+      query: "SELECT * FROM task WHERE task_id = '$taskId'",
+    ).then((value) {
       List<DownloadTask> result = value ?? [];
       return result.isNotEmpty ? result.first : null;
     });
   }
 
   Future<int> get currentDownloadingCount async {
+    if (GetPlatform.isDesktop) {
+      var records = await bg.FileDownloader().database.allRecordsWithStatus(
+            bg.TaskStatus.running,
+          );
+      return records.length;
+    }
+
     return FlutterDownloader.loadTasksWithRawQuery(
-            query:
-                "SELECT * FROM task WHERE status = ${DownloadTaskStatus.running.index}")
-        .then((value) {
+      query:
+          "SELECT * FROM task WHERE status = ${DownloadTaskStatus.running.index}",
+    ).then((value) {
       List<DownloadTask> result = value ?? [];
       return result.length;
     });
   }
 
   Future<String?> getTaskFilePath(String taskId) async {
+    if (GetPlatform.isDesktop) {
+      var record = await bg.FileDownloader().database.recordForId(taskId);
+      if (record == null) return null;
+      var task = record.task;
+      return Directory(task.directory).file(task.filename).path;
+    }
+
     return getTask(taskId).then((value) {
       if (value == null) {
         return null;
@@ -341,6 +486,13 @@ class DownloadService extends GetxService {
   }
 
   Future<void> pauseTask(String taskId) {
+    if (GetPlatform.isDesktop) {
+      return bg.FileDownloader().taskForId(taskId).then((task) async {
+        if (task is bg.DownloadTask) {
+          await bg.FileDownloader().pause(task);
+        }
+      });
+    }
     return FlutterDownloader.pause(taskId: taskId);
   }
 
@@ -349,7 +501,7 @@ class DownloadService extends GetxService {
       newTaskId: IwrDownloadTaskStatus(
         status: DownloadTaskStatus.enqueued,
         progress: 0,
-      ).obs
+      ).obs,
     });
 
     _downloadTasksStatus.remove(taskId);
@@ -357,6 +509,15 @@ class DownloadService extends GetxService {
   }
 
   Future<String?> resumeTask(String taskId) async {
+    if (GetPlatform.isDesktop) {
+      var task = await bg.FileDownloader().taskForId(taskId);
+      if (task is bg.DownloadTask) {
+        await bg.FileDownloader().resume(task);
+        return taskId;
+      }
+      return null;
+    }
+
     String? newTaskId = await FlutterDownloader.resume(taskId: taskId);
     if (newTaskId != null) {
       refreshTask(taskId, newTaskId);
@@ -384,6 +545,15 @@ class DownloadService extends GetxService {
   }
 
   Future<String?> retryTask(String taskId) async {
+    if (GetPlatform.isDesktop) {
+      var task = await bg.FileDownloader().taskForId(taskId);
+      if (task is bg.DownloadTask) {
+        await bg.FileDownloader().resume(task);
+        return taskId;
+      }
+      return null;
+    }
+
     String? newTaskId = await FlutterDownloader.retry(taskId: taskId);
     if (newTaskId != null) {
       refreshTask(taskId, newTaskId);
@@ -411,10 +581,20 @@ class DownloadService extends GetxService {
   }
 
   Future<void> cancelTask(String taskId) {
+    if (GetPlatform.isDesktop) {
+      return bg.FileDownloader().cancelTaskWithId(taskId);
+    }
     return FlutterDownloader.cancel(taskId: taskId);
   }
 
   Future<void> deleteTaskRecord(String taskId) async {
-    await FlutterDownloader.remove(taskId: taskId, shouldDeleteContent: false);
+    if (GetPlatform.isDesktop) {
+      await bg.FileDownloader().database.deleteRecordWithId(taskId);
+    } else {
+      await FlutterDownloader.remove(
+        taskId: taskId,
+        shouldDeleteContent: false,
+      );
+    }
   }
 }
