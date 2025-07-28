@@ -582,6 +582,40 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     return children;
   }
 
+  Widget _buildRecommendationPanel() {
+    if (_controller.isFectchingRecommendation) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 48),
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else {
+      if (_controller.errorMessageRecommendation != "") {
+        return Center(
+          child: LoadFail(
+            errorMessage: _controller.errorMessageRecommendation,
+            onRefresh: () {
+              _controller.errorMessageRecommendation = "";
+              _controller.isFectchingRecommendation = true;
+              _controller.refectchRecommendation();
+            },
+          ),
+        );
+      } else if (_controller.moreFromUser.isEmpty &&
+          _controller.moreLikeThis.isEmpty) {
+        return const Center(child: LoadEmpty());
+      } else {
+        return Material(
+          color: colorScheme.surface,
+          child: Column(
+            children: _buildRecommendation(),
+          ),
+        );
+      }
+    }
+  }
+
   Widget _buildCommentsTab() {
     return Stack(
       children: [
@@ -639,7 +673,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     );
   }
 
-  Widget _buildDetailTab() {
+  Widget _buildDetailTab({bool showRecommendation = true}) {
     return Obx(() {
       List<Widget> children = [
         SliverToBoxAdapter(
@@ -647,51 +681,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         )
       ];
 
-      if (_controller.isFectchingRecommendation) {
-        children.add(
-          const SliverFillRemaining(
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 48),
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          ),
-        );
-      } else {
-        if (_controller.errorMessageRecommendation != "") {
-          children.add(
-            SliverFillRemaining(
-              child: Center(
-                child: LoadFail(
-                  errorMessage: _controller.errorMessageRecommendation,
-                  onRefresh: () {
-                    _controller.errorMessageRecommendation = "";
-                    _controller.isFectchingRecommendation = true;
-                    _controller.refectchRecommendation();
-                  },
-                ),
-              ),
-            ),
-          );
-        } else if (_controller.moreFromUser.isEmpty &&
-            _controller.moreLikeThis.isEmpty) {
-          children.add(
-            const SliverFillRemaining(
-              child: Center(child: LoadEmpty()),
-            ),
-          );
-        } else {
-          children.add(SliverToBoxAdapter(
-            child: Material(
-              color: colorScheme.surface,
-              child: Column(
-                children: _buildRecommendation(),
-              ),
-            ),
-          ));
-        }
+      if (showRecommendation) {
+        children.add(SliverToBoxAdapter(child: _buildRecommendationPanel()));
       }
+
       return CustomScrollView(
         slivers: children,
       );
@@ -879,6 +872,98 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           }
         }
 
+        bool showSideRec = GetPlatform.isDesktop &&
+            MediaQuery.of(context).size.width > 1200 &&
+            !_controller.isOffline &&
+            (_controller.moreFromUser.isNotEmpty ||
+                _controller.moreLikeThis.isNotEmpty);
+
+        Widget bodyContent;
+        if (plPlayerController?.isFullScreen.value == true ||
+            (!GetPlatform.isDesktop &&
+                Get.mediaQuery.orientation == Orientation.landscape)) {
+          bodyContent = buildMedia();
+        } else if (showSideRec) {
+          bodyContent = Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    buildMedia(),
+                    Expanded(
+                      child: Container(
+                        color: colorScheme.surface,
+                        child: DefaultTabController(
+                          length: 2,
+                          child: TabBarView(
+                            children: [
+                              _buildDetailTab(showRecommendation: false),
+                              _buildCommentsTab()
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: 320,
+                color: colorScheme.surface,
+                child: SingleChildScrollView(
+                  child: _buildRecommendationPanel(),
+                ),
+              ),
+            ],
+          );
+        } else {
+          bodyContent = Column(
+            children: [
+              buildMedia(),
+              if (_controller.isOffline) ...[
+                Expanded(
+                  child: Container(
+                    color: colorScheme.surface,
+                    child: Material(
+                      child: DownloadsMediaPreviewList(
+                        isPlaylist: true,
+                        showCompleted: true,
+                        initialMediaId: _controller.id,
+                        tag: _controller.offlinePlaylistTag,
+                        onChangeVideo: (task) {
+                          if (task.taskId ==
+                              _controller.currentOfflineTaskId) {
+                            return;
+                          }
+                          if (task.offlineMedia.type == MediaType.video) {
+                            _controller.getOfflineMedia(task.taskId);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ] else ...[
+                Expanded(
+                  child: Container(
+                    color: colorScheme.surface,
+                    child: DefaultTabController(
+                      length: 2,
+                      child: TabBarView(
+                        children: [
+                          _buildDetailTab(),
+                          _buildCommentsTab()
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ]
+            ],
+          );
+        }
+
         child = inPip
             ? buildMedia()
             : Scaffold(
@@ -891,56 +976,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     elevation: 0,
                   ),
                 ),
-                body: plPlayerController?.isFullScreen.value == true ||
-                        (!GetPlatform.isDesktop &&
-                            Get.mediaQuery.orientation == Orientation.landscape)
-                    ? buildMedia()
-                    : Column(
-                        children: [
-                          buildMedia(),
-                          if (_controller.isOffline) ...[
-                            Expanded(
-                              child: Container(
-                                color: colorScheme.surface,
-                                child: Material(
-                                  child: DownloadsMediaPreviewList(
-                                    isPlaylist: true,
-                                    showCompleted: true,
-                                    initialMediaId: _controller.id,
-                                    tag: _controller.offlinePlaylistTag,
-                                    onChangeVideo: (task) {
-                                      if (task.taskId ==
-                                          _controller.currentOfflineTaskId) {
-                                        return;
-                                      }
-                                      if (task.offlineMedia.type ==
-                                          MediaType.video) {
-                                        _controller
-                                            .getOfflineMedia(task.taskId);
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ] else ...[
-                            Expanded(
-                              child: Container(
-                                color: colorScheme.surface,
-                                child: DefaultTabController(
-                                  length: 2,
-                                  child: TabBarView(
-                                    children: [
-                                      _buildDetailTab(),
-                                      _buildCommentsTab()
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]
-                        ],
-                      ),
+                body: bodyContent,
               );
       }
 
