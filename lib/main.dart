@@ -68,8 +68,8 @@ Future<void> main() async {
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
       title: 'IwrQk',
-      titleBarStyle:
-          GetPlatform.isWindows ? TitleBarStyle.hidden : TitleBarStyle.normal,
+      // Show the native title bar on desktop for easier window control
+      titleBarStyle: TitleBarStyle.normal,
     );
 
     windowManager.waitUntilReadyToShow(windowOptions, () async {
