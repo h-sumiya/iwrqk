@@ -1,5 +1,8 @@
 # IwrQk 
 
+> [!NOTE]
+> **Update** Release Windows Build (experimental)
+
 ![license](https://img.shields.io/github/license/iwrqk/iwrqk.svg)
 ![total stars](https://img.shields.io/github/stars/iwrqk/iwrqk?label=total%20stars)
 ![total forks](https://img.shields.io/github/forks/iwrqk/iwrqk?label=total%20forks)
