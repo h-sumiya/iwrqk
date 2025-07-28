@@ -264,6 +264,8 @@ class TranslationsMediaEn {
 	String more_from({required Object username}) => 'More from ${username}';
 	String get more_like_this => 'More like this';
 	String updated_at({required Object time}) => 'Updated at ${time}';
+	String get detail => 'Detail';
+	String get comments => 'Comments';
 }
 
 // Path: player
@@ -573,6 +575,7 @@ class TranslationsErrorEn {
 	String get fetch_failed => 'Failed to fetch video links.';
 	String get fetch_user_info_failed => 'Failed to fetch user info.';
 	String get invalid_path => 'Invalid path.';
+	String get intercept_app_exit => 'Intercept app exit';
 	late final TranslationsErrorAccountEn account = TranslationsErrorAccountEn.internal(_root);
 }
 
@@ -799,6 +802,8 @@ extension on Translations {
 			case 'media.more_from': return ({required Object username}) => 'More from ${username}';
 			case 'media.more_like_this': return 'More like this';
 			case 'media.updated_at': return ({required Object time}) => 'Updated at ${time}';
+			case 'media.detail': return 'Detail';
+			case 'media.comments': return 'Comments';
 			case 'player.current_item': return ({required Object item}) => 'Current: ${item}';
 			case 'player.quality': return 'Quality';
 			case 'player.select_quality': return 'Select quality';
@@ -985,6 +990,7 @@ extension on Translations {
 			case 'error.fetch_failed': return 'Failed to fetch video links.';
 			case 'error.fetch_user_info_failed': return 'Failed to fetch user info.';
 			case 'error.invalid_path': return 'Invalid path.';
+			case 'error.intercept_app_exit': return 'Intercept app exit';
 			case 'error.account.invalid_login': return 'Invalid email or password.';
 			case 'error.account.invalid_host': return 'Invalid host.';
 			case 'error.account.invalid_captcha': return 'Invalid captcha.';

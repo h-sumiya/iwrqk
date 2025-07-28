@@ -257,6 +257,8 @@ class _TranslationsMediaZhTw extends TranslationsMediaEn {
 	@override String more_from({required Object username}) => '更多來自 ${username}';
 	@override String get more_like_this => '類似作品';
 	@override String updated_at({required Object time}) => '更新於 ${time}';
+	@override String get detail => '詳細';
+	@override String get comments => '評論';
 }
 
 // Path: player
@@ -566,6 +568,7 @@ class _TranslationsErrorZhTw extends TranslationsErrorEn {
 	@override String get fetch_failed => '無法獲取影片連結';
 	@override String get fetch_user_info_failed => '無法獲取使用者資訊';
 	@override String get invalid_path => '無效的路徑';
+	@override String get intercept_app_exit => '攔截應用程式退出';
 	@override late final _TranslationsErrorAccountZhTw account = _TranslationsErrorAccountZhTw._(_root);
 }
 
@@ -788,6 +791,8 @@ extension on TranslationsZhTw {
 			case 'media.more_from': return ({required Object username}) => '更多來自 ${username}';
 			case 'media.more_like_this': return '類似作品';
 			case 'media.updated_at': return ({required Object time}) => '更新於 ${time}';
+			case 'media.detail': return '詳細';
+			case 'media.comments': return '評論';
 			case 'player.current_item': return ({required Object item}) => '目前: ${item}';
 			case 'player.quality': return '畫質';
 			case 'player.select_quality': return '選擇畫質';
@@ -974,6 +979,7 @@ extension on TranslationsZhTw {
 			case 'error.fetch_failed': return '無法獲取影片連結';
 			case 'error.fetch_user_info_failed': return '無法獲取使用者資訊';
 			case 'error.invalid_path': return '無效的路徑';
+			case 'error.intercept_app_exit': return '攔截應用程式退出';
 			case 'error.account.invalid_login': return '郵箱或密碼錯誤';
 			case 'error.account.invalid_host': return '無效的主機名';
 			case 'error.account.invalid_captcha': return '驗證碼錯誤';

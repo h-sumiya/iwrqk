@@ -257,6 +257,8 @@ class _TranslationsMediaZhCn extends TranslationsMediaEn {
 	@override String more_from({required Object username}) => '更多来自 ${username}';
 	@override String get more_like_this => '类似作品';
 	@override String updated_at({required Object time}) => '更新于 ${time}';
+	@override String get detail => '详细';
+	@override String get comments => '评论';
 }
 
 // Path: player
@@ -566,6 +568,7 @@ class _TranslationsErrorZhCn extends TranslationsErrorEn {
 	@override String get fetch_failed => '无法获取视频链接';
 	@override String get fetch_user_info_failed => '无法获取用户信息';
 	@override String get invalid_path => '无效的路径';
+	@override String get intercept_app_exit => '拦截应用退出';
 	@override late final _TranslationsErrorAccountZhCn account = _TranslationsErrorAccountZhCn._(_root);
 }
 
@@ -788,6 +791,8 @@ extension on TranslationsZhCn {
 			case 'media.more_from': return ({required Object username}) => '更多来自 ${username}';
 			case 'media.more_like_this': return '类似作品';
 			case 'media.updated_at': return ({required Object time}) => '更新于 ${time}';
+			case 'media.detail': return '详细';
+			case 'media.comments': return '评论';
 			case 'player.current_item': return ({required Object item}) => '当前: ${item}';
 			case 'player.quality': return '画质';
 			case 'player.select_quality': return '选择画质';
@@ -974,6 +979,7 @@ extension on TranslationsZhCn {
 			case 'error.fetch_failed': return '无法获取视频链接';
 			case 'error.fetch_user_info_failed': return '无法获取用户信息';
 			case 'error.invalid_path': return '无效的路径';
+			case 'error.intercept_app_exit': return '拦截应用退出';
 			case 'error.account.invalid_login': return '邮箱或密码错误';
 			case 'error.account.invalid_host': return '无效的主机名';
 			case 'error.account.invalid_captcha': return '验证码错误';

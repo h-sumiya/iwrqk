@@ -1,0 +1,85 @@
+name: Flutter Windows Release CI
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+env:
+  APP_PACK_NAME: iwrqk
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_upload:
+    name: Build Windows release
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.7"
+          channel: "stable"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Enable Windows
+        run: flutter config --enable-windows-desktop
+
+      - name: Get app version
+        id: get_version
+        shell: bash
+        run: |
+          echo "version=$(grep -m1 version: pubspec.yaml | awk '{print $2}' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+
+      - name: Build Windows app
+        run: flutter build windows --release
+
+      - name: Zip artifact
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "zip"
+          filename: ${{ env.APP_PACK_NAME }}-${{ steps.get_version.outputs.version }}-windows.zip
+          directory: build/windows/runner/Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-windows
+          path: build/windows/runner/Release/${{ env.APP_PACK_NAME }}-${{ steps.get_version.outputs.version }}-windows.zip
+
+  publish_release:
+    if: startsWith(github.ref, 'refs/tags/')
+    name: Publish release
+    needs: build_and_upload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - run: mkdir /tmp/artifacts
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/artifacts
+
+      - name: Publish GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "/tmp/artifacts/release-windows/*.zip"
+          tag: ${{ github.ref_name }}
+          prerelease: contains(github.ref, 'pre')
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          replacesArtifacts: true

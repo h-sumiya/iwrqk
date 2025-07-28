@@ -1,14 +1,14 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:floating/floating.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../i18n/strings.g.dart';
 import '../../components/buttons/follow_button/widget.dart';
@@ -30,9 +30,9 @@ import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../utils/display_util.dart';
 import '../account/downloads/widgets/downloads_media_preview_list/widget.dart';
 import 'controller.dart';
+import 'widgets/add_to_playlist/widget.dart';
 import 'widgets/create_video_download_task/widget.dart';
 import 'widgets/gallery/iwr_gallery.dart';
-import 'widgets/add_to_playlist/widget.dart';
 import 'widgets/media_desc.dart';
 
 class MediaDetailPage extends StatefulWidget {
@@ -153,7 +153,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       // 只作用于桌面端
       onExitRequested: () {
         ScaffoldMessenger.maybeOf(context)
-            ?.showSnackBar(const SnackBar(content: Text("拦截应用退出")));
+            ?.showSnackBar(SnackBar(content: Text(t.error.intercept_app_exit)));
         return Future.value(AppExitResponse.cancel);
       },
     );
@@ -582,6 +582,177 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     return children;
   }
 
+  Widget _buildResponsiveLayout(Widget Function() buildMedia) {
+    // デスクトップで横幅が十分にある場合（1200px以上）は横並びレイアウト
+    if (GetPlatform.isDesktop && Get.mediaQuery.size.width >= 1200) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 左側：メディアプレイヤー（70%）
+          Expanded(
+            flex: 7,
+            child: Column(
+              children: [
+                buildMedia(),
+                Expanded(
+                  child: Container(
+                    color: colorScheme.surface,
+                    child: _buildMediaDetail(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // 右側：タブビュー（30%）
+          Expanded(
+            flex: 3,
+            child: Container(
+              color: colorScheme.surface,
+              child: _controller.isOffline
+                  ? Material(
+                      child: DownloadsMediaPreviewList(
+                        isPlaylist: true,
+                        showCompleted: true,
+                        initialMediaId: _controller.id,
+                        tag: _controller.offlinePlaylistTag,
+                        onChangeVideo: (task) {
+                          if (task.taskId == _controller.currentOfflineTaskId) {
+                            return;
+                          }
+                          if (task.offlineMedia.type == MediaType.video) {
+                            _controller.getOfflineMedia(task.taskId);
+                          }
+                        },
+                      ),
+                    )
+                  : DefaultTabController(
+                      length: 2,
+                      child: Column(
+                        children: [
+                          TabBar(
+                            tabs: [
+                              Tab(text: t.media.detail),
+                              Tab(text: t.media.comments),
+                            ],
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                              children: [
+                                _buildDetailTabContent(),
+                                _buildCommentsTab(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+            ),
+          ),
+        ],
+      );
+    } else {
+      // 通常の縦並びレイアウト
+      return Column(
+        children: [
+          buildMedia(),
+          if (_controller.isOffline) ...[
+            Expanded(
+              child: Container(
+                color: colorScheme.surface,
+                child: Material(
+                  child: DownloadsMediaPreviewList(
+                    isPlaylist: true,
+                    showCompleted: true,
+                    initialMediaId: _controller.id,
+                    tag: _controller.offlinePlaylistTag,
+                    onChangeVideo: (task) {
+                      if (task.taskId == _controller.currentOfflineTaskId) {
+                        return;
+                      }
+                      if (task.offlineMedia.type == MediaType.video) {
+                        _controller.getOfflineMedia(task.taskId);
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ] else ...[
+            Expanded(
+              child: Container(
+                color: colorScheme.surface,
+                child: DefaultTabController(
+                  length: 2,
+                  child: TabBarView(
+                    children: [
+                      _buildDetailTab(),
+                      _buildCommentsTab()
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ]
+        ],
+      );
+    }
+  }
+
+  Widget _buildDetailTabContent() {
+    return Obx(() {
+      List<Widget> children = [];
+
+      if (_controller.isFectchingRecommendation) {
+        children.add(
+          const SliverFillRemaining(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 48),
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          ),
+        );
+      } else {
+        if (_controller.errorMessageRecommendation != "") {
+          children.add(
+            SliverFillRemaining(
+              child: Center(
+                child: LoadFail(
+                  errorMessage: _controller.errorMessageRecommendation,
+                  onRefresh: () {
+                    _controller.errorMessageRecommendation = "";
+                    _controller.isFectchingRecommendation = true;
+                    _controller.refectchRecommendation();
+                  },
+                ),
+              ),
+            ),
+          );
+        } else if (_controller.moreFromUser.isEmpty &&
+            _controller.moreLikeThis.isEmpty) {
+          children.add(
+            const SliverFillRemaining(
+              child: Center(child: LoadEmpty()),
+            ),
+          );
+        } else {
+          children.add(SliverToBoxAdapter(
+            child: Material(
+              color: colorScheme.surface,
+              child: Column(
+                children: _buildRecommendation(),
+              ),
+            ),
+          ));
+        }
+      }
+      return CustomScrollView(
+        slivers: children,
+      );
+    });
+  }
+
   Widget _buildCommentsTab() {
     return Stack(
       children: [
@@ -895,52 +1066,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                         (!GetPlatform.isDesktop &&
                             Get.mediaQuery.orientation == Orientation.landscape)
                     ? buildMedia()
-                    : Column(
-                        children: [
-                          buildMedia(),
-                          if (_controller.isOffline) ...[
-                            Expanded(
-                              child: Container(
-                                color: colorScheme.surface,
-                                child: Material(
-                                  child: DownloadsMediaPreviewList(
-                                    isPlaylist: true,
-                                    showCompleted: true,
-                                    initialMediaId: _controller.id,
-                                    tag: _controller.offlinePlaylistTag,
-                                    onChangeVideo: (task) {
-                                      if (task.taskId ==
-                                          _controller.currentOfflineTaskId) {
-                                        return;
-                                      }
-                                      if (task.offlineMedia.type ==
-                                          MediaType.video) {
-                                        _controller
-                                            .getOfflineMedia(task.taskId);
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ] else ...[
-                            Expanded(
-                              child: Container(
-                                color: colorScheme.surface,
-                                child: DefaultTabController(
-                                  length: 2,
-                                  child: TabBarView(
-                                    children: [
-                                      _buildDetailTab(),
-                                      _buildCommentsTab()
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]
-                        ],
-                      ),
+                    : _buildResponsiveLayout(buildMedia),
               );
       }
 

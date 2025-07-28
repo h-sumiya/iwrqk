@@ -105,7 +105,9 @@
     "download": "ダウンロード",
     "more_from": "$username からのその他",
     "more_like_this": "同様の作品",
-    "updated_at": "$time に更新"
+    "updated_at": "$time に更新",
+    "detail": "詳細",
+    "comments": "コメント"
   },
   "player": {
     "current_item": "現在：$item",
@@ -342,6 +344,7 @@
     "fetch_failed": "ビデオリンクを取得できません",
     "fetch_user_info_failed": "ユーザー情報を取得できません",
     "invalid_path": "無効なパス",
+    "intercept_app_exit": "アプリの終了をブロック",
     "account": {
       "invalid_login": "無効なメールアドレスまたはパスワード",
       "invalid_host": "無効なホスト名",

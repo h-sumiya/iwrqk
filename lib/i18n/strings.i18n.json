@@ -111,7 +111,9 @@
     "download": "Download",
     "more_from": "More from $username",
     "more_like_this": "More like this",
-    "updated_at": "Updated at $time"
+    "updated_at": "Updated at $time",
+    "detail": "Detail",
+    "comments": "Comments"
   },
   "player": {
     "current_item": "Current: $item",
@@ -348,6 +350,7 @@
     "fetch_failed": "Failed to fetch video links.",
     "fetch_user_info_failed": "Failed to fetch user info.",
     "invalid_path": "Invalid path.",
+    "intercept_app_exit": "Intercept app exit",
     "account": {
       "invalid_login": "Invalid email or password.",
       "invalid_host": "Invalid host.",

@@ -105,7 +105,9 @@
     "download": "下载",
     "more_from": "更多来自 $username",
     "more_like_this": "类似作品",
-    "updated_at": "更新于 $time"
+    "updated_at": "更新于 $time",
+    "detail": "详细",
+    "comments": "评论"
   },
   "player": {
     "current_item": "当前: $item",
@@ -342,6 +344,7 @@
     "fetch_failed": "无法获取视频链接",
     "fetch_user_info_failed": "无法获取用户信息",
     "invalid_path": "无效的路径",
+    "intercept_app_exit": "拦截应用退出",
     "account": {
       "invalid_login": "邮箱或密码错误",
       "invalid_host": "无效的主机名",

@@ -105,7 +105,9 @@
     "download": "下載",
     "more_from": "更多來自 $username",
     "more_like_this": "類似作品",
-    "updated_at": "更新於 $time"
+    "updated_at": "更新於 $time",
+    "detail": "詳細",
+    "comments": "評論"
   },
   "player": {
     "current_item": "目前: $item",
@@ -342,6 +344,7 @@
     "fetch_failed": "無法獲取影片連結",
     "fetch_user_info_failed": "無法獲取使用者資訊",
     "invalid_path": "無效的路徑",
+    "intercept_app_exit": "攔截應用程式退出",
     "account": {
       "invalid_login": "郵箱或密碼錯誤",
       "invalid_host": "無效的主機名",

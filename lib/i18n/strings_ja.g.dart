@@ -257,6 +257,8 @@ class _TranslationsMediaJa extends TranslationsMediaEn {
 	@override String more_from({required Object username}) => '${username} からのその他';
 	@override String get more_like_this => '同様の作品';
 	@override String updated_at({required Object time}) => '${time} に更新';
+	@override String get detail => '詳細';
+	@override String get comments => 'コメント';
 }
 
 // Path: player
@@ -566,6 +568,7 @@ class _TranslationsErrorJa extends TranslationsErrorEn {
 	@override String get fetch_failed => 'ビデオリンクを取得できません';
 	@override String get fetch_user_info_failed => 'ユーザー情報を取得できません';
 	@override String get invalid_path => '無効なパス';
+	@override String get intercept_app_exit => 'アプリの終了をブロック';
 	@override late final _TranslationsErrorAccountJa account = _TranslationsErrorAccountJa._(_root);
 }
 
@@ -788,6 +791,8 @@ extension on TranslationsJa {
 			case 'media.more_from': return ({required Object username}) => '${username} からのその他';
 			case 'media.more_like_this': return '同様の作品';
 			case 'media.updated_at': return ({required Object time}) => '${time} に更新';
+			case 'media.detail': return '詳細';
+			case 'media.comments': return 'コメント';
 			case 'player.current_item': return ({required Object item}) => '現在：${item}';
 			case 'player.quality': return '画質';
 			case 'player.select_quality': return '画質を選択';
@@ -974,6 +979,7 @@ extension on TranslationsJa {
 			case 'error.fetch_failed': return 'ビデオリンクを取得できません';
 			case 'error.fetch_user_info_failed': return 'ユーザー情報を取得できません';
 			case 'error.invalid_path': return '無効なパス';
+			case 'error.intercept_app_exit': return 'アプリの終了をブロック';
 			case 'error.account.invalid_login': return '無効なメールアドレスまたはパスワード';
 			case 'error.account.invalid_host': return '無効なホスト名';
 			case 'error.account.invalid_captcha': return '無効なキャプチャ';
