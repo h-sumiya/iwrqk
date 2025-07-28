@@ -639,28 +639,63 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     );
   }
 
+  Widget _buildRecommendationWidget() {
+    if (_controller.isFectchingRecommendation) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 48),
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else if (_controller.errorMessageRecommendation != "") {
+      return Center(
+        child: LoadFail(
+          errorMessage: _controller.errorMessageRecommendation,
+          onRefresh: () {
+            _controller.errorMessageRecommendation = "";
+            _controller.isFectchingRecommendation = true;
+            _controller.refectchRecommendation();
+          },
+        ),
+      );
+    } else if (_controller.moreFromUser.isEmpty &&
+        _controller.moreLikeThis.isEmpty) {
+      return const Center(child: LoadEmpty());
+    } else {
+      return Material(
+        color: colorScheme.surface,
+        child: Column(
+          children: _buildRecommendation(),
+        ),
+      );
+    }
+  }
+
   Widget _buildDetailTab() {
     return Obx(() {
-      List<Widget> children = [
+      List<Widget> slivers = [
         SliverToBoxAdapter(
           child: _buildMediaDetail(),
         )
       ];
 
-      if (_controller.isFectchingRecommendation) {
-        children.add(
-          const SliverFillRemaining(
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 48),
-                child: CircularProgressIndicator(),
+      bool showSide =
+          GetPlatform.isDesktop && MediaQuery.of(context).size.width > 1100;
+
+      if (!showSide) {
+        if (_controller.isFectchingRecommendation) {
+          slivers.add(
+            const SliverFillRemaining(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 48),
+                  child: CircularProgressIndicator(),
+                ),
               ),
             ),
-          ),
-        );
-      } else {
-        if (_controller.errorMessageRecommendation != "") {
-          children.add(
+          );
+        } else if (_controller.errorMessageRecommendation != "") {
+          slivers.add(
             SliverFillRemaining(
               child: Center(
                 child: LoadFail(
@@ -676,25 +711,40 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           );
         } else if (_controller.moreFromUser.isEmpty &&
             _controller.moreLikeThis.isEmpty) {
-          children.add(
+          slivers.add(
             const SliverFillRemaining(
               child: Center(child: LoadEmpty()),
             ),
           );
         } else {
-          children.add(SliverToBoxAdapter(
-            child: Material(
-              color: colorScheme.surface,
-              child: Column(
-                children: _buildRecommendation(),
-              ),
+          slivers.add(
+            SliverToBoxAdapter(
+              child: _buildRecommendationWidget(),
             ),
-          ));
+          );
         }
       }
-      return CustomScrollView(
-        slivers: children,
+
+      Widget left = CustomScrollView(
+        slivers: slivers,
       );
+
+      if (showSide) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: left),
+            SizedBox(
+              width: 360,
+              child: SingleChildScrollView(
+                child: _buildRecommendationWidget(),
+              ),
+            ),
+          ],
+        );
+      } else {
+        return left;
+      }
     });
   }
 
