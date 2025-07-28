@@ -190,9 +190,15 @@ class DownloadService extends GetxService {
 
   bool checkPermissionForPath(String path) {
     try {
-      File file = File(join(path, '.iwrqktest'));
-      file.createSync(recursive: true);
-      file.deleteSync();
+      final dir = Directory(path);
+      if (!dir.existsSync()) {
+        dir.createSync(recursive: true);
+      }
+
+      // Try to write a temporary file to ensure the directory is writable.
+      final testFile = File(join(dir.path, '.iwrqktest'));
+      testFile.writeAsStringSync('');
+      testFile.deleteSync();
     } on FileSystemException catch (e) {
       LogUtil.error('${'invalidPath'.tr}:$path', e);
       return false;
