@@ -24,7 +24,7 @@ class UsersPreviewListRepository {
         break;
       case UsersSourceType.search:
         path = "/search";
-        queryParameters.addAll({"type": "user", "query": sortSetting.keyword});
+        queryParameters.addAll({"type": "users", "query": sortSetting.keyword});
         break;
     }
 
