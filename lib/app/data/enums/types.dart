@@ -1,6 +1,6 @@
 enum MediaType {
-  video(value: "video"),
-  image(value: "image");
+  video(value: "videos"),
+  image(value: "images");
 
   const MediaType({required this.value});
   final String value;
