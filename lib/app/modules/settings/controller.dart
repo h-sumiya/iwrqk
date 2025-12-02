@@ -14,6 +14,7 @@ import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/download_service.dart';
+import '../../data/services/preview_service.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../routes/pages.dart';
 import '../../utils/display_util.dart';
@@ -23,6 +24,7 @@ class SettingsController extends GetxController {
   final ConfigService configService = Get.find();
   final AccountService accountService = Get.find();
   final DownloadService downloadService = Get.find();
+  final PreviewService previewService = Get.find();
 
   ThemeMode getCurrentTheme() {
     return configService.themeMode;
@@ -99,6 +101,14 @@ class SettingsController extends GetxController {
   bool get workMode => configService.workMode;
   set workMode(bool value) {
     configService.workMode = value;
+  }
+
+  bool get enablePreview => configService.enablePreview;
+  set enablePreview(bool value) {
+    configService.enablePreview = value;
+    if (!value) {
+      previewService.clear();
+    }
   }
 
   @override

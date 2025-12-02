@@ -6,6 +6,7 @@ import 'app/components/edit_comment_bottom_sheet/controller.dart';
 import 'app/data/services/account_service.dart';
 import 'app/data/services/config_service.dart';
 import 'app/data/services/download_service.dart';
+import 'app/data/services/preview_service.dart';
 import 'app/data/services/user_service.dart';
 import 'app/modules/forum/thread/widgets/edit_post_bottom_sheet/controller.dart';
 import 'app/modules/media_detail/widgets/add_to_playlist/controller.dart';
@@ -16,6 +17,7 @@ void initGetx() {
   Get.put(ConfigService());
   Get.put(AccountService());
   Get.put(DownloadService());
+  Get.put(PreviewService());
   Get.put(UserService());
 
   Get.create(() => LoadingDialogController());

@@ -231,6 +231,8 @@
     "display_mode_desc": "Change the display mode of the App",
     "work_mode": "Work Mode",
     "work_mode_desc": "Hide all covers of NSFW content",
+    "animated_preview": "Animated preview",
+    "animated_preview_desc": "Show animated video preview on hover or long press (when available)",
     "network": "Network",
     "enable_proxy": "Enable Proxy",
     "enable_proxy_desc": "Enable proxy for the App",

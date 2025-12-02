@@ -447,6 +447,8 @@ class _TranslationsSettingsJa extends TranslationsSettingsEn {
 	@override String get display_mode_desc => 'アプリの表示モードを設定します';
 	@override String get work_mode => '作業モード';
 	@override String get work_mode_desc => 'NSFW コンテンツのカバーを非表示にします';
+	@override String get animated_preview => '動画プレビュー';
+	@override String get animated_preview_desc => 'ホバー（PC）または長押し（タッチ）でアニメーションプレビューを表示します';
 	@override String get network => 'ネットワーク設定';
 	@override String get enable_proxy => 'プロキシを有効にする';
 	@override String get enable_proxy_desc => 'プロキシサービスを有効にします';
@@ -890,6 +892,8 @@ extension on TranslationsJa {
 			'settings.display_mode_desc' => 'アプリの表示モードを設定します',
 			'settings.work_mode' => '作業モード',
 			'settings.work_mode_desc' => 'NSFW コンテンツのカバーを非表示にします',
+			'settings.animated_preview' => '動画プレビュー',
+			'settings.animated_preview_desc' => 'ホバー（PC）または長押し（タッチ）でアニメーションプレビューを表示します',
 			'settings.network' => 'ネットワーク設定',
 			'settings.enable_proxy' => 'プロキシを有効にする',
 			'settings.enable_proxy_desc' => 'プロキシサービスを有効にします',

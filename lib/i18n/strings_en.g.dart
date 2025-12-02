@@ -797,6 +797,12 @@ class TranslationsSettingsEn {
 	/// en: 'Hide all covers of NSFW content'
 	String get work_mode_desc => 'Hide all covers of NSFW content';
 
+	/// en: 'Animated preview'
+	String get animated_preview => 'Animated preview';
+
+	/// en: 'Show animated video preview on hover or long press (when available)'
+	String get animated_preview_desc => 'Show animated video preview on hover or long press (when available)';
+
 	/// en: 'Network'
 	String get network => 'Network';
 
@@ -1453,6 +1459,8 @@ extension on Translations {
 			'settings.display_mode_desc' => 'Change the display mode of the App',
 			'settings.work_mode' => 'Work Mode',
 			'settings.work_mode_desc' => 'Hide all covers of NSFW content',
+			'settings.animated_preview' => 'Animated preview',
+			'settings.animated_preview_desc' => 'Show animated video preview on hover or long press (when available)',
 			'settings.network' => 'Network',
 			'settings.enable_proxy' => 'Enable Proxy',
 			'settings.enable_proxy_desc' => 'Enable proxy for the App',

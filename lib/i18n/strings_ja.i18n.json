@@ -225,6 +225,8 @@
     "display_mode_desc": "アプリの表示モードを設定します",
     "work_mode": "作業モード",
     "work_mode_desc": "NSFW コンテンツのカバーを非表示にします",
+    "animated_preview": "動画プレビュー",
+    "animated_preview_desc": "ホバー（PC）または長押し（タッチ）でアニメーションプレビューを表示します",
     "network": "ネットワーク設定",
     "enable_proxy": "プロキシを有効にする",
     "enable_proxy_desc": "プロキシサービスを有効にします",

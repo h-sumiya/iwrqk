@@ -55,3 +55,4 @@ jobs:
           replacesArtifacts: false
           prerelease: contains(github.ref, 'pre')
           artifactErrorsFailBuild: true
+          removeArtifacts: false

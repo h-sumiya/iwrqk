@@ -25,6 +25,8 @@ abstract class ConfigKey {
   static const String playerSetting = "playerSetting";
 
   static const String notificationPlayer = "notificationPlayer";
+
+  static const String enablePreview = "enablePreview";
 }
 
 class ConfigService extends GetxService {
@@ -57,6 +59,13 @@ class ConfigService extends GetxService {
   set workMode(bool workMode) {
     _workMode.value = workMode;
     setting[DynamicConfigKey.workMode] = workMode;
+  }
+
+  final RxBool _enablePreview = true.obs;
+  bool get enablePreview => _enablePreview.value;
+  set enablePreview(bool value) {
+    _enablePreview.value = value;
+    setting[ConfigKey.enablePreview] = value;
   }
 
   final RxDouble _gridChildAspectRatio = 1.0.obs;
@@ -129,6 +138,11 @@ class ConfigService extends GetxService {
     _workMode.value = setting.get(
       DynamicConfigKey.workMode,
       defaultValue: false,
+    );
+
+    _enablePreview.value = setting.get(
+      ConfigKey.enablePreview,
+      defaultValue: true,
     );
   }
 }

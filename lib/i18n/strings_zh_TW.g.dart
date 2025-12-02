@@ -447,6 +447,8 @@ class _TranslationsSettingsZhTw extends TranslationsSettingsEn {
 	@override String get display_mode_desc => '設定該軟體的顯示模式';
 	@override String get work_mode => '工作模式';
 	@override String get work_mode_desc => '隱藏所有 NSFW 內容的封面';
+	@override String get animated_preview => '動畫預覽';
+	@override String get animated_preview_desc => '在懸停或長按時顯示可用的影片動畫預覽';
 	@override String get network => '網路設定';
 	@override String get enable_proxy => '啟用代理';
 	@override String get enable_proxy_desc => '啟用代理服務';
@@ -890,6 +892,8 @@ extension on TranslationsZhTw {
 			'settings.display_mode_desc' => '設定該軟體的顯示模式',
 			'settings.work_mode' => '工作模式',
 			'settings.work_mode_desc' => '隱藏所有 NSFW 內容的封面',
+			'settings.animated_preview' => '動畫預覽',
+			'settings.animated_preview_desc' => '在懸停或長按時顯示可用的影片動畫預覽',
 			'settings.network' => '網路設定',
 			'settings.enable_proxy' => '啟用代理',
 			'settings.enable_proxy_desc' => '啟用代理服務',

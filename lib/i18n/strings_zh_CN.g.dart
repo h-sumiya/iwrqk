@@ -447,6 +447,8 @@ class _TranslationsSettingsZhCn extends TranslationsSettingsEn {
 	@override String get display_mode_desc => '设置应用的显示模式';
 	@override String get work_mode => '工作模式';
 	@override String get work_mode_desc => '隐藏所有 NSFW 内容的封面';
+	@override String get animated_preview => '动画预览';
+	@override String get animated_preview_desc => '在悬停或长按时显示可用的视频动画预览';
 	@override String get network => '网络设置';
 	@override String get enable_proxy => '启用代理';
 	@override String get enable_proxy_desc => '启用代理服务';
@@ -890,6 +892,8 @@ extension on TranslationsZhCn {
 			'settings.display_mode_desc' => '设置应用的显示模式',
 			'settings.work_mode' => '工作模式',
 			'settings.work_mode_desc' => '隐藏所有 NSFW 内容的封面',
+			'settings.animated_preview' => '动画预览',
+			'settings.animated_preview_desc' => '在悬停或长按时显示可用的视频动画预览',
 			'settings.network' => '网络设置',
 			'settings.enable_proxy' => '启用代理',
 			'settings.enable_proxy_desc' => '启用代理服务',

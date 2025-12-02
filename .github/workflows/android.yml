@@ -71,3 +71,4 @@ jobs:
           allowUpdates: true
           prerelease: contains(github.ref, 'pre')
           artifactErrorsFailBuild: true
+          removeArtifacts: false

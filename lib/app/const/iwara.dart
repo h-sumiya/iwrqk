@@ -18,6 +18,8 @@ class IwaraConst {
 
   static const videoCoverUrl =
       "https://i.iwara.tv/image/thumbnail/{id}/thumbnail-{num}.jpg";
+  static const videoPreviewUrl =
+      "https://i.iwara.tv/image/original/{id}/preview.webp";
   static const youtubeCoverUrl =
       "https://i.iwara.tv/image/embed/thumbnail/youtube/{id}";
 

@@ -126,6 +126,16 @@ class VideoModel extends MediaModel {
     return "";
   }
 
+  bool get hasAnimatedPreview {
+    return file?.animatedPreview == true;
+  }
+
+  String? get animatedPreviewUrl {
+    if (!hasAnimatedPreview) return null;
+
+    return IwaraConst.videoPreviewUrl.replaceFirst('{id}', file!.id);
+  }
+
   String getXVerison() {
     var vid = RegExp(
       r'file/(\w+-\w+-\w+-\w+-\w+)\?',

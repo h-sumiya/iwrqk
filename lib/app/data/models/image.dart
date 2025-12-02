@@ -2,12 +2,11 @@ import '../../const/iwara.dart';
 import 'file.dart';
 
 class ImageModel extends FileModel {
-  bool? animatedPreview;
   String? mime;
 
   ImageModel({
     required super.id,
-    this.animatedPreview,
+    super.animatedPreview,
     this.mime,
     super.path,
     super.name,
@@ -39,16 +38,8 @@ class ImageModel extends FileModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'animatedPreview': animatedPreview,
-      'mime': mime,
-      'path': path,
-      'name': name,
-      'duration': duration,
-      'numThumbnails': numThumbnails,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-    };
+    final json = super.toJson();
+    json.addAll({'mime': mime});
+    return json;
   }
 }

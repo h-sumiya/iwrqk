@@ -207,6 +207,21 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
+  Widget _buildAnimatedPreviewSetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.animated_preview,
+        description: t.settings.animated_preview_desc,
+        iconData: Icons.smart_display,
+        value: controller.enablePreview,
+        onChanged: (value) {
+          controller.enablePreview = value;
+        },
+      ),
+    );
+  }
+
   Widget _buildAutoPlaySetting(BuildContext context) {
     return Obx(
       () => _buildSwitchSetting(
@@ -438,6 +453,7 @@ class SettingsPage extends GetView<SettingsController> {
           _buildLanguageSetting(context),
           if (GetPlatform.isAndroid) _buildDisplayModeButton(context),
           _buildWorkModeSetting(context),
+          _buildAnimatedPreviewSetting(context),
           SettingTitle(title: t.settings.network),
           _buildEnableProxySetting(context),
           _buildSetProxyButton(context),

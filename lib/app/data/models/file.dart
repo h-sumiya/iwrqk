@@ -6,6 +6,7 @@ class FileModel {
   int? numThumbnails;
   String? createdAt;
   String? updatedAt;
+  bool? animatedPreview;
 
   FileModel({
     required this.id,
@@ -15,6 +16,7 @@ class FileModel {
     this.numThumbnails,
     this.createdAt,
     this.updatedAt,
+    this.animatedPreview,
   });
 
   factory FileModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class FileModel {
       numThumbnails: json['numThumbnails'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
+      animatedPreview: json['animatedPreview'],
     );
   }
 
@@ -38,6 +41,7 @@ class FileModel {
       'numThumbnails': numThumbnails,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
+      'animatedPreview': animatedPreview,
     };
   }
 }

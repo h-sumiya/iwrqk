@@ -8,12 +8,44 @@ import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
+import '../../data/services/config_service.dart';
+import '../../data/services/preview_service.dart';
 import '../network_image.dart';
+import 'video_preview_overlay.dart';
 
 class MediaPreview extends StatelessWidget {
   final MediaModel media;
 
-  const MediaPreview({super.key, required this.media});
+  MediaPreview({super.key, required this.media});
+
+  final ConfigService _configService = Get.find();
+  final PreviewService _previewService = Get.find();
+
+  bool get _canPreview {
+    return _configService.enablePreview &&
+        media is VideoModel &&
+        (media as VideoModel).hasAnimatedPreview;
+  }
+
+  void _startPreview() {
+    if (!_canPreview) return;
+    _previewService.show(media.id);
+  }
+
+  void _stopPreview() {
+    if (_previewService.isPreviewing(media.id)) {
+      _previewService.clear();
+    }
+  }
+
+  void _handleHover(bool hovering) {
+    if (!_canPreview) return;
+    if (hovering) {
+      _previewService.show(media.id);
+    } else {
+      _stopPreview();
+    }
+  }
 
   Widget _buildBadges(BuildContext context) {
     Duration? duration;
@@ -124,6 +156,8 @@ class MediaPreview extends StatelessWidget {
                 ),
               ),
             ),
+        if (media is VideoModel)
+          VideoPreviewOverlay(video: media as VideoModel),
         Positioned(bottom: 4, right: 6, left: 6, child: _buildBadges(context)),
       ],
     );
@@ -220,7 +254,11 @@ class MediaPreview extends StatelessWidget {
       elevation: 0,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
+        onHover: _handleHover,
+        onLongPress: _startPreview,
+        onLongPressUp: _stopPreview,
         onTap: () {
+          _stopPreview();
           Get.toNamed(
             "/mediaDetail?id=${media.id}",
             arguments: {

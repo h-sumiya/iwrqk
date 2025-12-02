@@ -8,7 +8,10 @@ import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
+import '../../data/services/config_service.dart';
+import '../../data/services/preview_service.dart';
 import '../network_image.dart';
+import 'video_preview_overlay.dart';
 
 class MediaFlatPreview extends StatelessWidget {
   final MediaModel media;
@@ -16,13 +19,42 @@ class MediaFlatPreview extends StatelessWidget {
   final void Function()? onTap;
   final void Function()? onLongPress;
 
-  const MediaFlatPreview({
+  MediaFlatPreview({
     super.key,
     required this.media,
     this.coverOverlay,
     this.onTap,
     this.onLongPress,
   });
+
+  final ConfigService _configService = Get.find();
+  final PreviewService _previewService = Get.find();
+
+  bool get _canPreview {
+    return _configService.enablePreview &&
+        media is VideoModel &&
+        (media as VideoModel).hasAnimatedPreview;
+  }
+
+  void _startPreview() {
+    if (!_canPreview) return;
+    _previewService.show(media.id);
+  }
+
+  void _stopPreview() {
+    if (_previewService.isPreviewing(media.id)) {
+      _previewService.clear();
+    }
+  }
+
+  void _handleHover(bool hovering) {
+    if (!_canPreview) return;
+    if (hovering) {
+      _previewService.show(media.id);
+    } else {
+      _stopPreview();
+    }
+  }
 
   Widget _buildBadges(BuildContext context) {
     Duration? duration;
@@ -135,6 +167,8 @@ class MediaFlatPreview extends StatelessWidget {
                   ),
                 ),
               ),
+          if (media is VideoModel)
+            VideoPreviewOverlay(video: media as VideoModel),
           Positioned(
             bottom: 4,
             right: 6,
@@ -256,19 +290,27 @@ class MediaFlatPreview extends StatelessWidget {
     );
 
     return InkWell(
-      onLongPress: onLongPress,
-      onTap:
-          onTap ??
-          () {
-            Get.toNamed(
-              "/mediaDetail?id=${media.id}",
-              arguments: {
-                "mediaType": media is VideoModel
-                    ? MediaType.video
-                    : MediaType.image,
-              },
-            );
+      onHover: _handleHover,
+      onLongPress: () {
+        _startPreview();
+        onLongPress?.call();
+      },
+      onLongPressUp: _stopPreview,
+      onTap: () {
+        _stopPreview();
+        if (onTap != null) {
+          onTap!();
+          return;
+        }
+        Get.toNamed(
+          "/mediaDetail?id=${media.id}",
+          arguments: {
+            "mediaType": media is VideoModel
+                ? MediaType.video
+                : MediaType.image,
           },
+        );
+      },
       child: Container(
         constraints: const BoxConstraints(maxHeight: 116),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
