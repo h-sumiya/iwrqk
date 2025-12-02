@@ -46,11 +46,7 @@ class BackwardSeekIndicatorState extends State<BackwardSeekIndicator> {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0x7F000000),
-            Color(0x5F000000),
-            Color(0x00000000),
-          ],
+          colors: [Color(0x7F000000), Color(0x5F000000), Color(0x00000000)],
           stops: [0.0, 0.7, 1.0],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,

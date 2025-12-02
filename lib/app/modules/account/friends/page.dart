@@ -29,11 +29,7 @@ class FriendsPage extends GetView<FriendsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          t.user.friends,
-        ),
-      ),
+      appBar: AppBar(title: Text(t.user.friends)),
       body: DefaultTabController(
         length: 2,
         child: Column(
@@ -56,7 +52,7 @@ class FriendsPage extends GetView<FriendsController> {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

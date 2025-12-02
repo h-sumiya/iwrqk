@@ -80,11 +80,13 @@ class UserService extends GetxService {
   }
 
   Future<ApiResult<GroupResult<ConversationModel>>> getConversations(
-      int pageNum) {
+    int pageNum,
+  ) {
     if (!accountService.isLogin) {
       SmartDialog.showToast(t.account.require_login);
-      return Future.value(ApiResult(
-          data: null, message: t.account.require_login, success: false));
+      return Future.value(
+        ApiResult(data: null, message: t.account.require_login, success: false),
+      );
     }
     return ApiProvider.getConversations(user!.id, pageNum);
   }
@@ -254,7 +256,8 @@ class UserService extends GetxService {
   }
 
   Future<ApiResult<List<LightPlaylistModel>>> getLightPlaylists(
-      String videoId) async {
+    String videoId,
+  ) async {
     bool flag = false;
     List<LightPlaylistModel>? result;
     if (!accountService.isLogin) {
@@ -299,8 +302,10 @@ class UserService extends GetxService {
       flag = false;
       return flag;
     }
-    await ApiProvider.editPlaylistTitle(playlistId: playlistId, title: title)
-        .then((value) {
+    await ApiProvider.editPlaylistTitle(
+      playlistId: playlistId,
+      title: title,
+    ).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -319,8 +324,10 @@ class UserService extends GetxService {
       return flag;
     }
     for (String playlistId in playlistIds) {
-      await ApiProvider.addToPlaylist(videoId: videoId, playlistId: playlistId)
-          .then((value) {
+      await ApiProvider.addToPlaylist(
+        videoId: videoId,
+        playlistId: playlistId,
+      ).then((value) {
         if (!value.success) {
           SmartDialog.showToast(value.message!);
           flag = false;
@@ -333,7 +340,9 @@ class UserService extends GetxService {
   }
 
   Future<bool> removeFromPlaylist(
-      String videoId, List<String> playlistIds) async {
+    String videoId,
+    List<String> playlistIds,
+  ) async {
     bool flag = true;
     if (!accountService.isLogin) {
       SmartDialog.showToast(t.account.require_login);
@@ -342,8 +351,9 @@ class UserService extends GetxService {
     }
     for (String playlistId in playlistIds) {
       await ApiProvider.removeFromPlaylist(
-              videoId: videoId, playlistId: playlistId)
-          .then((value) {
+        videoId: videoId,
+        playlistId: playlistId,
+      ).then((value) {
         if (!value.success) {
           SmartDialog.showToast(value.message!);
           flag = false;
@@ -393,10 +403,7 @@ class UserService extends GetxService {
       flag = false;
       return flag;
     }
-    await ApiProvider.editComment(
-      id: id,
-      content: content,
-    ).then((value) {
+    await ApiProvider.editComment(id: id, content: content).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -407,18 +414,14 @@ class UserService extends GetxService {
     return flag;
   }
 
-  Future<bool> deleteComment({
-    required String id,
-  }) async {
+  Future<bool> deleteComment({required String id}) async {
     bool flag = false;
     if (!accountService.isLogin) {
       SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
-    await ApiProvider.deleteComment(
-      id: id,
-    ).then((value) {
+    await ApiProvider.deleteComment(id: id).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -441,8 +444,9 @@ class UserService extends GetxService {
     }
 
     await ApiProvider.sendMessage(
-            conversationId: conversationId, content: content)
-        .then((value) {
+      conversationId: conversationId,
+      content: content,
+    ).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -466,8 +470,10 @@ class UserService extends GetxService {
     }
 
     await ApiProvider.createThread(
-            channelName: channelName, title: title, content: content)
-        .then((value) {
+      channelName: channelName,
+      title: title,
+      content: content,
+    ).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -489,8 +495,9 @@ class UserService extends GetxService {
       return flag;
     }
 
-    await ApiProvider.sendPost(threadId: threadId, content: content)
-        .then((value) {
+    await ApiProvider.sendPost(threadId: threadId, content: content).then((
+      value,
+    ) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -501,10 +508,7 @@ class UserService extends GetxService {
     return flag;
   }
 
-  Future<bool> editPost({
-    required String id,
-    required String content,
-  }) async {
+  Future<bool> editPost({required String id, required String content}) async {
     bool flag = false;
     if (!accountService.isLogin) {
       SmartDialog.showToast(t.account.require_login);
@@ -512,10 +516,7 @@ class UserService extends GetxService {
       return flag;
     }
 
-    await ApiProvider.editPost(
-      id: id,
-      content: content,
-    ).then((value) {
+    await ApiProvider.editPost(id: id, content: content).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -527,9 +528,7 @@ class UserService extends GetxService {
     return flag;
   }
 
-  Future<bool> deletePost({
-    required String id,
-  }) async {
+  Future<bool> deletePost({required String id}) async {
     bool flag = false;
     if (!accountService.isLogin) {
       SmartDialog.showToast(t.account.require_login);
@@ -537,9 +536,7 @@ class UserService extends GetxService {
       return flag;
     }
 
-    await ApiProvider.deletePost(
-      id: id,
-    ).then((value) {
+    await ApiProvider.deletePost(id: id).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;
@@ -559,8 +556,10 @@ class UserService extends GetxService {
       return flag;
     }
 
-    await ApiProvider.updateAppUser(userId: user!.id, tagBlacklist: blockedTags)
-        .then((value) {
+    await ApiProvider.updateAppUser(
+      userId: user!.id,
+      tagBlacklist: blockedTags,
+    ).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;

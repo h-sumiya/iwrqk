@@ -20,16 +20,17 @@ class AppUserModel {
     return AppUserModel(
       user: UserModel.fromJson(json['user']),
       tagBlacklist: List<TagModel>.from(
-          json['tagBlacklist'].map((x) => TagModel.fromJson(x))),
+        json['tagBlacklist'].map((x) => TagModel.fromJson(x)),
+      ),
       profile: ProfileModel.fromJson(json['profile']),
       notifications: NotificationsSettings.fromJson(json['notifications']),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "user": user.toJson(),
-        "tagBlacklist": List<dynamic>.from(tagBlacklist.map((x) => x.toJson())),
-        "profile": profile.toJson(),
-        "notifications": notifications.toJson(),
-      };
+    "user": user.toJson(),
+    "tagBlacklist": List<dynamic>.from(tagBlacklist.map((x) => x.toJson())),
+    "profile": profile.toJson(),
+    "notifications": notifications.toJson(),
+  };
 }

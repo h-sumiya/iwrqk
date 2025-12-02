@@ -49,10 +49,7 @@ class _HeaderControlState extends State<HeaderControl> {
   @override
   Widget build(BuildContext context) {
     final controller = widget.controller!;
-    const TextStyle textStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 12,
-    );
+    const TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 12);
     return AppBar(
       backgroundColor: Colors.transparent,
       foregroundColor: Colors.white,
@@ -65,10 +62,7 @@ class _HeaderControlState extends State<HeaderControl> {
       title: Row(
         children: [
           ComBtn(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             fuc: () => <Set<void>>{
               if (widget.controller!.isFullScreen.value)
                 <void>{widget.controller!.triggerFullScreen(status: false)}
@@ -79,27 +73,21 @@ class _HeaderControlState extends State<HeaderControl> {
                     {
                       SystemChrome.setPreferredOrientations([
                         DeviceOrientation.portraitUp,
-                      ])
+                      ]),
                     },
-                  Get.back()
-                }
+                  Get.back(),
+                },
             },
           ),
           SizedBox(width: buttonSpace),
           ComBtn(
-            icon: const Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-              fuc: () async {
-                // 销毁播放器实例
-                await widget.controller!.dispose(type: 'all');
-                if (!context.mounted) return;
-                Navigator.popUntil(
-                  context,
-                  ModalRoute.withName(AppRoutes.home),
-                );
-              },
+            icon: const Icon(Icons.home, color: Colors.white),
+            fuc: () async {
+              // 销毁播放器实例
+              await widget.controller!.dispose(type: 'all');
+              if (!context.mounted) return;
+              Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
+            },
           ),
           const Spacer(),
           SizedBox(width: buttonSpace),
@@ -121,9 +109,10 @@ class _HeaderControlState extends State<HeaderControl> {
                 if (canUsePiP) {
                   final Rational aspectRatio =
                       widget.videoDetailCtr?.aspectRatio ??
-                          const Rational(16, 9);
-                  await widget.floating!
-                      .enable(ImmediatePiP(aspectRatio: aspectRatio));
+                      const Rational(16, 9);
+                  await widget.floating!.enable(
+                    ImmediatePiP(aspectRatio: aspectRatio),
+                  );
                 } else {}
               },
             ),
@@ -135,10 +124,7 @@ class _HeaderControlState extends State<HeaderControl> {
                 height: 34,
                 child: TextButton(
                   onPressed: () => showSetSpeedSheet(),
-                  child: Text(
-                    '${controller.playbackSpeed}X',
-                    style: textStyle,
-                  ),
+                  child: Text('${controller.playbackSpeed}X', style: textStyle),
                 ),
               ),
             ),
@@ -152,21 +138,18 @@ class _HeaderControlState extends State<HeaderControl> {
                 child: Text(
                   widget.videoDetailCtr!.isOffline
                       ? (widget.videoDetailCtr!.taskData as VideoDownloadTask)
-                          .resolutionName
+                            .resolutionName
                       : widget
-                          .videoDetailCtr!
-                          .resolutions[widget.videoDetailCtr!.resolutionIndex]
-                          .name,
+                            .videoDetailCtr!
+                            .resolutions[widget.videoDetailCtr!.resolutionIndex]
+                            .name,
                   style: textStyle,
                 ),
               ),
             ),
           ],
           ComBtn(
-            icon: const Icon(
-              Icons.more_vert_outlined,
-              color: Colors.white,
-            ),
+            icon: const Icon(Icons.more_vert_outlined, color: Colors.white),
             fuc: () => showSettingSheet(),
           ),
         ],
@@ -197,13 +180,9 @@ class _HeaderControlState extends State<HeaderControl> {
                     width: 32,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer
+                      color: Theme.of(context).colorScheme.onSecondaryContainer
                           .withAlpha((0.5 * 255).round()),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4),
-                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
                     ),
                   ),
                 ),
@@ -216,17 +195,20 @@ class _HeaderControlState extends State<HeaderControl> {
                         leading: const Icon(Icons.hd),
                         title: Text(t.player.quality, style: titleStyle),
                         subtitle: Text(
-                            t.player.current_item(
-                                item: widget.videoDetailCtr!.isOffline
-                                    ? (widget.videoDetailCtr!.taskData
-                                            as VideoDownloadTask)
-                                        .resolutionName
-                                    : widget
-                                        .videoDetailCtr!
-                                        .resolutions[widget
-                                            .videoDetailCtr!.resolutionIndex]
-                                        .name),
-                            style: subTitleStyle),
+                          t.player.current_item(
+                            item: widget.videoDetailCtr!.isOffline
+                                ? (widget.videoDetailCtr!.taskData
+                                          as VideoDownloadTask)
+                                      .resolutionName
+                                : widget
+                                      .videoDetailCtr!
+                                      .resolutions[widget
+                                          .videoDetailCtr!
+                                          .resolutionIndex]
+                                      .name,
+                          ),
+                          style: subTitleStyle,
+                        ),
                         onTap: widget.videoDetailCtr!.isOffline
                             ? null
                             : () => {Get.back(), showResolutionSheet()},
@@ -235,24 +217,28 @@ class _HeaderControlState extends State<HeaderControl> {
                         leading: const Icon(Icons.speed),
                         title: Text(t.player.playback_speed, style: titleStyle),
                         subtitle: Text(
-                            t.player.current_item(
-                                item: '${widget.controller!.playbackSpeed}X'),
-                            style: subTitleStyle),
+                          t.player.current_item(
+                            item: '${widget.controller!.playbackSpeed}X',
+                          ),
+                          style: subTitleStyle,
+                        ),
                         onTap: () => {Get.back(), showSetSpeedSheet()},
                       ),
                       ListTile(
                         leading: const Icon(Icons.rectangle),
                         title: Text(t.player.aspect_ratio, style: titleStyle),
                         subtitle: Text(
-                            t.player.current_item(
-                                item: widget.controller!.videoFitDEsc.value),
-                            style: subTitleStyle),
+                          t.player.current_item(
+                            item: widget.controller!.videoFitDEsc.value,
+                          ),
+                          style: subTitleStyle,
+                        ),
                         onTap: () => {Get.back(), showVideoFitSheet()},
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -291,8 +277,10 @@ class _HeaderControlState extends State<HeaderControl> {
                         if (i == currentSpeed) ...<Widget>[
                           ListTile(
                             title: Text(i.toString()),
-                            trailing: Icon(Icons.check,
-                                color: Theme.of(context).colorScheme.primary),
+                            trailing: Icon(
+                              Icons.check,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                             onTap: () async {
                               await widget.controller!.setPlaybackSpeed(i);
                               Get.back();
@@ -306,12 +294,12 @@ class _HeaderControlState extends State<HeaderControl> {
                               Get.back();
                             },
                           ),
-                        ]
-                      ]
+                        ],
+                      ],
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -346,10 +334,12 @@ class _HeaderControlState extends State<HeaderControl> {
                       for (final i in widget.controller!.videoFitType)
                         ListTile(
                           title: Text(i['desc']),
-                          trailing: i['attr'] ==
-                                  widget.controller!.videoFit.value
-                              ? Icon(Icons.check,
-                                  color: Theme.of(context).colorScheme.primary)
+                          trailing:
+                              i['attr'] == widget.controller!.videoFit.value
+                              ? Icon(
+                                  Icons.check,
+                                  color: Theme.of(context).colorScheme.primary,
+                                )
                               : null,
                           onTap: () async {
                             widget.controller!.videoFit.value = i['attr'];
@@ -361,7 +351,7 @@ class _HeaderControlState extends State<HeaderControl> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -398,9 +388,11 @@ class _HeaderControlState extends State<HeaderControl> {
                       for (final ResolutionModel i in resolutions) ...<Widget>[
                         ListTile(
                           title: Text(i.name),
-                          trailing: i ==
-                                  widget.videoDetailCtr!.resolutions[
-                                      widget.videoDetailCtr!.resolutionIndex]
+                          trailing:
+                              i ==
+                                  widget.videoDetailCtr!.resolutions[widget
+                                      .videoDetailCtr!
+                                      .resolutionIndex]
                               ? Icon(
                                   Icons.check,
                                   color: Theme.of(context).colorScheme.primary,
@@ -412,20 +404,19 @@ class _HeaderControlState extends State<HeaderControl> {
                             widget.videoDetailCtr!.resolutionIndex = index;
                             widget.videoDetailCtr!.updatePlayer();
 
-                            setting[
-                                PLPlayerConfigKey.qualityIndexSaved] = index ==
-                                    resolutions.length - 1
+                            setting[PLPlayerConfigKey.qualityIndexSaved] =
+                                index == resolutions.length - 1
                                 ? 99 /* Source is always the last, use 99 to represent it */
                                 : index;
 
                             Get.back();
                           },
                         ),
-                      ]
+                      ],
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );

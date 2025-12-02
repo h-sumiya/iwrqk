@@ -11,8 +11,11 @@ class ThreadPreviewList extends StatefulWidget {
   final String channelName;
   final ScrollController? scrollController;
 
-  const ThreadPreviewList(
-      {super.key, required this.channelName, this.scrollController});
+  const ThreadPreviewList({
+    super.key,
+    required this.channelName,
+    this.scrollController,
+  });
 
   @override
   State<ThreadPreviewList> createState() => _ThreadPreviewListState();
@@ -35,16 +38,14 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
   }) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
         onTap: () {
-          Get.toNamed("/thread?channelName=$channelName&threadId=${thread.id}",
-              arguments: {
-                'threadModel': thread,
-              });
+          Get.toNamed(
+            "/thread?channelName=$channelName&threadId=${thread.id}",
+            arguments: {'threadModel': thread},
+          );
         },
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
@@ -68,8 +69,11 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                   overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text(
-                  DisplayUtil.getDisplayDate(DateTime.parse(
-                      thread.lastPost?.createAt ?? thread.createdAt)),
+                  DisplayUtil.getDisplayDate(
+                    DateTime.parse(
+                      thread.lastPost?.createAt ?? thread.createdAt,
+                    ),
+                  ),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
@@ -126,9 +130,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                         const SizedBox(width: 6),
                         Text(
                           DisplayUtil.compactBigNumber(thread.numViews),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
+                          style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.primary,
                               ),
@@ -149,9 +151,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                         const SizedBox(width: 6),
                         Text(
                           DisplayUtil.compactBigNumber(thread.numPosts),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
+                          style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.primary,
                               ),
@@ -160,7 +160,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -179,16 +179,13 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
           slivers: [
             Obx(
               () => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final thread = data[index];
-                    return _buildThreadPreview(
-                      channelName: widget.channelName,
-                      thread: thread,
-                    );
-                  },
-                  childCount: data.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final thread = data[index];
+                  return _buildThreadPreview(
+                    channelName: widget.channelName,
+                    thread: thread,
+                  );
+                }, childCount: data.length),
               ),
             ),
           ],

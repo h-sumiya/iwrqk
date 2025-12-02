@@ -5,16 +5,10 @@ class TagModel {
   TagModel(this.id, this.type);
 
   factory TagModel.fromJson(Map<String, dynamic> json) {
-    return TagModel(
-      json['id'],
-      json['type'],
-    );
+    return TagModel(json['id'], json['type']);
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'type': type,
-    };
+    return {'id': id, 'type': type};
   }
 }

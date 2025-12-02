@@ -19,10 +19,7 @@ class AppBarSwitcher extends StatelessWidget implements PreferredSizeWidget {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
       transitionBuilder: (Widget child, Animation<double> animation) {
-        return ScaleTransition(
-          scale: animation,
-          child: child,
-        );
+        return ScaleTransition(scale: animation, child: child);
       },
       child: !visible ? primary : secondary,
     );

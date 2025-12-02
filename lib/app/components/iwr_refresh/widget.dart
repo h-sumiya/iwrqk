@@ -11,7 +11,7 @@ import 'controller.dart';
 class IwrRefresh<T> extends StatefulWidget {
   final IwrRefreshController<T> controller;
   final Widget Function(List<T> data, ScrollController? scrollController)
-      builder;
+  builder;
   final ScrollController? scrollController;
   final bool requireLogin;
   final int pageSize;
@@ -60,22 +60,19 @@ class _IwrRefreshState<T> extends State<IwrRefresh<T>> {
           if (state["state"] == "requireLogin") {
             return _buildRequireLoginWidget();
           } else if (state["state"] == "empty") {
-            return widget.customEmptyWidget ??
-                const Center(
-                  child: LoadEmpty(),
-                );
+            return widget.customEmptyWidget ?? const Center(child: LoadEmpty());
           } else if (state["state"] == "fail") {
             return Center(
               child: LoadFail(
                 errorMessage: state["msg"],
-                onRefresh: () => widget.controller
-                    .refreshData(showSplash: true, paginated: widget.paginated),
+                onRefresh: () => widget.controller.refreshData(
+                  showSplash: true,
+                  paginated: widget.paginated,
+                ),
               ),
             );
           } else if (state["state"] == "loading") {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
         }
         return widget.builder(widget.controller.data, widget.scrollController);
@@ -89,10 +86,7 @@ class _IwrRefreshState<T> extends State<IwrRefresh<T>> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            t.account.require_login,
-            style: const TextStyle(fontSize: 17.5),
-          ),
+          Text(t.account.require_login, style: const TextStyle(fontSize: 17.5)),
           const SizedBox(height: 8),
           FilledButton(
             onPressed: () {

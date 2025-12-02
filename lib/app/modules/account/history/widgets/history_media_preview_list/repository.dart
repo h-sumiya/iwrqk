@@ -11,12 +11,11 @@ class HistoryMediaPreviewListRepository {
   GroupResult<HistoryMediaModel> getHistoryMedias(int currentPage) {
     List<HistoryMediaModel> histories = StorageProvider.historyList.get();
 
-    var newData = histories.getRange(currentPage * WidgetConst.pageLimit,
-        min((currentPage + 1) * WidgetConst.pageLimit, histories.length));
-
-    return GroupResult(
-      results: newData.toList(),
-      count: histories.length,
+    var newData = histories.getRange(
+      currentPage * WidgetConst.pageLimit,
+      min((currentPage + 1) * WidgetConst.pageLimit, histories.length),
     );
+
+    return GroupResult(results: newData.toList(), count: histories.length);
   }
 }

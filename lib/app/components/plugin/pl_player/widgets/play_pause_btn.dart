@@ -45,9 +45,7 @@ class PlayOrPauseButtonState extends State<PlayOrPauseButton>
     super.didChangeDependencies();
     subscription ??= player.stream.playing.listen((event) {
       if (event) {
-        animation.forward().then((value) => {
-              isOpacity = true,
-            });
+        animation.forward().then((value) => {isOpacity = true});
       } else {
         animation.reverse().then((value) => {isOpacity = false});
       }

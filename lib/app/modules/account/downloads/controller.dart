@@ -33,8 +33,10 @@ class DownloadsController extends GetxController
 
     tabController = TabController(length: 2, vsync: this);
 
-    childrenControllerTags =
-        List.generate(2, (index) => "downloads_list_$index");
+    childrenControllerTags = List.generate(
+      2,
+      (index) => "downloads_list_$index",
+    );
 
     for (String tag in childrenControllerTags) {
       Get.lazyPut(() => DownloadsMediaPreviewListController(), tag: tag);
@@ -58,9 +60,7 @@ class DownloadsController extends GetxController
     update();
   }
 
-  Future<void> deleteTask(
-    String taskId,
-  ) async {
+  Future<void> deleteTask(String taskId) async {
     String? path = await downloadService.getTaskFilePath(taskId);
     await downloadService.deleteTaskRecord(taskId);
 
@@ -78,11 +78,14 @@ class DownloadsController extends GetxController
 
   void deleteChecked() async {
     for (String hash in checkedList) {
-      await deleteTask(StorageProvider.downloadVideoRecords
-          .findWhere((element) => element.hash == hash)
-          .taskId);
-      StorageProvider.downloadVideoRecords
-          .deleteWhere((element) => element.hash == hash);
+      await deleteTask(
+        StorageProvider.downloadVideoRecords
+            .findWhere((element) => element.hash == hash)
+            .taskId,
+      );
+      StorageProvider.downloadVideoRecords.deleteWhere(
+        (element) => element.hash == hash,
+      );
     }
     checkedList.clear();
     checkedCount = 0;

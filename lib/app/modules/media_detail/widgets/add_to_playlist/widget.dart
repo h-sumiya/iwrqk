@@ -11,10 +11,7 @@ import 'controller.dart';
 class AddToPlaylistBottomSheet
     extends GetWidget<AddToPlaylistBottomSheetController> {
   final String videoId;
-  const AddToPlaylistBottomSheet({
-    super.key,
-    required this.videoId,
-  });
+  const AddToPlaylistBottomSheet({super.key, required this.videoId});
 
   Widget _buildRequireLoginWidget() {
     return Center(
@@ -22,10 +19,7 @@ class AddToPlaylistBottomSheet
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            t.account.require_login,
-            style: const TextStyle(fontSize: 17.5),
-          ),
+          Text(t.account.require_login, style: const TextStyle(fontSize: 17.5)),
           const SizedBox(height: 8),
           FilledButton(
             onPressed: () {
@@ -49,8 +43,9 @@ class AddToPlaylistBottomSheet
           LightPlaylistModel playlist = controller.data[index];
           return ListTile(
             onTap: () {
-              if (controller.selectedPlaylists
-                  .contains(controller.data[index].id)) {
+              if (controller.selectedPlaylists.contains(
+                controller.data[index].id,
+              )) {
                 controller.selectedPlaylists.remove(controller.data[index].id);
               } else {
                 controller.selectedPlaylists.add(controller.data[index].id);
@@ -67,14 +62,13 @@ class AddToPlaylistBottomSheet
                 }
               },
             ),
-            title: Text(
-              playlist.title,
-            ),
+            title: Text(playlist.title),
             subtitle: Text(
               playlist.numVideos == 1
                   ? t.playlist.videos_count(numVideo: "${playlist.numVideos}")
-                  : t.playlist
-                      .videos_count_plural(numVideo: "${playlist.numVideos}"),
+                  : t.playlist.videos_count_plural(
+                      numVideo: "${playlist.numVideos}",
+                    ),
             ),
           );
         }),
@@ -114,10 +108,7 @@ class AddToPlaylistBottomSheet
                     onPressed: controller.addingtoPlaylist
                         ? null
                         : controller.showCreatePlaylistDialog,
-                    icon: const Icon(
-                      Icons.add,
-                      size: 25,
-                    ),
+                    icon: const Icon(Icons.add, size: 25),
                   ),
                 ],
               ),
@@ -131,9 +122,7 @@ class AddToPlaylistBottomSheet
                         SliverSafeArea(
                           sliver: SliverFillRemaining(
                             hasScrollBody: false,
-                            child: Center(
-                              child: _buildRequireLoginWidget(),
-                            ),
+                            child: Center(child: _buildRequireLoginWidget()),
                           ),
                         ),
                       ],
@@ -141,24 +130,16 @@ class AddToPlaylistBottomSheet
                   }
                   return _buildDataWidget(context);
                 },
-                onError: (error) => LoadFail(
-                  errorMessage: error.toString(),
-                ),
-                onLoading: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                onEmpty: const Center(
-                  child: LoadEmpty(),
-                ),
+                onError: (error) => LoadFail(errorMessage: error.toString()),
+                onLoading: const Center(child: CircularProgressIndicator()),
+                onEmpty: const Center(child: LoadEmpty()),
               ),
             ),
             Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
+                  top: BorderSide(color: Theme.of(context).colorScheme.outline),
                 ),
               ),
               margin: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
@@ -169,19 +150,19 @@ class AddToPlaylistBottomSheet
                   Obx(
                     () => FilledButton(
                       style: FilledButton.styleFrom(
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onSurface,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onInverseSurface,
+                        foregroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onSurface,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onInverseSurface,
                       ),
                       onPressed: controller.addingtoPlaylist
                           ? null
                           : () {
                               Get.back();
                             },
-                      child: Text(
-                        t.notifications.cancel,
-                      ),
+                      child: Text(t.notifications.cancel),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -190,9 +171,7 @@ class AddToPlaylistBottomSheet
                       onPressed: controller.addingtoPlaylist
                           ? null
                           : controller.renewPlaylist,
-                      child: Text(
-                        t.notifications.confirm,
-                      ),
+                      child: Text(t.notifications.confirm),
                     ),
                   ),
                 ],

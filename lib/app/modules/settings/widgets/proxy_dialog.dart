@@ -114,7 +114,7 @@ class ProxyDialog extends StatelessWidget {
             }
           },
           child: Text(t.notifications.confirm),
-        )
+        ),
       ],
     );
   }

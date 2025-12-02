@@ -88,7 +88,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
                   ),
                 ),
                 if (widget.starterUserName == widget.post.user.username)
-                  _buildStarterBadge(context)
+                  _buildStarterBadge(context),
               ],
             ),
           ),
@@ -104,9 +104,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
                 PopupMenuItem<String>(
                   value: "translate",
                   onTap: _getTranslatedContent,
-                  child: Text(
-                    t.common.translate,
-                  ),
+                  child: Text(t.common.translate),
                 ),
                 if (widget.isMyComment) ...[
                   PopupMenuItem<String>(
@@ -129,24 +127,18 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
                         ),
                       );
                     },
-                    child: Text(
-                      t.comment.edit_comment,
-                    ),
+                    child: Text(t.comment.edit_comment),
                   ),
                   PopupMenuItem<String>(
                     value: "delete",
                     onTap: () {
                       final UserService userService = Get.find();
-                      userService.deletePost(
-                        id: widget.post.id,
-                      );
+                      userService.deletePost(id: widget.post.id);
                       widget.onUpdated?.call({"state": "delete"});
                     },
-                    child: Text(
-                      t.comment.delete_comment,
-                    ),
+                    child: Text(t.comment.delete_comment),
                   ),
-                ]
+                ],
               ];
             },
           ),
@@ -158,9 +150,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
   void _getTranslatedContent() async {
     if (translatedContent != null) return;
 
-    TranslateProvider.google(
-      text: widget.post.body,
-    ).then((value) {
+    TranslateProvider.google(text: widget.post.body).then((value) {
       if (value.success) {
         setState(() {
           translatedContent = value.data;
@@ -172,8 +162,9 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _buildBottomWidget(BuildContext context) {
-    String text =
-        DisplayUtil.getDisplayTime(DateTime.parse(widget.post.createAt));
+    String text = DisplayUtil.getDisplayTime(
+      DateTime.parse(widget.post.createAt),
+    );
     if (widget.post.createAt != widget.post.updateAt) {
       text +=
           "\n${t.media.updated_at(time: DisplayUtil.getDisplayTime(DateTime.parse(widget.post.updateAt)))}";
@@ -195,7 +186,9 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
             TextSpan(
               text: text,
               style: TextStyle(
-                  color: Theme.of(context).colorScheme.outline, fontSize: 12.5),
+                color: Theme.of(context).colorScheme.outline,
+                fontSize: 12.5,
+              ),
             ),
           ],
         ),
@@ -209,10 +202,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IwrMarkdown(
-            selectable: true,
-            data: widget.post.body,
-          ),
+          IwrMarkdown(selectable: true, data: widget.post.body),
           if (translatedContent != null)
             TranslatedContent(
               padding: const EdgeInsets.only(top: 12),

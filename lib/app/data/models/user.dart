@@ -35,7 +35,8 @@ class UserModel {
   String get avatarUrl {
     if (avatar == null) return IwaraConst.defaultAvatarUrl;
 
-    bool animated = avatar!.mime == "image/gif" ||
+    bool animated =
+        avatar!.mime == "image/gif" ||
         avatar!.mime == "image/webp" ||
         avatar!.mime == "image/apng";
 
@@ -66,8 +67,9 @@ class UserModel {
       friend: json['friend'],
       premium: json['premium'],
       seenAt: json['seenAt'],
-      avatar:
-          json['avatar'] != null ? ImageModel.fromJson(json['avatar']) : null,
+      avatar: json['avatar'] != null
+          ? ImageModel.fromJson(json['avatar'])
+          : null,
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -87,7 +89,7 @@ class UserModel {
       'seenAt': seenAt,
       'avatar': avatar?.toJson(),
       'createdAt': createdAt,
-      'updatedAt': updatedAt
+      'updatedAt': updatedAt,
     };
   }
 }

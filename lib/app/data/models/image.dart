@@ -48,7 +48,7 @@ class ImageModel extends FileModel {
       'duration': duration,
       'numThumbnails': numThumbnails,
       'createdAt': createdAt,
-      'updatedAt': updatedAt
+      'updatedAt': updatedAt,
     };
   }
 }

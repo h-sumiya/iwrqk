@@ -11,12 +11,7 @@ class UserAvatar extends StatelessWidget {
   final double? height;
   final double? aspectRatio;
 
-  UserAvatar({
-    super.key,
-    this.width,
-    this.height,
-    this.aspectRatio,
-  });
+  UserAvatar({super.key, this.width, this.height, this.aspectRatio});
 
   final UserService _userService = Get.find();
   final AccountService _accountService = Get.find();

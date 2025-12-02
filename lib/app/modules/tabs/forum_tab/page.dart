@@ -20,17 +20,18 @@ class ForumTabPage extends GetView<ForumTabController> {
     required ChannelModel channel,
   }) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
         onTap: () {
-          Get.toNamed(AppRoutes.channel, arguments: {
-            'channelName': channel.id,
-            'channelDisplayName': _getChannelTitle(context, channel.id)
-          });
+          Get.toNamed(
+            AppRoutes.channel,
+            arguments: {
+              'channelName': channel.id,
+              'channelDisplayName': _getChannelTitle(context, channel.id),
+            },
+          );
         },
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 12, 16, 8),
@@ -58,22 +59,24 @@ class ForumTabPage extends GetView<ForumTabController> {
                     children: [
                       Text(
                         _getChannelTitle(context, channel.id),
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                       ),
                       Text(
                         t.channel.label(
-                          numThread:
-                              DisplayUtil.compactBigNumber(channel.numThreads),
-                          numPosts:
-                              DisplayUtil.compactBigNumber(channel.numPosts),
+                          numThread: DisplayUtil.compactBigNumber(
+                            channel.numThreads,
+                          ),
+                          numPosts: DisplayUtil.compactBigNumber(
+                            channel.numPosts,
+                          ),
                         ),
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
               if (channel.lastThread != null)
@@ -89,8 +92,8 @@ class ForumTabPage extends GetView<ForumTabController> {
                     channel.lastThread!.title,
                     maxLines: 1,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   subtitle: Text(
                     channel.lastThread!.user.name,
@@ -163,8 +166,11 @@ class ForumTabPage extends GetView<ForumTabController> {
     }
   }
 
-  List<Widget> _buildGroupChannelsWidget(BuildContext context,
-      String groupTitle, List<ChannelModel> channelModels) {
+  List<Widget> _buildGroupChannelsWidget(
+    BuildContext context,
+    String groupTitle,
+    List<ChannelModel> channelModels,
+  ) {
     return [
       SliverToBoxAdapter(
         child: Column(
@@ -183,12 +189,7 @@ class ForumTabPage extends GetView<ForumTabController> {
       SliverList(
         delegate: SliverChildListDelegate(
           channelModels
-              .map(
-                (channel) => _buildChannelPreview(
-                  context,
-                  channel: channel,
-                ),
-              )
+              .map((channel) => _buildChannelPreview(context, channel: channel))
               .toList(),
         ),
       ),
@@ -198,19 +199,20 @@ class ForumTabPage extends GetView<ForumTabController> {
   Widget _buildDataWidget(BuildContext context) {
     List<Widget> children = [];
 
-    controller.channelModels
-        .forEach((String groupTitle, List<ChannelModel> channels) {
+    controller.channelModels.forEach((
+      String groupTitle,
+      List<ChannelModel> channels,
+    ) {
       children.addAll(
         _buildGroupChannelsWidget(
-            context, _getGroupTitle(context, groupTitle), channels),
+          context,
+          _getGroupTitle(context, groupTitle),
+          channels,
+        ),
       );
     });
 
-    children.add(
-      const SliverToBoxAdapter(
-        child: SizedBox(height: 16),
-      ),
-    );
+    children.add(const SliverToBoxAdapter(child: SizedBox(height: 16)));
 
     return EasyRefresh(
       header: const MaterialHeader(),
@@ -242,9 +244,7 @@ class ForumTabPage extends GetView<ForumTabController> {
           ),
         );
       },
-      onLoading: const Center(
-        child: CircularProgressIndicator(),
-      ),
+      onLoading: const Center(child: CircularProgressIndicator()),
     );
   }
 }

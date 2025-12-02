@@ -55,7 +55,7 @@ class _DownloadsSearchPageState extends State<DownloadsSearchPage> {
             onPressed: () => _submit(),
             icon: const Icon(Icons.search_outlined, size: 22),
           ),
-          const SizedBox(width: 10)
+          const SizedBox(width: 10),
         ],
         title: TextField(
           autofocus: true,

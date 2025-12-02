@@ -46,16 +46,17 @@ class LoginController extends GetxController {
           await _accountService
               .login(account: account!, password: password!)
               .then((value) {
-            if (!value.success) {
-              throw DisplayUtil.getErrorMessage(value.message!);
-            }
-          });
+                if (!value.success) {
+                  throw DisplayUtil.getErrorMessage(value.message!);
+                }
+              });
         },
         onSuccess: () {
           Get.offNamedUntil(AppRoutes.splash, (route) => false);
-          StorageProvider.savedUserAccountPassword.set(
-            {"account": account, "password": password},
-          );
+          StorageProvider.savedUserAccountPassword.set({
+            "account": account,
+            "password": password,
+          });
         },
         successMessage: t.message.account.login_success,
       ),

@@ -22,12 +22,12 @@ class SearchResultController extends GetxController
   ];
 
   List<String> get tabTagList => [
-        "_latest",
-        "_trending",
-        "_popularity",
-        "_most_views",
-        "_most_likes",
-      ];
+    "_latest",
+    "_trending",
+    "_popularity",
+    "_most_views",
+    "_most_likes",
+  ];
 
   final String childUsersControllerTag = "search_result_users";
 
@@ -45,10 +45,13 @@ class SearchResultController extends GetxController
       }
     }
 
-    Get.lazyPut(() => UsersPreviewListController(),
-        tag: childUsersControllerTag);
+    Get.lazyPut(
+      () => UsersPreviewListController(),
+      tag: childUsersControllerTag,
+    );
 
-    childUsersController =
-        Get.find<UsersPreviewListController>(tag: childUsersControllerTag);
+    childUsersController = Get.find<UsersPreviewListController>(
+      tag: childUsersControllerTag,
+    );
   }
 }

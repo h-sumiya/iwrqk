@@ -17,7 +17,9 @@ class PlaylistDetailMediaPreviewListController
   late PlaylistDetailController _parentController;
 
   void initConfig(
-      String playlistId, PlaylistDetailController parentController) {
+    String playlistId,
+    PlaylistDetailController parentController,
+  ) {
     _playlistId = playlistId;
     _parentController = parentController;
   }
@@ -34,9 +36,9 @@ class PlaylistDetailMediaPreviewListController
   }
 
   Future<void> removeAllFromPlaylist() async {
-    Future.wait(data
-            .map((e) => _userService.removeFromPlaylist(e.id, [_playlistId])))
-        .then((value) {
+    Future.wait(
+      data.map((e) => _userService.removeFromPlaylist(e.id, [_playlistId])),
+    ).then((value) {
       refreshData(showSplash: true);
     });
   }

@@ -85,13 +85,16 @@ class _RepliesDetailState extends State<RepliesDetail>
   @override
   Widget build(BuildContext context) {
     Widget fab = SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(0, 2),
-        end: const Offset(0, 0),
-      ).animate(CurvedAnimation(
-        parent: fabAnimationController,
-        curve: Curves.easeInOut,
-      )),
+      position:
+          Tween<Offset>(
+            begin: const Offset(0, 2),
+            end: const Offset(0, 0),
+          ).animate(
+            CurvedAnimation(
+              parent: fabAnimationController,
+              curve: Curves.easeInOut,
+            ),
+          ),
       child: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
@@ -99,14 +102,16 @@ class _RepliesDetailState extends State<RepliesDetail>
             isScrollControlled: true,
             builder: (context) => Padding(
               padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: EditCommentBottomSheet(
                 sourceId: widget.sourceId,
                 sourceType: widget.sourceType,
                 parentId: widget.parentComment.id,
                 onChanged: (_) {
-                  CommentsListController controller =
-                      Get.find(tag: commentsListTag);
+                  CommentsListController controller = Get.find(
+                    tag: commentsListTag,
+                  );
                   controller.updateAfterSend();
                 },
               ),
@@ -119,9 +124,7 @@ class _RepliesDetailState extends State<RepliesDetail>
 
     if (widget.showInPage) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(t.comment.comment_detail),
-        ),
+        appBar: AppBar(title: Text(t.comment.comment_detail)),
         floatingActionButton: fab,
         body: CommentsList(
           tag: commentsListTag,

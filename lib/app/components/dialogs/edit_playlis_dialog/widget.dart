@@ -19,9 +19,7 @@ class EditPlaylistDialog extends GetWidget<EditPlaylistDialogController> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        isEdit ? t.playlist.edit_title : t.playlist.create,
-      ),
+      title: Text(isEdit ? t.playlist.edit_title : t.playlist.create),
       content: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondaryContainer,
@@ -56,7 +54,7 @@ class EditPlaylistDialog extends GetWidget<EditPlaylistDialogController> {
                   },
             child: Text(t.notifications.confirm),
           ),
-        )
+        ),
       ],
     );
   }

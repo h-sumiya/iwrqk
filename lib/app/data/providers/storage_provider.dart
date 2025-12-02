@@ -89,9 +89,9 @@ class GStorageRecord<T> {
     return recordsJson == null
         ? []
         : (jsonDecode(recordsJson) as List<dynamic>)
-            .where((item) => item != null)
-            .map((item) => fact(item as Map<String, dynamic>))
-            .toList();
+              .where((item) => item != null)
+              .map((item) => fact(item as Map<String, dynamic>))
+              .toList();
   }
 
   T operator [](int index) => get()[index];
@@ -227,16 +227,22 @@ class StorageProvider {
   }
 
   // User token
-  static SecStorageObject userToken =
-      SecStorageObject(_secureStorage, StorageKey.userToken);
+  static SecStorageObject userToken = SecStorageObject(
+    _secureStorage,
+    StorageKey.userToken,
+  );
 
   // Saved email & password
-  static SecStorageMap savedUserAccountPassword =
-      SecStorageMap(_secureStorage, StorageKey.savedUserAccountPassword);
+  static SecStorageMap savedUserAccountPassword = SecStorageMap(
+    _secureStorage,
+    StorageKey.savedUserAccountPassword,
+  );
 
   // Lock screen password & enable biometrics Auth
-  static SecStorageMap autoLockConfig =
-      SecStorageMap(_secureStorage, StorageKey.autoLockConfig);
+  static SecStorageMap autoLockConfig = SecStorageMap(
+    _secureStorage,
+    StorageKey.autoLockConfig,
+  );
 
   // Config
   static GStorageConfig config = GStorageConfig(_storage);
@@ -262,10 +268,10 @@ class StorageProvider {
   // Download Video Records
   static GStorageRecord<VideoDownloadTask> downloadVideoRecords =
       GStorageRecord(
-    _storage,
-    StorageKey.downloadVideoRecords,
-    VideoDownloadTask.fromJson,
-    (VideoDownloadTask newItem, VideoDownloadTask oldItem) =>
-        newItem.taskId == oldItem.taskId,
-  );
+        _storage,
+        StorageKey.downloadVideoRecords,
+        VideoDownloadTask.fromJson,
+        (VideoDownloadTask newItem, VideoDownloadTask oldItem) =>
+            newItem.taskId == oldItem.taskId,
+      );
 }

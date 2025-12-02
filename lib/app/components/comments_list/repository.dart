@@ -76,10 +76,7 @@ class CommentsListRepository {
         throw Exception(value.message);
       }
 
-      return GroupResult(
-        count: count,
-        results: comments,
-      );
+      return GroupResult(count: count, results: comments);
     });
   }
 }

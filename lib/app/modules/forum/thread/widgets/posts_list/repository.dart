@@ -11,8 +11,10 @@ class PostListRepository {
     required int currentPage,
   }) async {
     return await ApiProvider.getThreadPosts(
-            channelName: channelName, threadId: threadId, pageNum: currentPage)
-        .then((value) {
+      channelName: channelName,
+      threadId: threadId,
+      pageNum: currentPage,
+    ).then((value) {
       List<PostModel> posts = [];
       int count = 0;
 
@@ -23,10 +25,7 @@ class PostListRepository {
         throw Exception(value.message);
       }
 
-      return GroupResult(
-        count: count,
-        results: posts,
-      );
+      return GroupResult(count: count, results: posts);
     });
   }
 }

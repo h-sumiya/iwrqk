@@ -48,10 +48,11 @@ class MediaFlatPreview extends StatelessWidget {
               color: Colors.red.withAlpha(160),
             ),
             child: const Center(
-                child: Text(
-              "R-18",
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            )),
+              child: Text(
+                "R-18",
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ),
+            ),
           ),
         if (duration != null)
           Container(
@@ -86,7 +87,7 @@ class MediaFlatPreview extends StatelessWidget {
                       "$galleryLength",
                       style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -194,35 +195,39 @@ class MediaFlatPreview extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              child: Row(children: [
-                Icon(
-                  Icons.person,
-                  size: 16,
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 2, right: 2),
-                    child: Text(
-                      media.user.name,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 12.5,
-                        color: Theme.of(context).colorScheme.outline,
-                        overflow: TextOverflow.ellipsis,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 2, right: 2),
+                      child: Text(
+                        media.user.name,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          color: Theme.of(context).colorScheme.outline,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),
-                )
-              ]),
+                ],
+              ),
             ),
             Text(
               DisplayUtil.getDisplayDate(DateTime.parse(media.createdAt)),
               style: TextStyle(
-                  fontSize: 12.5, color: Theme.of(context).colorScheme.outline),
-            )
+                fontSize: 12.5,
+                color: Theme.of(context).colorScheme.outline,
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -252,13 +257,15 @@ class MediaFlatPreview extends StatelessWidget {
 
     return InkWell(
       onLongPress: onLongPress,
-      onTap: onTap ??
+      onTap:
+          onTap ??
           () {
             Get.toNamed(
               "/mediaDetail?id=${media.id}",
               arguments: {
-                "mediaType":
-                    media is VideoModel ? MediaType.video : MediaType.image,
+                "mediaType": media is VideoModel
+                    ? MediaType.video
+                    : MediaType.image,
               },
             );
           },
@@ -268,11 +275,8 @@ class MediaFlatPreview extends StatelessWidget {
         child: Row(
           children: Get.mediaQuery.orientation == Orientation.portrait
               ? [
-                  Flexible(
-                    flex: 5,
-                    child: _buildCover(context),
-                  ),
-                  Flexible(flex: 6, child: left)
+                  Flexible(flex: 5, child: _buildCover(context)),
+                  Flexible(flex: 6, child: left),
                 ]
               : [
                   Container(

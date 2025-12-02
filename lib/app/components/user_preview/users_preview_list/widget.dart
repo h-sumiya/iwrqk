@@ -33,7 +33,10 @@ class _UsersPreviewListState extends State<UsersPreviewList>
     super.initState();
     _controller = Get.find<UsersPreviewListController>(tag: widget.tag);
     _controller.initConfig(
-        widget.sortSetting, widget.sourceType, widget.isSearch);
+      widget.sortSetting,
+      widget.sourceType,
+      widget.isSearch,
+    );
   }
 
   @override
@@ -47,14 +50,12 @@ class _UsersPreviewListState extends State<UsersPreviewList>
           controller: scrollController,
           slivers: [
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return UserPreview(
-                    user: data[index],
-                  );
-                },
-                childCount: data.length,
-              ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext context,
+                int index,
+              ) {
+                return UserPreview(user: data[index]);
+              }, childCount: data.length),
             ),
           ],
         );

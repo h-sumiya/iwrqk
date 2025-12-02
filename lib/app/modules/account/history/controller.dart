@@ -54,8 +54,9 @@ class HistoryController extends GetxController
 
   void deleteChecked() async {
     for (String id in checkedList) {
-      await StorageProvider.historyList
-          .deleteWhere((element) => element.id == id);
+      await StorageProvider.historyList.deleteWhere(
+        (element) => element.id == id,
+      );
     }
     checkedList.clear();
     checkedCount = 0;

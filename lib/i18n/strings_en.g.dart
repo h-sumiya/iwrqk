@@ -3,12 +3,13 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -83,8 +84,14 @@ class TranslationsRulesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Rules'
 	String get title => 'Rules';
+
+	/// en: 'I accept the rules'
 	String get accept => 'I accept the rules';
+
+	/// en: 'I agree to have read the rules and will stay up to date with any future rule changes.'
 	String get accept_desc => 'I agree to have read the rules and will stay up to date with any future rule changes.';
 }
 
@@ -95,10 +102,20 @@ class TranslationsNavEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Subscriptions'
 	String get subscriptions => 'Subscriptions';
+
+	/// en: 'Videos'
 	String get videos => 'Videos';
+
+	/// en: 'Images'
 	String get images => 'Images';
+
+	/// en: 'Forum'
 	String get forum => 'Forum';
+
+	/// en: 'Search'
 	String get search => 'Search';
 }
 
@@ -109,11 +126,23 @@ class TranslationsCommonEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Video'
 	String get video => 'Video';
+
+	/// en: 'Image'
 	String get image => 'Image';
+
+	/// en: 'Collapse'
 	String get collapse => 'Collapse';
+
+	/// en: 'Expand'
 	String get expand => 'Expand';
+
+	/// en: 'Translate'
 	String get translate => 'Translate';
+
+	/// en: 'Open'
 	String get open => 'Open';
 }
 
@@ -124,12 +153,26 @@ class TranslationsRefreshEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Nothing here'
 	String get empty => 'Nothing here';
+
+	/// en: 'Pull to load'
 	String get drag_to_load => 'Pull to load';
+
+	/// en: 'Release to load'
 	String get release_to_load => 'Release to load';
+
+	/// en: 'Succeeded'
 	String get success => 'Succeeded';
+
+	/// en: 'Failed'
 	String get failed => 'Failed';
+
+	/// en: 'No more'
 	String get no_more => 'No more';
+
+	/// en: 'Last updated at %T'
 	String get last_load => 'Last updated at %T';
 }
 
@@ -140,11 +183,23 @@ class TranslationsRecordsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Select all'
 	String get select_all => 'Select all';
+
+	/// en: 'Select inverse'
 	String get select_inverse => 'Select inverse';
+
+	/// en: '$num selected'
 	String selected_num({required Object num}) => '${num} selected';
+
+	/// en: 'Multiple selection mode'
 	String get multiple_selection_mode => 'Multiple selection mode';
+
+	/// en: 'Delete'
 	String get delete => 'Delete';
+
+	/// en: 'Delete all'
 	String get delete_all => 'Delete all';
 }
 
@@ -155,14 +210,32 @@ class TranslationsAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Captcha'
 	String get captcha => 'Captcha';
+
+	/// en: 'Login'
 	String get login => 'Login';
+
+	/// en: 'Logout'
 	String get logout => 'Logout';
+
+	/// en: 'Register'
 	String get register => 'Register';
+
+	/// en: 'Email'
 	String get email => 'Email';
+
+	/// en: 'Email or username'
 	String get email_or_username => 'Email or username';
+
+	/// en: 'Password'
 	String get password => 'Password';
+
+	/// en: 'Forgot password?'
 	String get forgot_password => 'Forgot password?';
+
+	/// en: 'You must be logged in to do that.'
 	String get require_login => 'You must be logged in to do that.';
 }
 
@@ -173,20 +246,50 @@ class TranslationsProfileEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Profile'
 	String get profile => 'Profile';
+
+	/// en: 'Follow'
 	String get follow => 'Follow';
+
+	/// en: 'Followers'
 	String get followers => 'Followers';
+
+	/// en: 'Following'
 	String get following => 'Following';
+
+	/// en: 'Nickname'
 	String get nickname => 'Nickname';
+
+	/// en: 'Username'
 	String get username => 'Username';
+
+	/// en: 'User ID'
 	String get user_id => 'User ID';
+
+	/// en: 'Description'
 	String get description => 'Description';
+
+	/// en: 'This user prefers to keep an air of mystery around them.'
 	String get no_description => 'This user prefers to keep an air of mystery around them.';
+
+	/// en: 'Join date'
 	String get join_date => 'Join date';
+
+	/// en: 'Last active time'
 	String get last_active_time => 'Last active time';
+
+	/// en: 'Online'
 	String get online => 'Online';
+
+	/// en: 'Message'
 	String get message => 'Message';
+
+	/// en: 'Guestbook'
 	String get guestbook => 'Guestbook';
+
+	/// en: 'View more'
 	String get view_more => 'View more';
 }
 
@@ -197,10 +300,20 @@ class TranslationsSortEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Latest'
 	String get latest => 'Latest';
+
+	/// en: 'Trending'
 	String get trending => 'Trending';
+
+	/// en: 'Popularity'
 	String get popularity => 'Popularity';
+
+	/// en: 'Most views'
 	String get most_views => 'Most views';
+
+	/// en: 'Most likes'
 	String get most_likes => 'Most likes';
 }
 
@@ -211,16 +324,38 @@ class TranslationsFilterEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'All'
 	String get all => 'All';
+
+	/// en: 'Filter'
 	String get filter => 'Filter';
+
+	/// en: 'Rating'
 	String get rating => 'Rating';
+
+	/// en: 'Tag'
 	String get tag => 'Tag';
+
+	/// en: 'Tags'
 	String get tags => 'Tags';
+
+	/// en: 'Date'
 	String get date => 'Date';
+
+	/// en: 'General'
 	String get general => 'General';
+
+	/// en: 'Ecchi'
 	String get ecchi => 'Ecchi';
+
+	/// en: 'Select rating'
 	String get select_rating => 'Select rating';
+
+	/// en: 'Select year'
 	String get select_year => 'Select year';
+
+	/// en: 'Select month'
 	String get select_month => 'Select month';
 }
 
@@ -231,8 +366,13 @@ class TranslationsSearchEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Users'
 	String get users => 'Users';
+
+	/// en: 'Search'
 	String get search => 'Search';
+
 	late final TranslationsSearchHistoryEn history = TranslationsSearchHistoryEn.internal(_root);
 }
 
@@ -243,9 +383,17 @@ class TranslationsTimeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '$time seconds ago'
 	String seconds_ago({required Object time}) => '${time} seconds ago';
+
+	/// en: '$time minutes ago'
 	String minutes_ago({required Object time}) => '${time} minutes ago';
+
+	/// en: '$time hours ago'
 	String hours_ago({required Object time}) => '${time} hours ago';
+
+	/// en: '$time days ago'
 	String days_ago({required Object time}) => '${time} days ago';
 }
 
@@ -256,15 +404,35 @@ class TranslationsMediaEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Private'
 	String get private => 'Private';
+
+	/// en: 'Add to playlist'
 	String get add_to_playlist => 'Add to playlist';
+
+	/// en: 'External video'
 	String get external_video => 'External video';
+
+	/// en: 'Share'
 	String get share => 'Share';
+
+	/// en: 'Download'
 	String get download => 'Download';
+
+	/// en: 'More from $username'
 	String more_from({required Object username}) => 'More from ${username}';
+
+	/// en: 'More like this'
 	String get more_like_this => 'More like this';
+
+	/// en: 'Updated at $time'
 	String updated_at({required Object time}) => 'Updated at ${time}';
+
+	/// en: 'Detail'
 	String get detail => 'Detail';
+
+	/// en: 'Comments'
 	String get comments => 'Comments';
 }
 
@@ -275,15 +443,34 @@ class TranslationsPlayerEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Current: $item'
 	String current_item({required Object item}) => 'Current: ${item}';
+
+	/// en: 'Quality'
 	String get quality => 'Quality';
+
+	/// en: 'Select quality'
 	String get select_quality => 'Select quality';
+
+	/// en: 'Playback speed'
 	String get playback_speed => 'Playback speed';
+
+	/// en: 'Select playback speed'
 	String get select_playback_speed => 'Select playback speed';
+
+	/// en: 'Aspect ratio'
 	String get aspect_ratio => 'Aspect ratio';
+
+	/// en: 'Select aspect ratio'
 	String get select_aspect_ratio => 'Select aspect ratio';
+
 	late final TranslationsPlayerAspectRatiosEn aspect_ratios = TranslationsPlayerAspectRatiosEn.internal(_root);
+
+	/// en: '${value}s'
 	String seconds({required Object value}) => '${value}s';
+
+	/// en: '2x'
 	String get double_speed => '2x';
 }
 
@@ -294,13 +481,29 @@ class TranslationsCommentEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Comment'
 	String get comment => 'Comment';
+
+	/// en: 'Comments'
 	String get comments => 'Comments';
+
+	/// en: 'Comment detail'
 	String get comment_detail => 'Comment detail';
+
+	/// en: 'Edit comment'
 	String get edit_comment => 'Edit comment';
+
+	/// en: 'Delete comment'
 	String get delete_comment => 'Delete comment';
+
+	/// en: 'Reply'
 	String get reply => 'Reply';
+
+	/// en: '$numReply replies in total'
 	String replies_in_total({required Object numReply}) => '${numReply} replies in total';
+
+	/// en: 'Show all $numReply replies'
 	String show_all_replies({required Object numReply}) => 'Show all ${numReply} replies';
 }
 
@@ -311,14 +514,32 @@ class TranslationsUserEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Following'
 	String get following => 'Following';
+
+	/// en: 'History'
 	String get history => 'History';
+
+	/// en: 'Blocked Tags'
 	String get blocked_tags => 'Blocked Tags';
+
+	/// en: 'Friends'
 	String get friends => 'Friends';
+
+	/// en: 'Downloads'
 	String get downloads => 'Downloads';
+
+	/// en: 'Favorites'
 	String get favorites => 'Favorites';
+
+	/// en: 'Playlists'
 	String get playlists => 'Playlists';
+
+	/// en: 'Settings'
 	String get settings => 'Settings';
+
+	/// en: 'About'
 	String get about => 'About';
 }
 
@@ -329,11 +550,23 @@ class TranslationsFriendEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Friend Requests'
 	String get friend_requests => 'Friend Requests';
+
+	/// en: 'Add friend'
 	String get add_friend => 'Add friend';
+
+	/// en: 'Pending'
 	String get pending => 'Pending';
+
+	/// en: 'Unfriend'
 	String get unfriend => 'Unfriend';
+
+	/// en: 'Accept'
 	String get accept => 'Accept';
+
+	/// en: 'Reject'
 	String get reject => 'Reject';
 }
 
@@ -344,7 +577,11 @@ class TranslationsBlockedTagsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Add blocked tag'
 	String get add_blocked_tag => 'Add blocked tag';
+
+	/// en: 'Blocked tag'
 	String get blocked_tag => 'Blocked tag';
 }
 
@@ -355,18 +592,44 @@ class TranslationsDownloadEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Create download task'
 	String get create_download_task => 'Create download task';
+
+	/// en: 'Unknown'
 	String get unknown => 'Unknown';
+
+	/// en: 'Enqueued'
 	String get enqueued => 'Enqueued';
+
+	/// en: 'Downloading'
 	String get downloading => 'Downloading';
+
+	/// en: 'Paused'
 	String get paused => 'Paused';
+
+	/// en: 'Finished'
 	String get finished => 'Finished';
+
+	/// en: 'Failed'
 	String get failed => 'Failed';
+
+	/// en: 'Retry'
 	String get retry => 'Retry';
+
+	/// en: 'Delete'
 	String get delete => 'Delete';
+
+	/// en: 'Pause'
 	String get pause => 'Pause';
+
+	/// en: 'Resume'
 	String get resume => 'Resume';
+
+	/// en: 'Open with'
 	String get open_with => 'Open with';
+
+	/// en: 'Jump to detail page'
 	String get jump_to_detail => 'Jump to detail page';
 }
 
@@ -377,11 +640,23 @@ class TranslationsPlaylistEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Playlist title'
 	String get title => 'Playlist title';
+
+	/// en: 'Create playlist'
 	String get create => 'Create playlist';
+
+	/// en: 'Select playlist'
 	String get select => 'Select playlist';
+
+	/// en: 'Edit title'
 	String get edit_title => 'Edit title';
+
+	/// en: '$numVideo video'
 	String videos_count({required Object numVideo}) => '${numVideo} video';
+
+	/// en: '$numVideo videos'
 	String videos_count_plural({required Object numVideo}) => '${numVideo} videos';
 }
 
@@ -392,16 +667,38 @@ class TranslationsChannelEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Administration'
 	String get administration => 'Administration';
+
+	/// en: 'Announcements'
 	String get announcements => 'Announcements';
+
+	/// en: 'Feedback'
 	String get feedback => 'Feedback';
+
+	/// en: 'Support'
 	String get support => 'Support';
+
+	/// en: 'Global'
 	String get global => 'Global';
+
+	/// en: 'General'
 	String get general => 'General';
+
+	/// en: 'Guides'
 	String get guides => 'Guides';
+
+	/// en: 'Questions'
 	String get questions => 'Questions';
+
+	/// en: 'Requests'
 	String get requests => 'Requests';
+
+	/// en: 'Sharing'
 	String get sharing => 'Sharing';
+
+	/// en: '$numThread Threads $numPosts Posts'
 	String label({required Object numThread, required Object numPosts}) => '${numThread} Threads ${numPosts} Posts';
 }
 
@@ -412,8 +709,14 @@ class TranslationsCreateThreadEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Create thread'
 	String get create_thread => 'Create thread';
+
+	/// en: 'Title'
 	String get title => 'Title';
+
+	/// en: 'Content'
 	String get content => 'Content';
 }
 
@@ -424,12 +727,26 @@ class TranslationsNotificationsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'OK'
 	String get ok => 'OK';
+
+	/// en: 'Success'
 	String get success => 'Success';
+
+	/// en: 'Error'
 	String get error => 'Error';
+
+	/// en: 'Loading...'
 	String get loading => 'Loading...';
+
+	/// en: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en: 'Confirm'
 	String get confirm => 'Confirm';
+
+	/// en: 'Apply'
 	String get apply => 'Apply';
 }
 
@@ -440,44 +757,122 @@ class TranslationsSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Appearance'
 	String get appearance => 'Appearance';
+
+	/// en: 'Theme'
 	String get theme => 'Theme';
+
+	/// en: 'Change the theme of the App'
 	String get theme_desc => 'Change the theme of the App';
+
+	/// en: 'Dynamic Color'
 	String get dynamic_color => 'Dynamic Color';
+
+	/// en: 'Change the color of the App according to the content'
 	String get dynamic_color_desc => 'Change the color of the App according to the content';
+
+	/// en: 'Custom Color'
 	String get custom_color => 'Custom Color';
+
+	/// en: 'Customize the color of the App'
 	String get custom_color_desc => 'Customize the color of the App';
+
+	/// en: 'Language'
 	String get language => 'Language';
+
+	/// en: 'Change the language of the App'
 	String get language_desc => 'Change the language of the App';
+
+	/// en: 'Display Mode'
 	String get display_mode => 'Display Mode';
+
+	/// en: 'Change the display mode of the App'
 	String get display_mode_desc => 'Change the display mode of the App';
+
+	/// en: 'Work Mode'
 	String get work_mode => 'Work Mode';
+
+	/// en: 'Hide all covers of NSFW content'
 	String get work_mode_desc => 'Hide all covers of NSFW content';
+
+	/// en: 'Network'
 	String get network => 'Network';
+
+	/// en: 'Enable Proxy'
 	String get enable_proxy => 'Enable Proxy';
+
+	/// en: 'Enable proxy for the App'
 	String get enable_proxy_desc => 'Enable proxy for the App';
+
+	/// en: 'Proxy'
 	String get proxy => 'Proxy';
+
+	/// en: 'Set the host and port of the proxy'
 	String get proxy_desc => 'Set the host and port of the proxy';
+
+	/// en: 'Player'
 	String get player => 'Player';
+
+	/// en: 'Autoplay'
 	String get autoplay => 'Autoplay';
+
+	/// en: 'Autoplay video when opening a video page'
 	String get autoplay_desc => 'Autoplay video when opening a video page';
+
+	/// en: 'Background Play'
 	String get background_play => 'Background Play';
+
+	/// en: 'Allow the App to play video in the background'
 	String get background_play_desc => 'Allow the App to play video in the background';
+
+	/// en: 'Download'
 	String get download => 'Download';
+
+	/// en: 'Download Path'
 	String get download_path => 'Download Path';
+
+	/// en: 'Allow Media Scan'
 	String get allow_media_scan => 'Allow Media Scan';
+
+	/// en: 'Allow media scanner to read downloaded media files'
 	String get allow_media_scan_desc => 'Allow media scanner to read downloaded media files';
+
+	/// en: 'Logging'
 	String get logging => 'Logging';
+
+	/// en: 'Enable Logging'
 	String get enable_logging => 'Enable Logging';
+
+	/// en: 'Enable logging for the App'
 	String get enable_logging_desc => 'Enable logging for the App';
+
+	/// en: 'Clear Log'
 	String get clear_log => 'Clear Log';
+
+	/// en: 'Current log size: $size'
 	String clear_log_desc({required Object size}) => 'Current log size: ${size}';
+
+	/// en: 'Enable Verbose Logging'
 	String get enable_verbose_logging => 'Enable Verbose Logging';
+
+	/// en: 'Record more detailed logs'
 	String get enable_verbose_logging_desc => 'Record more detailed logs';
+
+	/// en: 'About'
 	String get about => 'About';
+
+	/// en: 'Check Update'
 	String get check_update => 'Check Update';
+
+	/// en: 'Check if there is a new version available'
 	String get check_update_desc => 'Check if there is a new version available';
+
+	/// en: 'Third Party License'
 	String get third_party_license => 'Third Party License';
+
+	/// en: 'View the license of third party libraries'
 	String get third_party_license_desc => 'View the license of third party libraries';
 }
 
@@ -488,8 +883,14 @@ class TranslationsThemeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'System'
 	String get system => 'System';
+
+	/// en: 'Light'
 	String get light => 'Light';
+
+	/// en: 'Dark'
 	String get dark => 'Dark';
 }
 
@@ -500,23 +901,59 @@ class TranslationsColorsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Pink'
 	String get pink => 'Pink';
+
+	/// en: 'Red'
 	String get red => 'Red';
+
+	/// en: 'Orange'
 	String get orange => 'Orange';
+
+	/// en: 'Amber'
 	String get amber => 'Amber';
+
+	/// en: 'Yellow'
 	String get yellow => 'Yellow';
+
+	/// en: 'Lime'
 	String get lime => 'Lime';
+
+	/// en: 'Light Green'
 	String get lightGreen => 'Light Green';
+
+	/// en: 'Green'
 	String get green => 'Green';
+
+	/// en: 'Teal'
 	String get teal => 'Teal';
+
+	/// en: 'Cyan'
 	String get cyan => 'Cyan';
+
+	/// en: 'Light Blue'
 	String get lightBlue => 'Light Blue';
+
+	/// en: 'Blue'
 	String get blue => 'Blue';
+
+	/// en: 'Indigo'
 	String get indigo => 'Indigo';
+
+	/// en: 'Purple'
 	String get purple => 'Purple';
+
+	/// en: 'Deep Purple'
 	String get deepPurple => 'Deep Purple';
+
+	/// en: 'Blue Grey'
 	String get blueGrey => 'Blue Grey';
+
+	/// en: 'Brown'
 	String get brown => 'Brown';
+
+	/// en: 'Grey'
 	String get grey => 'Grey';
 }
 
@@ -527,8 +964,14 @@ class TranslationsDisplayModeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'No available display mode'
 	String get no_available => 'No available display mode';
+
+	/// en: 'Auto'
 	String get auto => 'Auto';
+
+	/// en: 'System'
 	String get system => 'System';
 }
 
@@ -539,7 +982,11 @@ class TranslationsProxyEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Host'
 	String get host => 'Host';
+
+	/// en: 'Port'
 	String get port => 'Port';
 }
 
@@ -550,11 +997,22 @@ class TranslationsMessageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Press again to exit the App'
 	String get exit_app => 'Press again to exit the App';
+
+	/// en: 'Are you sure to do that?'
 	String get are_you_sure_to_do_that => 'Are you sure to do that?';
+
+	/// en: 'Restart the App to apply the changes.'
 	String get restart_required => 'Restart the App to apply the changes.';
+
+	/// en: 'Please type the host'
 	String get please_type_host => 'Please type the host';
+
+	/// en: 'Please type the port'
 	String get please_type_port => 'Please type the port';
+
 	late final TranslationsMessageAccountEn account = TranslationsMessageAccountEn.internal(_root);
 	late final TranslationsMessageCommentEn comment = TranslationsMessageCommentEn.internal(_root);
 	late final TranslationsMessageCreateThreadEn create_thread = TranslationsMessageCreateThreadEn.internal(_root);
@@ -571,11 +1029,22 @@ class TranslationsErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Load failed, click to retry.'
 	String get retry => 'Load failed, click to retry.';
+
+	/// en: 'Failed to fetch video links.'
 	String get fetch_failed => 'Failed to fetch video links.';
+
+	/// en: 'Failed to fetch user info.'
 	String get fetch_user_info_failed => 'Failed to fetch user info.';
+
+	/// en: 'Invalid path.'
 	String get invalid_path => 'Invalid path.';
+
+	/// en: 'Intercept app exit'
 	String get intercept_app_exit => 'Intercept app exit';
+
 	late final TranslationsErrorAccountEn account = TranslationsErrorAccountEn.internal(_root);
 }
 
@@ -586,6 +1055,8 @@ class TranslationsSearchHistoryEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Delete All'
 	String get delete => 'Delete All';
 }
 
@@ -596,11 +1067,23 @@ class TranslationsPlayerAspectRatiosEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Contain'
 	String get contain => 'Contain';
+
+	/// en: 'Cover'
 	String get cover => 'Cover';
+
+	/// en: 'Fill'
 	String get fill => 'Fill';
+
+	/// en: 'Fit height'
 	String get fit_height => 'Fit height';
+
+	/// en: 'Fit width'
 	String get fit_width => 'Fit width';
+
+	/// en: 'Scale down'
 	String get scale_down => 'Scale down';
 }
 
@@ -611,13 +1094,29 @@ class TranslationsMessageAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Login success.'
 	String get login_success => 'Login success.';
+
+	/// en: 'Register success, further instructions have been sent to your email.'
 	String get register_success => 'Register success, further instructions have been sent to your email.';
+
+	/// en: 'Password must be longer than 6 characters'
 	String get login_password_longer_than_6 => 'Password must be longer than 6 characters';
+
+	/// en: 'Please type your email'
 	String get please_type_email => 'Please type your email';
+
+	/// en: 'Please type your email or username'
 	String get please_type_email_or_username => 'Please type your email or username';
+
+	/// en: 'Please type a valid email'
 	String get please_type_valid_email => 'Please type a valid email';
+
+	/// en: 'Please type your password'
 	String get please_type_password => 'Please type your password';
+
+	/// en: 'Please type the captcha'
 	String get please_type_captcha => 'Please type the captcha';
 }
 
@@ -628,8 +1127,14 @@ class TranslationsMessageCommentEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Content can not be empty.'
 	String get content_empty => 'Content can not be empty.';
+
+	/// en: 'Content can not be longer than 1000 characters.'
 	String get content_too_long => 'Content can not be longer than 1000 characters.';
+
+	/// en: 'Reply sent.'
 	String get sent => 'Reply sent.';
 }
 
@@ -640,10 +1145,20 @@ class TranslationsMessageCreateThreadEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Title can not be empty.'
 	String get title_empty => 'Title can not be empty.';
+
+	/// en: 'Title is too long.'
 	String get title_too_long => 'Title is too long.';
+
+	/// en: 'Content can not be empty.'
 	String get content_empty => 'Content can not be empty.';
+
+	/// en: 'Content can not be longer than 20000 characters.'
 	String get content_too_long => 'Content can not be longer than 20000 characters.';
+
+	/// en: 'Thread Created.'
 	String get created => 'Thread Created.';
 }
 
@@ -654,8 +1169,14 @@ class TranslationsMessageBlockedTagsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Are you sure to save the blocked tags?'
 	String get save_confirm => 'Are you sure to save the blocked tags?';
+
+	/// en: 'Blocked tags saved.'
 	String get saved => 'Blocked tags saved.';
+
+	/// en: 'Blocked tags reached limit.'
 	String get reached_limit => 'Blocked tags reached limit.';
 }
 
@@ -666,8 +1187,14 @@ class TranslationsMessagePlaylistEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Playlist title can not be empty.'
 	String get empty_playlist_title => 'Playlist title can not be empty.';
+
+	/// en: 'Playlist created.'
 	String get playlist_created => 'Playlist created.';
+
+	/// en: 'Playlist title edited.'
 	String get playlist_title_edited => 'Playlist title edited.';
 }
 
@@ -678,9 +1205,17 @@ class TranslationsMessageDownloadEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'No storage permission provided.'
 	String get no_provide_storage_permission => 'No storage permission provided.';
+
+	/// en: 'Download task already exists.'
 	String get task_already_exists => 'Download task already exists.';
+
+	/// en: 'Download task created.'
 	String get task_created => 'Download task created.';
+
+	/// en: 'Maximum simultaneous download reached.'
 	String get maximum_simultaneous_download_reached => 'Maximum simultaneous download reached.';
 }
 
@@ -691,11 +1226,23 @@ class TranslationsMessageUpdateEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Failed to check update.'
 	String get check_update_failed => 'Failed to check update.';
+
+	/// en: 'Update available'
 	String get update_available => 'Update available';
+
+	/// en: 'Already the latest version'
 	String get already_latest_version => 'Already the latest version';
+
+	/// en: 'Current version: $version'
 	String current_version({required Object version}) => 'Current version: ${version}';
+
+	/// en: 'Latest version: $version'
 	String latest_version({required Object version}) => 'Latest version: ${version}';
+
+	/// en: 'View update'
 	String get view_update => 'View update';
 }
 
@@ -706,296 +1253,304 @@ class TranslationsErrorAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Invalid email or password.'
 	String get invalid_login => 'Invalid email or password.';
+
+	/// en: 'Invalid host.'
 	String get invalid_host => 'Invalid host.';
+
+	/// en: 'Invalid captcha.'
 	String get invalid_captcha => 'Invalid captcha.';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'locales.en': return 'English';
-			case 'locales.ja': return '日本語';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.zh-TW': return '繁體中文';
-			case 'rules.title': return 'Rules';
-			case 'rules.accept': return 'I accept the rules';
-			case 'rules.accept_desc': return 'I agree to have read the rules and will stay up to date with any future rule changes.';
-			case 'nav.subscriptions': return 'Subscriptions';
-			case 'nav.videos': return 'Videos';
-			case 'nav.images': return 'Images';
-			case 'nav.forum': return 'Forum';
-			case 'nav.search': return 'Search';
-			case 'common.video': return 'Video';
-			case 'common.image': return 'Image';
-			case 'common.collapse': return 'Collapse';
-			case 'common.expand': return 'Expand';
-			case 'common.translate': return 'Translate';
-			case 'common.open': return 'Open';
-			case 'refresh.empty': return 'Nothing here';
-			case 'refresh.drag_to_load': return 'Pull to load';
-			case 'refresh.release_to_load': return 'Release to load';
-			case 'refresh.success': return 'Succeeded';
-			case 'refresh.failed': return 'Failed';
-			case 'refresh.no_more': return 'No more';
-			case 'refresh.last_load': return 'Last updated at %T';
-			case 'records.select_all': return 'Select all';
-			case 'records.select_inverse': return 'Select inverse';
-			case 'records.selected_num': return ({required Object num}) => '${num} selected';
-			case 'records.multiple_selection_mode': return 'Multiple selection mode';
-			case 'records.delete': return 'Delete';
-			case 'records.delete_all': return 'Delete all';
-			case 'account.captcha': return 'Captcha';
-			case 'account.login': return 'Login';
-			case 'account.logout': return 'Logout';
-			case 'account.register': return 'Register';
-			case 'account.email': return 'Email';
-			case 'account.email_or_username': return 'Email or username';
-			case 'account.password': return 'Password';
-			case 'account.forgot_password': return 'Forgot password?';
-			case 'account.require_login': return 'You must be logged in to do that.';
-			case 'profile.profile': return 'Profile';
-			case 'profile.follow': return 'Follow';
-			case 'profile.followers': return 'Followers';
-			case 'profile.following': return 'Following';
-			case 'profile.nickname': return 'Nickname';
-			case 'profile.username': return 'Username';
-			case 'profile.user_id': return 'User ID';
-			case 'profile.description': return 'Description';
-			case 'profile.no_description': return 'This user prefers to keep an air of mystery around them.';
-			case 'profile.join_date': return 'Join date';
-			case 'profile.last_active_time': return 'Last active time';
-			case 'profile.online': return 'Online';
-			case 'profile.message': return 'Message';
-			case 'profile.guestbook': return 'Guestbook';
-			case 'profile.view_more': return 'View more';
-			case 'sort.latest': return 'Latest';
-			case 'sort.trending': return 'Trending';
-			case 'sort.popularity': return 'Popularity';
-			case 'sort.most_views': return 'Most views';
-			case 'sort.most_likes': return 'Most likes';
-			case 'filter.all': return 'All';
-			case 'filter.filter': return 'Filter';
-			case 'filter.rating': return 'Rating';
-			case 'filter.tag': return 'Tag';
-			case 'filter.tags': return 'Tags';
-			case 'filter.date': return 'Date';
-			case 'filter.general': return 'General';
-			case 'filter.ecchi': return 'Ecchi';
-			case 'filter.select_rating': return 'Select rating';
-			case 'filter.select_year': return 'Select year';
-			case 'filter.select_month': return 'Select month';
-			case 'search.users': return 'Users';
-			case 'search.search': return 'Search';
-			case 'search.history.delete': return 'Delete All';
-			case 'time.seconds_ago': return ({required Object time}) => '${time} seconds ago';
-			case 'time.minutes_ago': return ({required Object time}) => '${time} minutes ago';
-			case 'time.hours_ago': return ({required Object time}) => '${time} hours ago';
-			case 'time.days_ago': return ({required Object time}) => '${time} days ago';
-			case 'media.private': return 'Private';
-			case 'media.add_to_playlist': return 'Add to playlist';
-			case 'media.external_video': return 'External video';
-			case 'media.share': return 'Share';
-			case 'media.download': return 'Download';
-			case 'media.more_from': return ({required Object username}) => 'More from ${username}';
-			case 'media.more_like_this': return 'More like this';
-			case 'media.updated_at': return ({required Object time}) => 'Updated at ${time}';
-			case 'media.detail': return 'Detail';
-			case 'media.comments': return 'Comments';
-			case 'player.current_item': return ({required Object item}) => 'Current: ${item}';
-			case 'player.quality': return 'Quality';
-			case 'player.select_quality': return 'Select quality';
-			case 'player.playback_speed': return 'Playback speed';
-			case 'player.select_playback_speed': return 'Select playback speed';
-			case 'player.aspect_ratio': return 'Aspect ratio';
-			case 'player.select_aspect_ratio': return 'Select aspect ratio';
-			case 'player.aspect_ratios.contain': return 'Contain';
-			case 'player.aspect_ratios.cover': return 'Cover';
-			case 'player.aspect_ratios.fill': return 'Fill';
-			case 'player.aspect_ratios.fit_height': return 'Fit height';
-			case 'player.aspect_ratios.fit_width': return 'Fit width';
-			case 'player.aspect_ratios.scale_down': return 'Scale down';
-			case 'player.seconds': return ({required Object value}) => '${value}s';
-			case 'player.double_speed': return '2x';
-			case 'comment.comment': return 'Comment';
-			case 'comment.comments': return 'Comments';
-			case 'comment.comment_detail': return 'Comment detail';
-			case 'comment.edit_comment': return 'Edit comment';
-			case 'comment.delete_comment': return 'Delete comment';
-			case 'comment.reply': return 'Reply';
-			case 'comment.replies_in_total': return ({required Object numReply}) => '${numReply} replies in total';
-			case 'comment.show_all_replies': return ({required Object numReply}) => 'Show all ${numReply} replies';
-			case 'user.following': return 'Following';
-			case 'user.history': return 'History';
-			case 'user.blocked_tags': return 'Blocked Tags';
-			case 'user.friends': return 'Friends';
-			case 'user.downloads': return 'Downloads';
-			case 'user.favorites': return 'Favorites';
-			case 'user.playlists': return 'Playlists';
-			case 'user.settings': return 'Settings';
-			case 'user.about': return 'About';
-			case 'friend.friend_requests': return 'Friend Requests';
-			case 'friend.add_friend': return 'Add friend';
-			case 'friend.pending': return 'Pending';
-			case 'friend.unfriend': return 'Unfriend';
-			case 'friend.accept': return 'Accept';
-			case 'friend.reject': return 'Reject';
-			case 'blocked_tags.add_blocked_tag': return 'Add blocked tag';
-			case 'blocked_tags.blocked_tag': return 'Blocked tag';
-			case 'download.create_download_task': return 'Create download task';
-			case 'download.unknown': return 'Unknown';
-			case 'download.enqueued': return 'Enqueued';
-			case 'download.downloading': return 'Downloading';
-			case 'download.paused': return 'Paused';
-			case 'download.finished': return 'Finished';
-			case 'download.failed': return 'Failed';
-			case 'download.retry': return 'Retry';
-			case 'download.delete': return 'Delete';
-			case 'download.pause': return 'Pause';
-			case 'download.resume': return 'Resume';
-			case 'download.open_with': return 'Open with';
-			case 'download.jump_to_detail': return 'Jump to detail page';
-			case 'playlist.title': return 'Playlist title';
-			case 'playlist.create': return 'Create playlist';
-			case 'playlist.select': return 'Select playlist';
-			case 'playlist.edit_title': return 'Edit title';
-			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} video';
-			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} videos';
-			case 'channel.administration': return 'Administration';
-			case 'channel.announcements': return 'Announcements';
-			case 'channel.feedback': return 'Feedback';
-			case 'channel.support': return 'Support';
-			case 'channel.global': return 'Global';
-			case 'channel.general': return 'General';
-			case 'channel.guides': return 'Guides';
-			case 'channel.questions': return 'Questions';
-			case 'channel.requests': return 'Requests';
-			case 'channel.sharing': return 'Sharing';
-			case 'channel.label': return ({required Object numThread, required Object numPosts}) => '${numThread} Threads ${numPosts} Posts';
-			case 'create_thread.create_thread': return 'Create thread';
-			case 'create_thread.title': return 'Title';
-			case 'create_thread.content': return 'Content';
-			case 'notifications.ok': return 'OK';
-			case 'notifications.success': return 'Success';
-			case 'notifications.error': return 'Error';
-			case 'notifications.loading': return 'Loading...';
-			case 'notifications.cancel': return 'Cancel';
-			case 'notifications.confirm': return 'Confirm';
-			case 'notifications.apply': return 'Apply';
-			case 'settings.appearance': return 'Appearance';
-			case 'settings.theme': return 'Theme';
-			case 'settings.theme_desc': return 'Change the theme of the App';
-			case 'settings.dynamic_color': return 'Dynamic Color';
-			case 'settings.dynamic_color_desc': return 'Change the color of the App according to the content';
-			case 'settings.custom_color': return 'Custom Color';
-			case 'settings.custom_color_desc': return 'Customize the color of the App';
-			case 'settings.language': return 'Language';
-			case 'settings.language_desc': return 'Change the language of the App';
-			case 'settings.display_mode': return 'Display Mode';
-			case 'settings.display_mode_desc': return 'Change the display mode of the App';
-			case 'settings.work_mode': return 'Work Mode';
-			case 'settings.work_mode_desc': return 'Hide all covers of NSFW content';
-			case 'settings.network': return 'Network';
-			case 'settings.enable_proxy': return 'Enable Proxy';
-			case 'settings.enable_proxy_desc': return 'Enable proxy for the App';
-			case 'settings.proxy': return 'Proxy';
-			case 'settings.proxy_desc': return 'Set the host and port of the proxy';
-			case 'settings.player': return 'Player';
-			case 'settings.autoplay': return 'Autoplay';
-			case 'settings.autoplay_desc': return 'Autoplay video when opening a video page';
-			case 'settings.background_play': return 'Background Play';
-			case 'settings.background_play_desc': return 'Allow the App to play video in the background';
-			case 'settings.download': return 'Download';
-			case 'settings.download_path': return 'Download Path';
-			case 'settings.allow_media_scan': return 'Allow Media Scan';
-			case 'settings.allow_media_scan_desc': return 'Allow media scanner to read downloaded media files';
-			case 'settings.logging': return 'Logging';
-			case 'settings.enable_logging': return 'Enable Logging';
-			case 'settings.enable_logging_desc': return 'Enable logging for the App';
-			case 'settings.clear_log': return 'Clear Log';
-			case 'settings.clear_log_desc': return ({required Object size}) => 'Current log size: ${size}';
-			case 'settings.enable_verbose_logging': return 'Enable Verbose Logging';
-			case 'settings.enable_verbose_logging_desc': return 'Record more detailed logs';
-			case 'settings.about': return 'About';
-			case 'settings.check_update': return 'Check Update';
-			case 'settings.check_update_desc': return 'Check if there is a new version available';
-			case 'settings.third_party_license': return 'Third Party License';
-			case 'settings.third_party_license_desc': return 'View the license of third party libraries';
-			case 'theme.system': return 'System';
-			case 'theme.light': return 'Light';
-			case 'theme.dark': return 'Dark';
-			case 'colors.pink': return 'Pink';
-			case 'colors.red': return 'Red';
-			case 'colors.orange': return 'Orange';
-			case 'colors.amber': return 'Amber';
-			case 'colors.yellow': return 'Yellow';
-			case 'colors.lime': return 'Lime';
-			case 'colors.lightGreen': return 'Light Green';
-			case 'colors.green': return 'Green';
-			case 'colors.teal': return 'Teal';
-			case 'colors.cyan': return 'Cyan';
-			case 'colors.lightBlue': return 'Light Blue';
-			case 'colors.blue': return 'Blue';
-			case 'colors.indigo': return 'Indigo';
-			case 'colors.purple': return 'Purple';
-			case 'colors.deepPurple': return 'Deep Purple';
-			case 'colors.blueGrey': return 'Blue Grey';
-			case 'colors.brown': return 'Brown';
-			case 'colors.grey': return 'Grey';
-			case 'display_mode.no_available': return 'No available display mode';
-			case 'display_mode.auto': return 'Auto';
-			case 'display_mode.system': return 'System';
-			case 'proxy.host': return 'Host';
-			case 'proxy.port': return 'Port';
-			case 'message.exit_app': return 'Press again to exit the App';
-			case 'message.are_you_sure_to_do_that': return 'Are you sure to do that?';
-			case 'message.restart_required': return 'Restart the App to apply the changes.';
-			case 'message.please_type_host': return 'Please type the host';
-			case 'message.please_type_port': return 'Please type the port';
-			case 'message.account.login_success': return 'Login success.';
-			case 'message.account.register_success': return 'Register success, further instructions have been sent to your email.';
-			case 'message.account.login_password_longer_than_6': return 'Password must be longer than 6 characters';
-			case 'message.account.please_type_email': return 'Please type your email';
-			case 'message.account.please_type_email_or_username': return 'Please type your email or username';
-			case 'message.account.please_type_valid_email': return 'Please type a valid email';
-			case 'message.account.please_type_password': return 'Please type your password';
-			case 'message.account.please_type_captcha': return 'Please type the captcha';
-			case 'message.comment.content_empty': return 'Content can not be empty.';
-			case 'message.comment.content_too_long': return 'Content can not be longer than 1000 characters.';
-			case 'message.comment.sent': return 'Reply sent.';
-			case 'message.create_thread.title_empty': return 'Title can not be empty.';
-			case 'message.create_thread.title_too_long': return 'Title is too long.';
-			case 'message.create_thread.content_empty': return 'Content can not be empty.';
-			case 'message.create_thread.content_too_long': return 'Content can not be longer than 20000 characters.';
-			case 'message.create_thread.created': return 'Thread Created.';
-			case 'message.blocked_tags.save_confirm': return 'Are you sure to save the blocked tags?';
-			case 'message.blocked_tags.saved': return 'Blocked tags saved.';
-			case 'message.blocked_tags.reached_limit': return 'Blocked tags reached limit.';
-			case 'message.playlist.empty_playlist_title': return 'Playlist title can not be empty.';
-			case 'message.playlist.playlist_created': return 'Playlist created.';
-			case 'message.playlist.playlist_title_edited': return 'Playlist title edited.';
-			case 'message.download.no_provide_storage_permission': return 'No storage permission provided.';
-			case 'message.download.task_already_exists': return 'Download task already exists.';
-			case 'message.download.task_created': return 'Download task created.';
-			case 'message.download.maximum_simultaneous_download_reached': return 'Maximum simultaneous download reached.';
-			case 'message.update.check_update_failed': return 'Failed to check update.';
-			case 'message.update.update_available': return 'Update available';
-			case 'message.update.already_latest_version': return 'Already the latest version';
-			case 'message.update.current_version': return ({required Object version}) => 'Current version: ${version}';
-			case 'message.update.latest_version': return ({required Object version}) => 'Latest version: ${version}';
-			case 'message.update.view_update': return 'View update';
-			case 'error.retry': return 'Load failed, click to retry.';
-			case 'error.fetch_failed': return 'Failed to fetch video links.';
-			case 'error.fetch_user_info_failed': return 'Failed to fetch user info.';
-			case 'error.invalid_path': return 'Invalid path.';
-			case 'error.intercept_app_exit': return 'Intercept app exit';
-			case 'error.account.invalid_login': return 'Invalid email or password.';
-			case 'error.account.invalid_host': return 'Invalid host.';
-			case 'error.account.invalid_captcha': return 'Invalid captcha.';
-			default: return null;
-		}
+		return switch (path) {
+			'locales.en' => 'English',
+			'locales.ja' => '日本語',
+			'locales.zh-CN' => '简体中文',
+			'locales.zh-TW' => '繁體中文',
+			'rules.title' => 'Rules',
+			'rules.accept' => 'I accept the rules',
+			'rules.accept_desc' => 'I agree to have read the rules and will stay up to date with any future rule changes.',
+			'nav.subscriptions' => 'Subscriptions',
+			'nav.videos' => 'Videos',
+			'nav.images' => 'Images',
+			'nav.forum' => 'Forum',
+			'nav.search' => 'Search',
+			'common.video' => 'Video',
+			'common.image' => 'Image',
+			'common.collapse' => 'Collapse',
+			'common.expand' => 'Expand',
+			'common.translate' => 'Translate',
+			'common.open' => 'Open',
+			'refresh.empty' => 'Nothing here',
+			'refresh.drag_to_load' => 'Pull to load',
+			'refresh.release_to_load' => 'Release to load',
+			'refresh.success' => 'Succeeded',
+			'refresh.failed' => 'Failed',
+			'refresh.no_more' => 'No more',
+			'refresh.last_load' => 'Last updated at %T',
+			'records.select_all' => 'Select all',
+			'records.select_inverse' => 'Select inverse',
+			'records.selected_num' => ({required Object num}) => '${num} selected',
+			'records.multiple_selection_mode' => 'Multiple selection mode',
+			'records.delete' => 'Delete',
+			'records.delete_all' => 'Delete all',
+			'account.captcha' => 'Captcha',
+			'account.login' => 'Login',
+			'account.logout' => 'Logout',
+			'account.register' => 'Register',
+			'account.email' => 'Email',
+			'account.email_or_username' => 'Email or username',
+			'account.password' => 'Password',
+			'account.forgot_password' => 'Forgot password?',
+			'account.require_login' => 'You must be logged in to do that.',
+			'profile.profile' => 'Profile',
+			'profile.follow' => 'Follow',
+			'profile.followers' => 'Followers',
+			'profile.following' => 'Following',
+			'profile.nickname' => 'Nickname',
+			'profile.username' => 'Username',
+			'profile.user_id' => 'User ID',
+			'profile.description' => 'Description',
+			'profile.no_description' => 'This user prefers to keep an air of mystery around them.',
+			'profile.join_date' => 'Join date',
+			'profile.last_active_time' => 'Last active time',
+			'profile.online' => 'Online',
+			'profile.message' => 'Message',
+			'profile.guestbook' => 'Guestbook',
+			'profile.view_more' => 'View more',
+			'sort.latest' => 'Latest',
+			'sort.trending' => 'Trending',
+			'sort.popularity' => 'Popularity',
+			'sort.most_views' => 'Most views',
+			'sort.most_likes' => 'Most likes',
+			'filter.all' => 'All',
+			'filter.filter' => 'Filter',
+			'filter.rating' => 'Rating',
+			'filter.tag' => 'Tag',
+			'filter.tags' => 'Tags',
+			'filter.date' => 'Date',
+			'filter.general' => 'General',
+			'filter.ecchi' => 'Ecchi',
+			'filter.select_rating' => 'Select rating',
+			'filter.select_year' => 'Select year',
+			'filter.select_month' => 'Select month',
+			'search.users' => 'Users',
+			'search.search' => 'Search',
+			'search.history.delete' => 'Delete All',
+			'time.seconds_ago' => ({required Object time}) => '${time} seconds ago',
+			'time.minutes_ago' => ({required Object time}) => '${time} minutes ago',
+			'time.hours_ago' => ({required Object time}) => '${time} hours ago',
+			'time.days_ago' => ({required Object time}) => '${time} days ago',
+			'media.private' => 'Private',
+			'media.add_to_playlist' => 'Add to playlist',
+			'media.external_video' => 'External video',
+			'media.share' => 'Share',
+			'media.download' => 'Download',
+			'media.more_from' => ({required Object username}) => 'More from ${username}',
+			'media.more_like_this' => 'More like this',
+			'media.updated_at' => ({required Object time}) => 'Updated at ${time}',
+			'media.detail' => 'Detail',
+			'media.comments' => 'Comments',
+			'player.current_item' => ({required Object item}) => 'Current: ${item}',
+			'player.quality' => 'Quality',
+			'player.select_quality' => 'Select quality',
+			'player.playback_speed' => 'Playback speed',
+			'player.select_playback_speed' => 'Select playback speed',
+			'player.aspect_ratio' => 'Aspect ratio',
+			'player.select_aspect_ratio' => 'Select aspect ratio',
+			'player.aspect_ratios.contain' => 'Contain',
+			'player.aspect_ratios.cover' => 'Cover',
+			'player.aspect_ratios.fill' => 'Fill',
+			'player.aspect_ratios.fit_height' => 'Fit height',
+			'player.aspect_ratios.fit_width' => 'Fit width',
+			'player.aspect_ratios.scale_down' => 'Scale down',
+			'player.seconds' => ({required Object value}) => '${value}s',
+			'player.double_speed' => '2x',
+			'comment.comment' => 'Comment',
+			'comment.comments' => 'Comments',
+			'comment.comment_detail' => 'Comment detail',
+			'comment.edit_comment' => 'Edit comment',
+			'comment.delete_comment' => 'Delete comment',
+			'comment.reply' => 'Reply',
+			'comment.replies_in_total' => ({required Object numReply}) => '${numReply} replies in total',
+			'comment.show_all_replies' => ({required Object numReply}) => 'Show all ${numReply} replies',
+			'user.following' => 'Following',
+			'user.history' => 'History',
+			'user.blocked_tags' => 'Blocked Tags',
+			'user.friends' => 'Friends',
+			'user.downloads' => 'Downloads',
+			'user.favorites' => 'Favorites',
+			'user.playlists' => 'Playlists',
+			'user.settings' => 'Settings',
+			'user.about' => 'About',
+			'friend.friend_requests' => 'Friend Requests',
+			'friend.add_friend' => 'Add friend',
+			'friend.pending' => 'Pending',
+			'friend.unfriend' => 'Unfriend',
+			'friend.accept' => 'Accept',
+			'friend.reject' => 'Reject',
+			'blocked_tags.add_blocked_tag' => 'Add blocked tag',
+			'blocked_tags.blocked_tag' => 'Blocked tag',
+			'download.create_download_task' => 'Create download task',
+			'download.unknown' => 'Unknown',
+			'download.enqueued' => 'Enqueued',
+			'download.downloading' => 'Downloading',
+			'download.paused' => 'Paused',
+			'download.finished' => 'Finished',
+			'download.failed' => 'Failed',
+			'download.retry' => 'Retry',
+			'download.delete' => 'Delete',
+			'download.pause' => 'Pause',
+			'download.resume' => 'Resume',
+			'download.open_with' => 'Open with',
+			'download.jump_to_detail' => 'Jump to detail page',
+			'playlist.title' => 'Playlist title',
+			'playlist.create' => 'Create playlist',
+			'playlist.select' => 'Select playlist',
+			'playlist.edit_title' => 'Edit title',
+			'playlist.videos_count' => ({required Object numVideo}) => '${numVideo} video',
+			'playlist.videos_count_plural' => ({required Object numVideo}) => '${numVideo} videos',
+			'channel.administration' => 'Administration',
+			'channel.announcements' => 'Announcements',
+			'channel.feedback' => 'Feedback',
+			'channel.support' => 'Support',
+			'channel.global' => 'Global',
+			'channel.general' => 'General',
+			'channel.guides' => 'Guides',
+			'channel.questions' => 'Questions',
+			'channel.requests' => 'Requests',
+			'channel.sharing' => 'Sharing',
+			'channel.label' => ({required Object numThread, required Object numPosts}) => '${numThread} Threads ${numPosts} Posts',
+			'create_thread.create_thread' => 'Create thread',
+			'create_thread.title' => 'Title',
+			'create_thread.content' => 'Content',
+			'notifications.ok' => 'OK',
+			'notifications.success' => 'Success',
+			'notifications.error' => 'Error',
+			'notifications.loading' => 'Loading...',
+			'notifications.cancel' => 'Cancel',
+			'notifications.confirm' => 'Confirm',
+			'notifications.apply' => 'Apply',
+			'settings.appearance' => 'Appearance',
+			'settings.theme' => 'Theme',
+			'settings.theme_desc' => 'Change the theme of the App',
+			'settings.dynamic_color' => 'Dynamic Color',
+			'settings.dynamic_color_desc' => 'Change the color of the App according to the content',
+			'settings.custom_color' => 'Custom Color',
+			'settings.custom_color_desc' => 'Customize the color of the App',
+			'settings.language' => 'Language',
+			'settings.language_desc' => 'Change the language of the App',
+			'settings.display_mode' => 'Display Mode',
+			'settings.display_mode_desc' => 'Change the display mode of the App',
+			'settings.work_mode' => 'Work Mode',
+			'settings.work_mode_desc' => 'Hide all covers of NSFW content',
+			'settings.network' => 'Network',
+			'settings.enable_proxy' => 'Enable Proxy',
+			'settings.enable_proxy_desc' => 'Enable proxy for the App',
+			'settings.proxy' => 'Proxy',
+			'settings.proxy_desc' => 'Set the host and port of the proxy',
+			'settings.player' => 'Player',
+			'settings.autoplay' => 'Autoplay',
+			'settings.autoplay_desc' => 'Autoplay video when opening a video page',
+			'settings.background_play' => 'Background Play',
+			'settings.background_play_desc' => 'Allow the App to play video in the background',
+			'settings.download' => 'Download',
+			'settings.download_path' => 'Download Path',
+			'settings.allow_media_scan' => 'Allow Media Scan',
+			'settings.allow_media_scan_desc' => 'Allow media scanner to read downloaded media files',
+			'settings.logging' => 'Logging',
+			'settings.enable_logging' => 'Enable Logging',
+			'settings.enable_logging_desc' => 'Enable logging for the App',
+			'settings.clear_log' => 'Clear Log',
+			'settings.clear_log_desc' => ({required Object size}) => 'Current log size: ${size}',
+			'settings.enable_verbose_logging' => 'Enable Verbose Logging',
+			'settings.enable_verbose_logging_desc' => 'Record more detailed logs',
+			'settings.about' => 'About',
+			'settings.check_update' => 'Check Update',
+			'settings.check_update_desc' => 'Check if there is a new version available',
+			'settings.third_party_license' => 'Third Party License',
+			'settings.third_party_license_desc' => 'View the license of third party libraries',
+			'theme.system' => 'System',
+			'theme.light' => 'Light',
+			'theme.dark' => 'Dark',
+			'colors.pink' => 'Pink',
+			'colors.red' => 'Red',
+			'colors.orange' => 'Orange',
+			'colors.amber' => 'Amber',
+			'colors.yellow' => 'Yellow',
+			'colors.lime' => 'Lime',
+			'colors.lightGreen' => 'Light Green',
+			'colors.green' => 'Green',
+			'colors.teal' => 'Teal',
+			'colors.cyan' => 'Cyan',
+			'colors.lightBlue' => 'Light Blue',
+			'colors.blue' => 'Blue',
+			'colors.indigo' => 'Indigo',
+			'colors.purple' => 'Purple',
+			'colors.deepPurple' => 'Deep Purple',
+			'colors.blueGrey' => 'Blue Grey',
+			'colors.brown' => 'Brown',
+			'colors.grey' => 'Grey',
+			'display_mode.no_available' => 'No available display mode',
+			'display_mode.auto' => 'Auto',
+			'display_mode.system' => 'System',
+			'proxy.host' => 'Host',
+			'proxy.port' => 'Port',
+			'message.exit_app' => 'Press again to exit the App',
+			'message.are_you_sure_to_do_that' => 'Are you sure to do that?',
+			'message.restart_required' => 'Restart the App to apply the changes.',
+			'message.please_type_host' => 'Please type the host',
+			'message.please_type_port' => 'Please type the port',
+			'message.account.login_success' => 'Login success.',
+			'message.account.register_success' => 'Register success, further instructions have been sent to your email.',
+			'message.account.login_password_longer_than_6' => 'Password must be longer than 6 characters',
+			'message.account.please_type_email' => 'Please type your email',
+			'message.account.please_type_email_or_username' => 'Please type your email or username',
+			'message.account.please_type_valid_email' => 'Please type a valid email',
+			'message.account.please_type_password' => 'Please type your password',
+			'message.account.please_type_captcha' => 'Please type the captcha',
+			'message.comment.content_empty' => 'Content can not be empty.',
+			'message.comment.content_too_long' => 'Content can not be longer than 1000 characters.',
+			'message.comment.sent' => 'Reply sent.',
+			'message.create_thread.title_empty' => 'Title can not be empty.',
+			'message.create_thread.title_too_long' => 'Title is too long.',
+			'message.create_thread.content_empty' => 'Content can not be empty.',
+			'message.create_thread.content_too_long' => 'Content can not be longer than 20000 characters.',
+			'message.create_thread.created' => 'Thread Created.',
+			'message.blocked_tags.save_confirm' => 'Are you sure to save the blocked tags?',
+			'message.blocked_tags.saved' => 'Blocked tags saved.',
+			'message.blocked_tags.reached_limit' => 'Blocked tags reached limit.',
+			'message.playlist.empty_playlist_title' => 'Playlist title can not be empty.',
+			'message.playlist.playlist_created' => 'Playlist created.',
+			'message.playlist.playlist_title_edited' => 'Playlist title edited.',
+			'message.download.no_provide_storage_permission' => 'No storage permission provided.',
+			'message.download.task_already_exists' => 'Download task already exists.',
+			'message.download.task_created' => 'Download task created.',
+			'message.download.maximum_simultaneous_download_reached' => 'Maximum simultaneous download reached.',
+			'message.update.check_update_failed' => 'Failed to check update.',
+			'message.update.update_available' => 'Update available',
+			'message.update.already_latest_version' => 'Already the latest version',
+			'message.update.current_version' => ({required Object version}) => 'Current version: ${version}',
+			'message.update.latest_version' => ({required Object version}) => 'Latest version: ${version}',
+			'message.update.view_update' => 'View update',
+			'error.retry' => 'Load failed, click to retry.',
+			'error.fetch_failed' => 'Failed to fetch video links.',
+			'error.fetch_user_info_failed' => 'Failed to fetch user info.',
+			'error.invalid_path' => 'Invalid path.',
+			'error.intercept_app_exit' => 'Intercept app exit',
+			'error.account.invalid_login' => 'Invalid email or password.',
+			'error.account.invalid_host' => 'Invalid host.',
+			'error.account.invalid_captcha' => 'Invalid captcha.',
+			_ => null,
+		};
 	}
 }
-

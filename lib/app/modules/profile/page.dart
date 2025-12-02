@@ -126,20 +126,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               Text(
                                 DisplayUtil.compactBigNumber(
-                                    _controller.followingNum),
+                                  _controller.followingNum,
+                                ),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                t.profile.following,
-                              )
+                              Text(t.profile.following),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          width: 16,
-                        ),
+                        const SizedBox(width: 16),
                         GestureDetector(
                           onTap: () {
                             HapticFeedback.mediumImpact();
@@ -151,17 +148,16 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               Text(
                                 DisplayUtil.compactBigNumber(
-                                    _controller.followersNum),
+                                  _controller.followersNum,
+                                ),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                t.profile.followers,
-                              )
+                              Text(t.profile.followers),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                     Padding(
@@ -199,10 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
             _controller.profile.user!.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
@@ -211,19 +204,13 @@ class _ProfilePageState extends State<ProfilePage> {
             "@${_controller.profile.user!.username}",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 14,
-            ),
+            style: const TextStyle(fontSize: 14),
           ),
         ),
         const SizedBox(height: 4),
         InkWell(
           onTap: () {
-            Get.to(
-              () => ProfileDetailPage(
-                profile: _controller.profile,
-              ),
-            );
+            Get.to(() => ProfileDetailPage(profile: _controller.profile));
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -237,9 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         : _controller.profile.body.trim(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ),
                 const Icon(Icons.chevron_right, size: 16),
@@ -267,14 +252,11 @@ class _ProfilePageState extends State<ProfilePage> {
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           sliver: SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return MediaPreview(
-                  media: _controller.popularVideos.results[index],
-                );
-              },
-              childCount: _controller.popularVideos.results.length,
-            ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return MediaPreview(
+                media: _controller.popularVideos.results[index],
+              );
+            }, childCount: _controller.popularVideos.results.length),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: _controller.configService.gridChildAspectRatio,
               crossAxisCount: _controller.configService.crossAxisCount,
@@ -301,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Text(t.profile.view_more),
               ),
             ),
-          )
+          ),
       ],
       if (_controller.popularImages.count != 0) ...[
         SliverToBoxAdapter(
@@ -316,14 +298,11 @@ class _ProfilePageState extends State<ProfilePage> {
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           sliver: SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return MediaPreview(
-                  media: _controller.popularImages.results[index],
-                );
-              },
-              childCount: _controller.popularImages.results.length,
-            ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return MediaPreview(
+                media: _controller.popularImages.results[index],
+              );
+            }, childCount: _controller.popularImages.results.length),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: _controller.configService.gridChildAspectRatio,
               crossAxisCount: _controller.configService.crossAxisCount,
@@ -350,7 +329,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Text(t.profile.view_more),
               ),
             ),
-          )
+          ),
       ],
     ];
   }
@@ -412,14 +391,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               titleSpacing: 0,
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.message),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert),
-                ),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.message)),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
               ],
             ),
           ];
@@ -427,18 +400,14 @@ class _ProfilePageState extends State<ProfilePage> {
         body: Obx(
           () => CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(
-                child: _buildHeader(),
-              ),
+              SliverToBoxAdapter(child: _buildHeader()),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: InkWell(
                     onTap: () {
                       Get.to(
-                        () => GuestbookPage(
-                          user: _controller.profile.user!,
-                        ),
+                        () => GuestbookPage(user: _controller.profile.user!),
                       );
                     },
                     child: ListTile(
@@ -455,9 +424,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 54),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
                 )
               else if (_controller.fetchWorksPreviewMessage != null)
@@ -475,7 +442,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ..._buildUserWorksPreviews(),
               SliverToBoxAdapter(
                 child: SizedBox(height: Get.mediaQuery.padding.bottom + 32),
-              )
+              ),
             ],
           ),
         ),
@@ -491,9 +458,7 @@ class _ProfilePageState extends State<ProfilePage> {
       },
       onError: (error) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(t.profile.profile),
-          ),
+          appBar: AppBar(title: Text(t.profile.profile)),
           body: LoadFail(
             errorMessage: error.toString(),
             onRefresh: _controller.loadData,
@@ -501,12 +466,8 @@ class _ProfilePageState extends State<ProfilePage> {
         );
       },
       onLoading: Scaffold(
-        appBar: AppBar(
-          title: Text(t.profile.profile),
-        ),
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
+        appBar: AppBar(title: Text(t.profile.profile)),
+        body: const Center(child: CircularProgressIndicator()),
       ),
     );
   }

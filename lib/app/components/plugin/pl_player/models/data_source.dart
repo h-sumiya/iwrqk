@@ -32,8 +32,9 @@ class DataSource {
     this.subFiles,
     required this.type,
     this.httpHeaders,
-  }) : assert((type == DataSourceType.file && file != null) ||
-            videoSource != null);
+  }) : assert(
+         (type == DataSourceType.file && file != null) || videoSource != null,
+       );
 
   DataSource copyWith({
     File? file,

@@ -24,9 +24,7 @@ class HistoryPage extends GetView<HistoryController> {
         tabs: [
           Tab(text: t.filter.all),
           Tab(text: t.nav.videos),
-          Tab(
-            text: t.nav.images,
-          )
+          Tab(text: t.nav.images),
         ],
       ),
     );
@@ -125,7 +123,7 @@ class HistoryPage extends GetView<HistoryController> {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

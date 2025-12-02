@@ -28,7 +28,8 @@ class AccountService extends GetxService {
 
   bool _isExpired(String tokenStr) {
     var payload = jsonDecode(
-        utf8.decode(base64.decode(base64.normalize(tokenStr.split('.')[1]))));
+      utf8.decode(base64.decode(base64.normalize(tokenStr.split('.')[1]))),
+    );
     var exp = payload["exp"];
     return exp < DateTime.now().millisecondsSinceEpoch / 1000;
   }
@@ -56,7 +57,10 @@ class AccountService extends GetxService {
     }
 
     return ApiResult(
-        data: null, success: results.success, message: results.message);
+      data: null,
+      success: results.success,
+      message: results.message,
+    );
   }
 
   Future<ApiResult<void>> getAccessToken() async {
@@ -67,7 +71,10 @@ class AccountService extends GetxService {
     }
 
     return ApiResult(
-        data: null, success: results.success, message: results.message);
+      data: null,
+      success: results.success,
+      message: results.message,
+    );
   }
 
   void logout() {

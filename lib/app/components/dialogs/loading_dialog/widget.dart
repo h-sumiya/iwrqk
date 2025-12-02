@@ -35,10 +35,8 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
               Get.back();
               onSuccess?.call();
             },
-            child: Text(
-              t.notifications.ok,
-            ),
-          )
+            child: Text(t.notifications.ok),
+          ),
         ],
       ),
       onLoading: Dialog(
@@ -64,9 +62,7 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
                 ),
                 Text(
                   t.notifications.loading,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ],
             ),
@@ -83,9 +79,7 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
               Get.back();
               onFail?.call();
             },
-            child: Text(
-              t.notifications.ok,
-            ),
+            child: Text(t.notifications.ok),
           ),
         ],
       ),

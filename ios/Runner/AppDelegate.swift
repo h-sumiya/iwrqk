@@ -1,8 +1,8 @@
-import UIKit
 import Flutter
+import UIKit
 import flutter_downloader
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(
     _ application: UIApplication,
@@ -15,7 +15,7 @@ import flutter_downloader
 }
 
 private func registerPlugins(registry: FlutterPluginRegistry) {
-  if (!registry.hasPlugin("FlutterDownloaderPlugin")) {
-      FlutterDownloaderPlugin.register(with: registry.registrar(forPlugin: "FlutterDownloaderPlugin")!)
+  if !registry.hasPlugin("FlutterDownloaderPlugin") {
+    FlutterDownloaderPlugin.register(with: registry.registrar(forPlugin: "FlutterDownloaderPlugin")!)
   }
 }

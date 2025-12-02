@@ -24,10 +24,9 @@ class _SearchPageState extends State<SearchPage> {
       elevation: 0,
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(8),
-      color: Theme.of(context)
-          .colorScheme
-          .surfaceContainerHighest
-          .withValues(alpha: 0.5),
+      color: Theme.of(
+        context,
+      ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       child: InkWell(
         onTap: () {
           String currentText = _controller.searchEditingController.text;
@@ -37,10 +36,8 @@ class _SearchPageState extends State<SearchPage> {
           _controller.searchFocusNode.requestFocus();
           _controller.searchEditingController.selection =
               TextSelection.fromPosition(
-            TextPosition(
-              offset: currentText.length,
-            ),
-          );
+                TextPosition(offset: currentText.length),
+              );
         },
         onLongPress: () async {
           HapticFeedback.mediumImpact();
@@ -78,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
               icon: const Icon(Icons.search, size: 22),
             ),
           ),
-          const SizedBox(width: 10)
+          const SizedBox(width: 10),
         ],
         title: TextField(
           autofocus: true,
@@ -116,7 +113,8 @@ class _SearchPageState extends State<SearchPage> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Visibility(
-                    visible: _controller.searchHistoryList.length >
+                    visible:
+                        _controller.searchHistoryList.length >
                         _controller.maxExpandedClipsCount,
                     child: TextButton(
                       onPressed: _controller.toggleClipsExpanded,
@@ -129,7 +127,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -166,7 +164,8 @@ class _SearchPageState extends State<SearchPage> {
                           child: Text(
                             t.notifications.cancel,
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.outline),
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
                           ),
                         ),
                         TextButton(
@@ -183,9 +182,7 @@ class _SearchPageState extends State<SearchPage> {
                 icon: const Icon(Icons.delete_outline),
                 label: Text(t.search.history.delete),
               ),
-            SizedBox(
-              height: Get.height * 0.1,
-            )
+            SizedBox(height: Get.height * 0.1),
           ],
         ),
       ),
@@ -201,21 +198,19 @@ class _SearchPageState extends State<SearchPage> {
       middleColor: Theme.of(context).colorScheme.surface,
       closedColor: Theme.of(context).colorScheme.surface,
       closedShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(32),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(32)),
       ),
       closedBuilder: (context, action) {
         return SizedBox(
           height: 44,
           child: Material(
-            color:
-                Theme.of(context).colorScheme.onInverseSurface.withAlpha(255),
+            color: Theme.of(
+              context,
+            ).colorScheme.onInverseSurface.withAlpha(255),
             child: InkWell(
-              splashColor: Theme.of(context)
-                  .colorScheme
-                  .primaryContainer
-                  .withValues(alpha: 0.3),
+              splashColor: Theme.of(
+                context,
+              ).colorScheme.primaryContainer.withValues(alpha: 0.3),
               onTap: action,
               child: Row(
                 children: [

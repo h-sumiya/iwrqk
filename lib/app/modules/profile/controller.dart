@@ -57,8 +57,8 @@ class ProfileController extends GetxController
     }
 
     await ApiProvider.getUsersCount(
-            path: "/user/${profileModel!.user!.id}/following")
-        .then((value) {
+      path: "/user/${profileModel!.user!.id}/following",
+    ).then((value) {
       success = value.success;
       if (!success) {
         message = value.message;
@@ -73,8 +73,8 @@ class ProfileController extends GetxController
     }
 
     await ApiProvider.getUsersCount(
-            path: "/user/${profileModel!.user!.id}/followers")
-        .then((value) {
+      path: "/user/${profileModel!.user!.id}/followers",
+    ).then((value) {
       success = value.success;
       if (!success) {
         message = value.message;
@@ -99,10 +99,10 @@ class ProfileController extends GetxController
     _isFetchingWorksPreview.value = true;
     bool success = true;
     await ApiProvider.getMedia(
-            path: "/videos",
-            queryParameters: {"user": profileModel!.user!.id, "limit": 8},
-            type: MediaType.video)
-        .then((value) {
+      path: "/videos",
+      queryParameters: {"user": profileModel!.user!.id, "limit": 8},
+      type: MediaType.video,
+    ).then((value) {
       success = value.success;
       if (!success) {
         fetchWorksPreviewMessage = value.message;
@@ -117,10 +117,10 @@ class ProfileController extends GetxController
     }
 
     await ApiProvider.getMedia(
-            path: "/images",
-            queryParameters: {"user": profileModel!.user!.id, "limit": 8},
-            type: MediaType.image)
-        .then((value) {
+      path: "/images",
+      queryParameters: {"user": profileModel!.user!.id, "limit": 8},
+      type: MediaType.image,
+    ).then((value) {
       success = value.success;
       if (!success) {
         fetchWorksPreviewMessage = value.message;

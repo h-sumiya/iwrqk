@@ -13,10 +13,7 @@ import '../../../utils/display_util.dart';
 class MeidaDescription extends StatefulWidget {
   final MediaModel media;
 
-  const MeidaDescription({
-    super.key,
-    required this.media,
-  });
+  const MeidaDescription({super.key, required this.media});
 
   @override
   State<MeidaDescription> createState() => _MeidaDescriptionState();
@@ -29,9 +26,7 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
     if (translatedContent != null || widget.media.body == null) {
       return;
     }
-    TranslateProvider.google(
-      text: widget.media.body!,
-    ).then((value) {
+    TranslateProvider.google(text: widget.media.body!).then((value) {
       if (value.success) {
         setState(() {
           translatedContent = value.data;
@@ -48,9 +43,7 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
     return Card(
       elevation: 0,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       color: Theme.of(context).colorScheme.primaryContainer,
       child: InkWell(
         onTap: () {
@@ -60,9 +53,7 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(
             tag.id,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
         ),
       ),
@@ -88,9 +79,7 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
                   height: 4,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4),
-                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
               ),
@@ -126,15 +115,14 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
                           ),
                           TextSpan(
                             text: DisplayUtil.compactBigNumber(
-                                widget.media.numViews),
+                              widget.media.numViews,
+                            ),
                             style: TextStyle(
                               fontSize: 14,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
-                          const WidgetSpan(
-                            child: SizedBox(width: 16),
-                          ),
+                          const WidgetSpan(child: SizedBox(width: 16)),
                           TextSpan(
                             text: DisplayUtil.getDetailedTime(
                               DateTime.parse(widget.media.createdAt),
@@ -163,8 +151,9 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
                     TextButton(
                       style: TextButton.styleFrom(
                         foregroundColor: Theme.of(context).colorScheme.primary,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onInverseSurface,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onInverseSurface,
                       ),
                       onPressed: () {
                         _getTranslatedContent();
@@ -196,7 +185,7 @@ class _MeidaDescriptionState extends State<MeidaDescription> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

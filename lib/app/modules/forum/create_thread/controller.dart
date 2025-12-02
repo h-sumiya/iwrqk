@@ -29,15 +29,15 @@ class CreateThreadController extends GetxController {
     } else {
       _userService
           .createThread(
-        channelName: channelName,
-        title: titleController.text,
-        content: contentController.text,
-      )
+            channelName: channelName,
+            title: titleController.text,
+            content: contentController.text,
+          )
           .then((value) {
-        if (value) {
-          Get.back();
-        }
-      });
+            if (value) {
+              Get.back();
+            }
+          });
     }
   }
 }

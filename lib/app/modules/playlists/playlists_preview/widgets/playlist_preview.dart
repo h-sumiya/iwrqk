@@ -53,8 +53,10 @@ class PlaylistPreview extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 2.5,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,10 +76,12 @@ class PlaylistPreview extends StatelessWidget {
                           ),
                           Text(
                             videosCount == 1
-                                ? t.playlist
-                                    .videos_count(numVideo: "$videosCount")
+                                ? t.playlist.videos_count(
+                                    numVideo: "$videosCount",
+                                  )
                                 : t.playlist.videos_count_plural(
-                                    numVideo: "$videosCount"),
+                                    numVideo: "$videosCount",
+                                  ),
                             style: TextStyle(
                               fontSize: 12.5,
                               color: Theme.of(context).colorScheme.outline,

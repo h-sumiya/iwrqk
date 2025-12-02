@@ -53,10 +53,7 @@ class TranslatedContent extends StatelessWidget {
         const Divider(),
         SizedBox(
           width: double.infinity,
-          child: IwrMarkdown(
-            selectable: true,
-            data: translatedContent,
-          ),
+          child: IwrMarkdown(selectable: true, data: translatedContent),
         ),
       ],
     );

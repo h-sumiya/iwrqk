@@ -8,17 +8,14 @@ class IwrMarkdown extends StatelessWidget {
   final String data;
   final bool selectable;
 
-  const IwrMarkdown({
-    super.key,
-    required this.data,
-    this.selectable = false,
-  });
+  const IwrMarkdown({super.key, required this.data, this.selectable = false});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final config =
-        isDark ? MarkdownConfig.darkConfig : MarkdownConfig.defaultConfig;
+    final config = isDark
+        ? MarkdownConfig.darkConfig
+        : MarkdownConfig.defaultConfig;
 
     Widget child = Column(
       mainAxisSize: MainAxisSize.min,

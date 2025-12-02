@@ -21,11 +21,12 @@ class EditCommentBottomSheetController extends GetxController {
   late String sourceId;
   String? parentId;
 
-  Future<void> sendComment(
-      {required CommentsSourceType sourceType,
-      required String sourceId,
-      String? parentId,
-      void Function(String)? onChanged}) async {
+  Future<void> sendComment({
+    required CommentsSourceType sourceType,
+    required String sourceId,
+    String? parentId,
+    void Function(String)? onChanged,
+  }) async {
     String content = contentController.text;
     bool success = false;
 
@@ -38,13 +39,13 @@ class EditCommentBottomSheetController extends GetxController {
 
     await _userService
         .sendComment(
-      sourceType: sourceType,
-      sourceId: sourceId,
-      content: content,
-    )
+          sourceType: sourceType,
+          sourceId: sourceId,
+          content: content,
+        )
         .then((value) {
-      success = value;
-    });
+          success = value;
+        });
 
     _sendingComment.value = false;
 
@@ -55,8 +56,10 @@ class EditCommentBottomSheetController extends GetxController {
     }
   }
 
-  Future<void> editComment(
-      {required String editId, void Function(String)? onChanged}) async {
+  Future<void> editComment({
+    required String editId,
+    void Function(String)? onChanged,
+  }) async {
     String content = contentController.text;
     bool success = false;
 
@@ -67,12 +70,7 @@ class EditCommentBottomSheetController extends GetxController {
 
     _sendingComment.value = true;
 
-    await _userService
-        .editComment(
-      id: editId,
-      content: content,
-    )
-        .then((value) {
+    await _userService.editComment(id: editId, content: content).then((value) {
       success = value;
     });
 

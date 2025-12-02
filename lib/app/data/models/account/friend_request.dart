@@ -22,9 +22,9 @@ class FriendRequestModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "user": user.toJson(),
-        "target": target.toJson(),
-        "createdAt": createdAt,
-      };
+    "id": id,
+    "user": user.toJson(),
+    "target": target.toJson(),
+    "createdAt": createdAt,
+  };
 }

@@ -85,7 +85,8 @@ class ConfigService extends GetxService {
     if (number <= 0) return;
 
     var width = (size.width - (number + 1) * 8) / number;
-    var height = width * 9 / 16 +
+    var height =
+        width * 9 / 16 +
         WidgetConst.mediaPreviewTitleHeight * Get.textScaleFactor;
 
     gridChildAspectRatio = width / height;
@@ -99,29 +100,35 @@ class ConfigService extends GetxService {
 
   void resetEasyRefresh() {
     EasyRefresh.defaultFooterBuilder = () => ClassicFooter(
-          dragText: t.refresh.drag_to_load,
-          armedText: t.refresh.release_to_load,
-          readyText: t.notifications.loading,
-          processingText: t.notifications.loading,
-          processedText: t.refresh.success,
-          noMoreText: t.refresh.no_more,
-          failedText: t.refresh.failed,
-          messageText: t.refresh.last_load,
-        );
+      dragText: t.refresh.drag_to_load,
+      armedText: t.refresh.release_to_load,
+      readyText: t.notifications.loading,
+      processingText: t.notifications.loading,
+      processedText: t.refresh.success,
+      noMoreText: t.refresh.no_more,
+      failedText: t.refresh.failed,
+      messageText: t.refresh.last_load,
+    );
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    _enableDynamicColor.value =
-        setting.get(DynamicConfigKey.enableDynamicColor, defaultValue: true);
-    _customColor.value =
-        setting.get(DynamicConfigKey.customColor, defaultValue: 10);
+    _enableDynamicColor.value = setting.get(
+      DynamicConfigKey.enableDynamicColor,
+      defaultValue: true,
+    );
+    _customColor.value = setting.get(
+      DynamicConfigKey.customColor,
+      defaultValue: 10,
+    );
     _themeMode.value = ThemeMode
         .values[setting.get(DynamicConfigKey.themeMode, defaultValue: 0)];
 
-    _workMode.value =
-        setting.get(DynamicConfigKey.workMode, defaultValue: false);
+    _workMode.value = setting.get(
+      DynamicConfigKey.workMode,
+      defaultValue: false,
+    );
   }
 }

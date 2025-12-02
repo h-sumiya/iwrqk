@@ -65,8 +65,9 @@ class MediaPreviewGridRepository {
       });
       if (filterSetting.year != null) {
         if (filterSetting.month != null) {
-          query
-              .addAll({"date": "${filterSetting.year}-${filterSetting.month}"});
+          query.addAll({
+            "date": "${filterSetting.year}-${filterSetting.month}",
+          });
         } else {
           query.addAll({"date": "${filterSetting.year}"});
         }

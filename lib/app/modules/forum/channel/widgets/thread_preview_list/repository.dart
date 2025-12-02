@@ -10,8 +10,9 @@ class ThreadPreviewListRepository {
     required int pageNum,
   }) async {
     return await ApiProvider.getChannelThreads(
-            channelName: channelName, pageNum: pageNum)
-        .then((value) {
+      channelName: channelName,
+      pageNum: pageNum,
+    ).then((value) {
       List<ThreadModel> threads = [];
       int count = 0;
 

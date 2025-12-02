@@ -24,9 +24,11 @@ class FollowersFollowingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(sourceType == UsersSourceType.followers
-            ? t.profile.followers
-            : t.profile.following),
+        title: Text(
+          sourceType == UsersSourceType.followers
+              ? t.profile.followers
+              : t.profile.following,
+        ),
       ),
       body: SafeArea(
         top: false,

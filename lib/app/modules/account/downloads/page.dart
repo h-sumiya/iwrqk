@@ -21,12 +21,8 @@ class DownloadsPage extends GetView<DownloadsController> {
         tabAlignment: TabAlignment.center,
         splashBorderRadius: BorderRadius.circular(8),
         tabs: [
-          Tab(
-            text: t.download.finished,
-          ),
-          Tab(
-            text: t.download.downloading,
-          ),
+          Tab(text: t.download.finished),
+          Tab(text: t.download.downloading),
         ],
       ),
     );
@@ -114,7 +110,7 @@ class DownloadsPage extends GetView<DownloadsController> {
                   ),
                   DownloadsMediaPreviewList(
                     tag: controller.childrenControllerTags[1],
-                  )
+                  ),
                 ],
               ),
             ),

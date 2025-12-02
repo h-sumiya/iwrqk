@@ -13,10 +13,7 @@ import '../network_image.dart';
 class MediaPreview extends StatelessWidget {
   final MediaModel media;
 
-  const MediaPreview({
-    super.key,
-    required this.media,
-  });
+  const MediaPreview({super.key, required this.media});
 
   Widget _buildBadges(BuildContext context) {
     Duration? duration;
@@ -42,10 +39,11 @@ class MediaPreview extends StatelessWidget {
               color: Colors.red.withAlpha(160),
             ),
             child: const Center(
-                child: Text(
-              "R-18",
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            )),
+              child: Text(
+                "R-18",
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ),
+            ),
           ),
         if (duration != null)
           Container(
@@ -80,7 +78,7 @@ class MediaPreview extends StatelessWidget {
                       "$galleryLength",
                       style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -126,12 +124,7 @@ class MediaPreview extends StatelessWidget {
                 ),
               ),
             ),
-        Positioned(
-          bottom: 4,
-          right: 6,
-          left: 6,
-          child: _buildBadges(context),
-        ),
+        Positioned(bottom: 4, right: 6, left: 6, child: _buildBadges(context)),
       ],
     );
   }
@@ -184,35 +177,39 @@ class MediaPreview extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              child: Row(children: [
-                Icon(
-                  Icons.person,
-                  size: 16,
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 2, right: 2),
-                    child: Text(
-                      media.user.name,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 12.5,
-                        color: Theme.of(context).colorScheme.outline,
-                        overflow: TextOverflow.ellipsis,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 2, right: 2),
+                      child: Text(
+                        media.user.name,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          color: Theme.of(context).colorScheme.outline,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),
-                )
-              ]),
+                ],
+              ),
             ),
             Text(
               DisplayUtil.getDisplayDate(DateTime.parse(media.createdAt)),
               style: TextStyle(
-                  fontSize: 12.5, color: Theme.of(context).colorScheme.outline),
-            )
+                fontSize: 12.5,
+                color: Theme.of(context).colorScheme.outline,
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -227,8 +224,9 @@ class MediaPreview extends StatelessWidget {
           Get.toNamed(
             "/mediaDetail?id=${media.id}",
             arguments: {
-              "mediaType":
-                  media is VideoModel ? MediaType.video : MediaType.image,
+              "mediaType": media is VideoModel
+                  ? MediaType.video
+                  : MediaType.image,
             },
           );
         },

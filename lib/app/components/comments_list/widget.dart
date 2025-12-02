@@ -108,10 +108,10 @@ class _CommentsListState extends State<CommentsList>
                       IconButton(
                         onPressed:
                             _controller.currentPage + 1 == _controller.totalPage
-                                ? null
-                                : () {
-                                    _controller.nextPage();
-                                  },
+                            ? null
+                            : () {
+                                _controller.nextPage();
+                              },
                         icon: const Icon(Icons.chevron_right),
                       ),
                     ],
@@ -132,50 +132,45 @@ class _CommentsListState extends State<CommentsList>
                   controller: scrollController,
                   slivers: [
                     SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          Widget comment = UserComment(
-                            comment: data[index],
-                            uploaderUserName: widget.uploaderUserName,
-                            sourceId: widget.sourceId,
-                            sourceType: widget.sourceType,
-                            showReplies: widget.showReplies,
-                            showDivider: index != data.length - 1,
-                            canJumpToDetail: widget.canJumpToDetail,
-                            isMyComment: _controller.userService.user?.id ==
-                                data[index].user.id,
-                            onUpdated: (Map data) {
-                              if (data["state"] == "delete") {
-                                _controller.deleteComment(index);
-                              } else if (data["state"] == "edit") {
-                                _controller.updateContent(
-                                    index, data["content"]);
-                              }
-                            },
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        Widget comment = UserComment(
+                          comment: data[index],
+                          uploaderUserName: widget.uploaderUserName,
+                          sourceId: widget.sourceId,
+                          sourceType: widget.sourceType,
+                          showReplies: widget.showReplies,
+                          showDivider: index != data.length - 1,
+                          canJumpToDetail: widget.canJumpToDetail,
+                          isMyComment:
+                              _controller.userService.user?.id ==
+                              data[index].user.id,
+                          onUpdated: (Map data) {
+                            if (data["state"] == "delete") {
+                              _controller.deleteComment(index);
+                            } else if (data["state"] == "edit") {
+                              _controller.updateContent(index, data["content"]);
+                            }
+                          },
+                        );
+
+                        if (index == 0 && widget.parentComment != null) {
+                          return Column(
+                            children: [
+                              widget.parentComment!,
+                              Container(
+                                height: 12,
+                                margin: const EdgeInsets.symmetric(vertical: 4),
+                                color: Theme.of(
+                                  context,
+                                ).dividerColor.withValues(alpha: 0.1),
+                              ),
+                              comment,
+                            ],
                           );
+                        }
 
-                          if (index == 0 && widget.parentComment != null) {
-                            return Column(
-                              children: [
-                                widget.parentComment!,
-                                Container(
-                                  height: 12,
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 4,
-                                  ),
-                                    color: Theme.of(context)
-                                        .dividerColor
-                                        .withValues(alpha: 0.1),
-                                ),
-                                comment,
-                              ],
-                            );
-                          }
-
-                          return comment;
-                        },
-                        childCount: data.length,
-                      ),
+                        return comment;
+                      }, childCount: data.length),
                     ),
                     SliverToBoxAdapter(
                       child: SizedBox(
@@ -232,10 +227,10 @@ class _CommentsListState extends State<CommentsList>
                       IconButton(
                         onPressed:
                             _controller.currentPage + 1 == _controller.totalPage
-                                ? null
-                                : () {
-                                    _controller.nextPage();
-                                  },
+                            ? null
+                            : () {
+                                _controller.nextPage();
+                              },
                         icon: const Icon(Icons.chevron_right),
                       ),
                     ],

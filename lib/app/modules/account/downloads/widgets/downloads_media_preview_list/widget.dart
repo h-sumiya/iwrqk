@@ -46,8 +46,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
   void initState() {
     super.initState();
     currentMediaId.value = widget.initialMediaId ?? "";
-    _controller =
-        Get.find<DownloadsMediaPreviewListController>(tag: widget.tag);
+    _controller = Get.find<DownloadsMediaPreviewListController>(
+      tag: widget.tag,
+    );
     _parentController.childrenControllers[widget.tag] = _controller;
 
     _controller.downloadService.currentDownloading.listen((event) {
@@ -69,72 +70,71 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
           slivers: [
             Obx(
               () => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final item = _controller.data[index];
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final item = _controller.data[index];
 
-                    if (widget.keyword != null) {
-                      if (widget.keyword!.isEmpty ||
-                          !item.offlineMedia.contains(widget.keyword!)) {
-                        return const SizedBox.shrink();
-                      }
+                  if (widget.keyword != null) {
+                    if (widget.keyword!.isEmpty ||
+                        !item.offlineMedia.contains(widget.keyword!)) {
+                      return const SizedBox.shrink();
+                    }
+                  }
+
+                  return Obx(() {
+                    final DownloadTaskStatus status =
+                        _controller
+                            .downloadService
+                            .downloadTasksStatus[item.taskId]
+                            ?.value
+                            .status ??
+                        DownloadTaskStatus.undefined;
+
+                    if (status != DownloadTaskStatus.complete &&
+                        widget.showCompleted) {
+                      return const SizedBox.shrink();
+                    } else if (status == DownloadTaskStatus.complete &&
+                        !widget.showCompleted) {
+                      return const SizedBox.shrink();
                     }
 
-                    return Obx(() {
-                      final DownloadTaskStatus status = _controller
-                              .downloadService
-                              .downloadTasksStatus[item.taskId]
-                              ?.value
-                              .status ??
-                          DownloadTaskStatus.undefined;
+                    void gotoDetail() {
+                      Get.toNamed(
+                        "/mediaDetail?id=${item.offlineMedia.id}",
+                        arguments: {"mediaType": item.offlineMedia.type},
+                      );
+                    }
 
-                      if (status != DownloadTaskStatus.complete &&
-                          widget.showCompleted) {
-                        return const SizedBox.shrink();
-                      } else if (status == DownloadTaskStatus.complete &&
-                          !widget.showCompleted) {
-                        return const SizedBox.shrink();
-                      }
-
-                      void gotoDetail() {
-                        Get.toNamed(
-                          "/mediaDetail?id=${item.offlineMedia.id}",
-                          arguments: {
-                            "mediaType": item.offlineMedia.type,
+                    if (widget.isPlaylist) {
+                      return Obx(
+                        () => DownloadMediaPreview(
+                          onTap: () {
+                            if (widget.onChangeVideo != null) {
+                              widget.onChangeVideo!(item);
+                              currentMediaId.value = item.offlineMedia.id;
+                            }
                           },
-                        );
-                      }
+                          gotoDetail: gotoDetail,
+                          taskData: item,
+                          isPlaying:
+                              currentMediaId.value == item.offlineMedia.id,
+                          isPlaylist: true,
+                        ),
+                      );
+                    }
 
-                      if (widget.isPlaylist) {
-                        return Obx(
-                          () => DownloadMediaPreview(
-                            onTap: () {
-                              if (widget.onChangeVideo != null) {
-                                widget.onChangeVideo!(item);
-                                currentMediaId.value = item.offlineMedia.id;
-                              }
-                            },
-                            gotoDetail: gotoDetail,
-                            taskData: item,
-                            isPlaying:
-                                currentMediaId.value == item.offlineMedia.id,
-                            isPlaylist: true,
-                          ),
-                        );
-                      }
+                    void gotoPlayer() {
+                      Get.toNamed(
+                        "/mediaDetail?id=${item.offlineMedia.id}&isOffline=true",
+                        arguments: {
+                          "mediaType": item.offlineMedia.type,
+                          "taskData": item,
+                        },
+                      );
+                    }
 
-                      void gotoPlayer() {
-                        Get.toNamed(
-                          "/mediaDetail?id=${item.offlineMedia.id}&isOffline=true",
-                          arguments: {
-                            "mediaType": item.offlineMedia.type,
-                            "taskData": item,
-                          },
-                        );
-                      }
-
-                      void popupDialog() {
-                        Get.dialog(DownloadTaskDialog(
+                    void popupDialog() {
+                      Get.dialog(
+                        DownloadTaskDialog(
                           taskData: item,
                           onPaused: (taskId) {
                             _controller.downloadService.pauseTask(taskId);
@@ -143,24 +143,18 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             return _controller.downloadService
                                 .resumeTask(taskId)
                                 .then((newTaskId) {
-                              if (newTaskId != null) {
-                                _controller.onResumed(index, newTaskId);
-                                return newTaskId;
-                              }
-                              return null;
-                            });
+                                  if (newTaskId != null) {
+                                    _controller.onResumed(index, newTaskId);
+                                    return newTaskId;
+                                  }
+                                  return null;
+                                });
                           },
                           onRetry: (taskId) async {
-                            await _controller.retryTask(
-                              index,
-                              taskId,
-                            );
+                            await _controller.retryTask(index, taskId);
                           },
                           onDeleted: (taskId) async {
-                            await _controller.deleteVideoTask(
-                              index,
-                              taskId,
-                            );
+                            await _controller.deleteVideoTask(index, taskId);
                           },
                           onOpen: (taskId) async {
                             OpenFile.open(
@@ -177,45 +171,44 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                                     (await _controller.downloadService
                                         .getTaskFilePath(taskId))!,
                                     mimeType: 'video/mp4',
-                                  )
+                                  ),
                                 ],
                               ),
                             );
                           },
                           gotoPlayer: gotoPlayer,
                           gotoDetail: gotoDetail,
-                        ));
-                      }
-
-                      return DownloadMediaPreview(
-                        downloadsController: _parentController,
-                        checked:
-                            _parentController.checkedList.contains(item.hash),
-                        onTap: () {
-                          if (_parentController.enableMultipleSelection) {
-                            _parentController.toggleChecked(item.hash);
-                            setState(() {});
-                          } else {
-                            popupDialog.call();
-                          }
-                        },
-                        onLongPress: _parentController.enableMultipleSelection
-                            ? null
-                            : () {
-                                _parentController.enableMultipleSelection =
-                                    true;
-                                _parentController.toggleChecked(item.hash);
-                                setState(() {});
-                              },
-                        gotoDetail: gotoDetail,
-                        taskData: item,
+                        ),
                       );
-                    });
-                  },
-                  childCount: data.length,
-                ),
+                    }
+
+                    return DownloadMediaPreview(
+                      downloadsController: _parentController,
+                      checked: _parentController.checkedList.contains(
+                        item.hash,
+                      ),
+                      onTap: () {
+                        if (_parentController.enableMultipleSelection) {
+                          _parentController.toggleChecked(item.hash);
+                          setState(() {});
+                        } else {
+                          popupDialog.call();
+                        }
+                      },
+                      onLongPress: _parentController.enableMultipleSelection
+                          ? null
+                          : () {
+                              _parentController.enableMultipleSelection = true;
+                              _parentController.toggleChecked(item.hash);
+                              setState(() {});
+                            },
+                      gotoDetail: gotoDetail,
+                      taskData: item,
+                    );
+                  });
+                }, childCount: data.length),
               ),
-            )
+            ),
           ],
         );
       },

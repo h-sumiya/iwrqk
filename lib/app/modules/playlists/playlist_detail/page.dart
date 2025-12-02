@@ -72,19 +72,19 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage> {
                       },
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'all',
-                          child: Text(t.records.delete_all),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'multiple',
-                          child: Text(t.records.multiple_selection_mode),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'editTitle',
-                          child: Text(t.playlist.edit_title),
-                        ),
-                      ],
+                            PopupMenuItem<String>(
+                              value: 'all',
+                              child: Text(t.records.delete_all),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'multiple',
+                              child: Text(t.records.multiple_selection_mode),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'editTitle',
+                              child: Text(t.playlist.edit_title),
+                            ),
+                          ],
                     ),
                   ],
                 ),
@@ -113,7 +113,8 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage> {
                       child: Text(
                         t.records.delete,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.error),
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 6),

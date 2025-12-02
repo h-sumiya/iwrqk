@@ -113,25 +113,15 @@ class SettingsPage extends GetView<SettingsController> {
       onTap: () {
         onSwitch(!value);
       },
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
+      title: Text(title, style: Theme.of(context).textTheme.titleMedium),
       subtitle: Text(
         description,
-        style: Theme.of(context)
-            .textTheme
-            .titleSmall
-            ?.copyWith(color: Theme.of(context).colorScheme.outline),
+        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+          color: Theme.of(context).colorScheme.outline,
+        ),
       ),
-      leading: Icon(
-        iconData,
-        size: 28,
-      ),
-      trailing: Switch(
-        value: value,
-        onChanged: onSwitch,
-      ),
+      leading: Icon(iconData, size: 28),
+      trailing: Switch(value: value, onChanged: onSwitch),
     );
   }
 
@@ -145,21 +135,14 @@ class SettingsPage extends GetView<SettingsController> {
     return InkWell(
       onTap: onPressed,
       child: ListTile(
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        title: Text(title, style: Theme.of(context).textTheme.titleMedium),
         subtitle: Text(
           description,
-          style: Theme.of(context)
-              .textTheme
-              .titleSmall
-              ?.copyWith(color: Theme.of(context).colorScheme.outline),
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: Theme.of(context).colorScheme.outline,
+          ),
         ),
-        leading: Icon(
-          iconData,
-          size: 28,
-        ),
+        leading: Icon(iconData, size: 28),
       ),
     );
   }
@@ -301,8 +284,9 @@ class SettingsPage extends GetView<SettingsController> {
                   },
                   child: Text(
                     t.notifications.cancel,
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.outline),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                   ),
                 ),
                 TextButton(
@@ -439,11 +423,7 @@ class SettingsPage extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          t.user.settings,
-        ),
-      ),
+      appBar: AppBar(title: Text(t.user.settings)),
       body: ListView(
         children: [
           SettingTitle(title: t.settings.appearance),
@@ -492,8 +472,8 @@ class SettingTitle extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
     );
   }

@@ -96,10 +96,14 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     });
 
     if (_controller.mediaType == MediaType.video) {
-      autoExitFullcreen =
-          setting.get(PLPlayerConfigKey.enableAutoExit, defaultValue: false);
-      autoPlayEnable =
-          setting.get(PLPlayerConfigKey.enableAutoPlay, defaultValue: true);
+      autoExitFullcreen = setting.get(
+        PLPlayerConfigKey.enableAutoExit,
+        defaultValue: false,
+      );
+      autoPlayEnable = setting.get(
+        PLPlayerConfigKey.enableAutoPlay,
+        defaultValue: true,
+      );
 
       if (_controller.autoPlay.value) {
         plPlayerController = _controller.plPlayerController;
@@ -152,8 +156,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     _lifecycleListener = AppLifecycleListener(
       // 只作用于桌面端
       onExitRequested: () {
-        ScaffoldMessenger.maybeOf(context)
-            ?.showSnackBar(SnackBar(content: Text(t.error.intercept_app_exit)));
+        ScaffoldMessenger.maybeOf(
+          context,
+        )?.showSnackBar(SnackBar(content: Text(t.error.intercept_app_exit)));
         return Future.value(AppExitResponse.cancel);
       },
     );
@@ -164,8 +169,11 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   void didPushNext() async {
     if (_controller.mediaType == MediaType.video) {
       /// 开启
-      if (setting.get(PLPlayerConfigKey.enableAutoBrightness,
-          defaultValue: false) as bool) {
+      if (setting.get(
+            PLPlayerConfigKey.enableAutoBrightness,
+            defaultValue: false,
+          )
+          as bool) {
         _controller.brightness = plPlayerController!.brightness.value;
       }
       if (plPlayerController != null) {
@@ -186,7 +194,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       final bool autoplay = autoPlayEnable;
       if (_controller.isOffline) {
         _controller.playerInit(
-            autoplay: autoplay, video: _controller.currentOfflineVideoUrl);
+          autoplay: autoplay,
+          video: _controller.currentOfflineVideoUrl,
+        );
       } else {
         _controller.playerInit(autoplay: autoplay);
       }
@@ -206,8 +216,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    MediaDetailPage.routeObserver
-        .subscribe(this, ModalRoute.of(context)! as PageRoute);
+    MediaDetailPage.routeObserver.subscribe(
+      this,
+      ModalRoute.of(context)! as PageRoute,
+    );
   }
 
   @override
@@ -232,34 +244,22 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   Widget _buildLoadingWidget() {
     String errorMessage = _controller.errorMessage;
     if (errorMessage == "") {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     } else if (errorMessage == "errors.privateVideo") {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.lock,
-              size: 56,
-              color: colorScheme.outline,
-            ),
+            Icon(Icons.lock, size: 56, color: colorScheme.outline),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 t.media.private,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: colorScheme.outline,
-                ),
+                style: TextStyle(fontSize: 20, color: colorScheme.outline),
               ),
             ),
-            UserPreview(
-              user: _controller.user,
-              showFriendButton: true,
-            ),
+            UserPreview(user: _controller.user, showFriendButton: true),
           ],
         ),
       );
@@ -278,14 +278,19 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   }
 
   Widget _buildFunctionButtons() {
-    Widget buildButton(IconData iconData, String text, VoidCallback? onPressed,
-        [bool active = false]) {
+    Widget buildButton(
+      IconData iconData,
+      String text,
+      VoidCallback? onPressed, [
+      bool active = false,
+    ]) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: TextButton.icon(
           style: TextButton.styleFrom(
-            foregroundColor:
-                active ? colorScheme.primary : colorScheme.inverseSurface,
+            foregroundColor: active
+                ? colorScheme.primary
+                : colorScheme.inverseSurface,
             backgroundColor: active
                 ? colorScheme.primaryContainer
                 : colorScheme.onInverseSurface,
@@ -309,9 +314,11 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 !_controller.isProcessingFavorite & _controller.isFavorite
                     ? Icons.favorite
                     : Icons.favorite_outline,
-                DisplayUtil.compactBigNumber(_controller.tempFavorite
-                    ? _controller.media.numLikes + 1
-                    : _controller.media.numLikes),
+                DisplayUtil.compactBigNumber(
+                  _controller.tempFavorite
+                      ? _controller.media.numLikes + 1
+                      : _controller.media.numLikes,
+                ),
                 _controller.isProcessingFavorite
                     ? null
                     : () {
@@ -325,73 +332,62 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               ),
             ),
             if (_controller.mediaType == MediaType.video)
-              buildButton(
-                Icons.playlist_add,
-                t.media.add_to_playlist,
-                () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    enableDrag: true,
-                    builder: (context) => Theme(
-                      data: Theme.of(context).copyWith(
-                        colorScheme: colorScheme,
+              buildButton(Icons.playlist_add, t.media.add_to_playlist, () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  enableDrag: true,
+                  builder: (context) => Theme(
+                    data: Theme.of(context).copyWith(colorScheme: colorScheme),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: AddToPlaylistBottomSheet(
-                          videoId: _controller.media.id,
-                        ),
+                      child: AddToPlaylistBottomSheet(
+                        videoId: _controller.media.id,
                       ),
                     ),
-                  );
-                },
-              ),
-            buildButton(
-              Icons.file_download,
-              t.media.download,
-              () {
-                if (_controller.mediaType == MediaType.video) {
-                  if (_controller.resolutions.isEmpty) {
-                    SmartDialog.showToast(t.error.fetch_failed);
-                    return;
-                  }
-                  Get.dialog(
-                    Theme(
-                      data: Theme.of(context).copyWith(
-                        colorScheme: colorScheme,
-                      ),
-                      child: CreateVideoDownloadDialog(
-                        resolutions: _controller.resolutions,
-                        previewData: _controller.offlineMedia,
-                      ),
-                    ),
-                  );
+                  ),
+                );
+              }),
+            buildButton(Icons.file_download, t.media.download, () {
+              if (_controller.mediaType == MediaType.video) {
+                if (_controller.resolutions.isEmpty) {
+                  SmartDialog.showToast(t.error.fetch_failed);
+                  return;
                 }
-              },
-            ),
-            buildButton(
-              Icons.share,
-              t.media.share,
-              () {
-                if (_controller.mediaType == MediaType.video) {
-                  SharePlus.instance.share(
-                    ShareParams(
-                      text: IwaraConst.videoPageUrl
-                          .replaceAll("{id}", _controller.media.id),
+                Get.dialog(
+                  Theme(
+                    data: Theme.of(context).copyWith(colorScheme: colorScheme),
+                    child: CreateVideoDownloadDialog(
+                      resolutions: _controller.resolutions,
+                      previewData: _controller.offlineMedia,
                     ),
-                  );
-                } else {
-                  SharePlus.instance.share(
-                    ShareParams(
-                      text: IwaraConst.imagePageUrl
-                          .replaceAll("{id}", _controller.media.id),
+                  ),
+                );
+              }
+            }),
+            buildButton(Icons.share, t.media.share, () {
+              if (_controller.mediaType == MediaType.video) {
+                SharePlus.instance.share(
+                  ShareParams(
+                    text: IwaraConst.videoPageUrl.replaceAll(
+                      "{id}",
+                      _controller.media.id,
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              } else {
+                SharePlus.instance.share(
+                  ShareParams(
+                    text: IwaraConst.imagePageUrl.replaceAll(
+                      "{id}",
+                      _controller.media.id,
+                    ),
+                  ),
+                );
+              }
+            }),
           ],
         ),
       ),
@@ -412,15 +408,12 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 enableDrag: true,
                 barrierColor: Colors.transparent,
                 builder: (context) => Theme(
-                  data: Theme.of(context).copyWith(
-                    colorScheme: colorScheme,
-                  ),
+                  data: Theme.of(context).copyWith(colorScheme: colorScheme),
                   child: Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: MeidaDescription(
-                      media: _controller.media,
+                      bottom: MediaQuery.of(context).viewInsets.bottom,
                     ),
+                    child: MeidaDescription(media: _controller.media),
                   ),
                 ),
               );
@@ -457,15 +450,14 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                           ),
                           TextSpan(
                             text: DisplayUtil.compactBigNumber(
-                                _controller.media.numViews),
+                              _controller.media.numViews,
+                            ),
                             style: TextStyle(
                               fontSize: 14,
                               color: colorScheme.primary,
                             ),
                           ),
-                          const WidgetSpan(
-                            child: SizedBox(width: 16),
-                          ),
+                          const WidgetSpan(child: SizedBox(width: 16)),
                           TextSpan(
                             text: DisplayUtil.getDisplayTime(
                               DateTime.parse(_controller.media.createdAt),
@@ -505,10 +497,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             onTap: gotoProfile,
             child: Text(
               '@${_controller.media.user.username}',
-              style: TextStyle(
-                fontSize: 12.5,
-                color: colorScheme.outline,
-              ),
+              style: TextStyle(fontSize: 12.5, color: colorScheme.outline),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -522,9 +511,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               maxLines: 1,
             ),
           ),
-          trailing: FollowButton(
-            user: _controller.media.user,
-          ),
+          trailing: FollowButton(user: _controller.media.user),
         ),
         const SizedBox(height: 8),
       ],
@@ -551,11 +538,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         ),
       );
       children.addAll(
-        _controller.moreFromUser.map(
-          (e) => MediaFlatPreview(
-            media: e,
-          ),
-        ),
+        _controller.moreFromUser.map((e) => MediaFlatPreview(media: e)),
       );
     }
     if (_controller.moreLikeThis.isNotEmpty) {
@@ -571,11 +554,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         ),
       );
       children.addAll(
-        _controller.moreLikeThis.map(
-          (e) => MediaFlatPreview(
-            media: e,
-          ),
-        ),
+        _controller.moreLikeThis.map((e) => MediaFlatPreview(media: e)),
       );
     }
     children.add(SizedBox(height: MediaQuery.of(context).padding.bottom));
@@ -684,15 +663,12 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 child: DefaultTabController(
                   length: 2,
                   child: TabBarView(
-                    children: [
-                      _buildDetailTab(),
-                      _buildCommentsTab()
-                    ],
+                    children: [_buildDetailTab(), _buildCommentsTab()],
                   ),
                 ),
               ),
             ),
-          ]
+          ],
         ],
       );
     }
@@ -732,24 +708,20 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         } else if (_controller.moreFromUser.isEmpty &&
             _controller.moreLikeThis.isEmpty) {
           children.add(
-            const SliverFillRemaining(
-              child: Center(child: LoadEmpty()),
-            ),
+            const SliverFillRemaining(child: Center(child: LoadEmpty())),
           );
         } else {
-          children.add(SliverToBoxAdapter(
-            child: Material(
-              color: colorScheme.surface,
-              child: Column(
-                children: _buildRecommendation(),
+          children.add(
+            SliverToBoxAdapter(
+              child: Material(
+                color: colorScheme.surface,
+                child: Column(children: _buildRecommendation()),
               ),
             ),
-          ));
+          );
         }
       }
-      return CustomScrollView(
-        slivers: children,
-      );
+      return CustomScrollView(slivers: children);
     });
   }
 
@@ -772,13 +744,16 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           bottom: MediaQuery.of(context).padding.bottom + 16,
           right: 14,
           child: SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 2),
-              end: const Offset(0, 0),
-            ).animate(CurvedAnimation(
-              parent: fabAnimationController,
-              curve: Curves.easeInOut,
-            )),
+            position:
+                Tween<Offset>(
+                  begin: const Offset(0, 2),
+                  end: const Offset(0, 0),
+                ).animate(
+                  CurvedAnimation(
+                    parent: fabAnimationController,
+                    curve: Curves.easeInOut,
+                  ),
+                ),
             child: FloatingActionButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -786,7 +761,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                   isScrollControlled: true,
                   builder: (context) => Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                    ),
                     child: EditCommentBottomSheet(
                       sourceId: _controller.media.id,
                       sourceType: _controller.mediaType == MediaType.video
@@ -812,11 +788,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
 
   Widget _buildDetailTab() {
     return Obx(() {
-      List<Widget> children = [
-        SliverToBoxAdapter(
-          child: _buildMediaDetail(),
-        )
-      ];
+      List<Widget> children = [SliverToBoxAdapter(child: _buildMediaDetail())];
 
       if (_controller.isFectchingRecommendation) {
         children.add(
@@ -848,24 +820,20 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         } else if (_controller.moreFromUser.isEmpty &&
             _controller.moreLikeThis.isEmpty) {
           children.add(
-            const SliverFillRemaining(
-              child: Center(child: LoadEmpty()),
-            ),
+            const SliverFillRemaining(child: Center(child: LoadEmpty())),
           );
         } else {
-          children.add(SliverToBoxAdapter(
-            child: Material(
-              color: colorScheme.surface,
-              child: Column(
-                children: _buildRecommendation(),
+          children.add(
+            SliverToBoxAdapter(
+              child: Material(
+                color: colorScheme.surface,
+                child: Column(children: _buildRecommendation()),
               ),
             ),
-          ));
+          );
         }
       }
-      return CustomScrollView(
-        slivers: children,
-      );
+      return CustomScrollView(slivers: children);
     });
   }
 
@@ -873,7 +841,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     Widget buildWithExitBtn(Widget child) {
       return Stack(
         children: [
-          Container(color: Colors.black, child: Center(child: child)),
+          Container(
+            color: Colors.black,
+            child: Center(child: child),
+          ),
           Positioned(
             top: 0,
             left: 0,
@@ -929,7 +900,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                           style: const TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                      )
+                      ),
                     ],
                   ),
           ),
@@ -963,10 +934,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           ),
         );
       } else {
-        child = Container(
-          color: Colors.black,
-          child: _buildPLPlayer(inPip),
-        );
+        child = Container(color: Colors.black, child: _buildPLPlayer(inPip));
       }
       return child;
     });
@@ -1016,10 +984,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       if (_controller.isLoading) {
         child = inPip
             ? _buildLoadingWidget()
-            : Scaffold(
-                appBar: AppBar(),
-                body: _buildLoadingWidget(),
-              );
+            : Scaffold(appBar: AppBar(), body: _buildLoadingWidget());
       } else {
         Widget buildMedia() {
           if (inPip) {
@@ -1041,9 +1006,11 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               );
             }
             return SafeArea(
-              top: Get.mediaQuery.orientation == Orientation.portrait &&
+              top:
+                  Get.mediaQuery.orientation == Orientation.portrait &&
                   plPlayerController?.isFullScreen.value == true,
-              bottom: Get.mediaQuery.orientation == Orientation.portrait &&
+              bottom:
+                  Get.mediaQuery.orientation == Orientation.portrait &&
                   plPlayerController?.isFullScreen.value == true,
               child: child,
             );
@@ -1062,7 +1029,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     elevation: 0,
                   ),
                 ),
-                body: plPlayerController?.isFullScreen.value == true ||
+                body:
+                    plPlayerController?.isFullScreen.value == true ||
                         (!GetPlatform.isDesktop &&
                             Get.mediaQuery.orientation == Orientation.landscape)
                     ? buildMedia()
@@ -1073,9 +1041,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       if (_controller.configService.enableDynamicColor) {
         if (_controller.dominantColorScheme.value != null) {
           return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: _controller.dominantColorScheme.value!,
-            ),
+            data: Theme.of(
+              context,
+            ).copyWith(colorScheme: _controller.dominantColorScheme.value!),
             child: child,
           );
         } else {

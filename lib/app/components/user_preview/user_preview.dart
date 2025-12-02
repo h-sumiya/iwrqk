@@ -28,11 +28,7 @@ class UserPreview extends StatelessWidget {
       },
       child: ListTile(
         leading: ClipOval(
-          child: NetworkImg(
-            imageUrl: user.avatarUrl,
-            width: 50,
-            height: 50,
-          ),
+          child: NetworkImg(imageUrl: user.avatarUrl, width: 50, height: 50),
         ),
         title: Text(
           user.name,

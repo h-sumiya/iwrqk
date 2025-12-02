@@ -45,20 +45,17 @@ class _PlaylistsPreviewListState extends State<PlaylistsPreviewList>
           controller: scrollController,
           slivers: [
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  PlaylistModel playlist = _controller.data[index];
+              delegate: SliverChildBuilderDelegate((context, index) {
+                PlaylistModel playlist = _controller.data[index];
 
-                  return PlaylistPreview(
-                    playlistId: playlist.id,
-                    title: playlist.title,
-                    videosCount: playlist.numVideos,
-                    requireMyself: widget.requireMyself,
-                  );
-                },
-                childCount: _controller.data.length,
-              ),
-            )
+                return PlaylistPreview(
+                  playlistId: playlist.id,
+                  title: playlist.title,
+                  videosCount: playlist.numVideos,
+                  requireMyself: widget.requireMyself,
+                );
+              }, childCount: _controller.data.length),
+            ),
           ],
         );
       },

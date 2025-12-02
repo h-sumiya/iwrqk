@@ -47,7 +47,10 @@ class DownloadMediaPreview extends StatelessWidget {
   String get taskId => taskData.taskId;
 
   Widget _buildStateMessageWithProgress(
-      BuildContext context, String message, double progress) {
+    BuildContext context,
+    String message,
+    double progress,
+  ) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +67,7 @@ class DownloadMediaPreview extends StatelessWidget {
             ),
           ),
         ),
-        LinearProgressIndicator(value: progress)
+        LinearProgressIndicator(value: progress),
       ],
     );
   }
@@ -100,7 +103,7 @@ class DownloadMediaPreview extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -136,9 +139,7 @@ class DownloadMediaPreview extends StatelessWidget {
                       PopupMenuItem<String>(
                         value: "toMediaDetail",
                         onTap: gotoDetail,
-                        child: Text(
-                          t.download.jump_to_detail,
-                        ),
+                        child: Text(t.download.jump_to_detail),
                       ),
                     ];
                   },
@@ -177,7 +178,7 @@ class DownloadMediaPreview extends StatelessWidget {
                   color: Theme.of(context).colorScheme.outline,
                   overflow: TextOverflow.ellipsis,
                 ),
-              )
+              ),
             ],
           ),
         ],
@@ -263,10 +264,11 @@ class DownloadMediaPreview extends StatelessWidget {
               color: Colors.red.withAlpha(160),
             ),
             child: const Center(
-                child: Text(
-              "R-18",
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            )),
+              child: Text(
+                "R-18",
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ),
+            ),
           ),
         if (duration != null)
           Container(
@@ -331,11 +333,7 @@ class DownloadMediaPreview extends StatelessWidget {
             left: 6,
             child: _buildBottomBadges(context),
           ),
-          Positioned(
-            top: 4,
-            right: 6,
-            child: _buildTopBadge(context),
-          ),
+          Positioned(top: 4, right: 6, child: _buildTopBadge(context)),
           if (downloadsController != null) ...[
             Obx(
               () => Positioned.fill(
@@ -346,10 +344,12 @@ class DownloadMediaPreview extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Colors.black.withValues(
-                          alpha: downloadsController!.enableMultipleSelection &&
-                                  checked
-                              ? 0.6
-                              : 0),
+                        alpha:
+                            downloadsController!.enableMultipleSelection &&
+                                checked
+                            ? 0.6
+                            : 0,
+                      ),
                     ),
                     child: Center(
                       child: SizedBox(
@@ -363,11 +363,12 @@ class DownloadMediaPreview extends StatelessWidget {
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withValues(alpha: 0.8),
+                              color:
+                                  (Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Colors.white
+                                          : Colors.black)
+                                      .withValues(alpha: 0.8),
                             ),
                             child: Icon(
                               Icons.check,
@@ -413,8 +414,8 @@ class DownloadMediaPreview extends StatelessWidget {
                 ? _buildCompleteWidget(context)
                 : _buildStateWidget(context),
           ] else ...[
-            _buildCompleteWidget(context)
-          ]
+            _buildCompleteWidget(context),
+          ],
         ],
       ),
     );
@@ -429,11 +430,8 @@ class DownloadMediaPreview extends StatelessWidget {
         child: Row(
           children: Get.mediaQuery.orientation == Orientation.portrait
               ? [
-                  Flexible(
-                    flex: 5,
-                    child: _buildCover(context),
-                  ),
-                  Flexible(flex: 6, child: left)
+                  Flexible(flex: 5, child: _buildCover(context)),
+                  Flexible(flex: 6, child: left),
                 ]
               : [
                   Container(

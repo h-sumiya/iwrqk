@@ -9,10 +9,7 @@ import 'controller.dart';
 class VideosTabPage extends GetView<VideosTabController> {
   final String tabTag;
 
-  const VideosTabPage({
-    super.key,
-    required this.tabTag,
-  });
+  const VideosTabPage({super.key, required this.tabTag});
 
   @override
   Widget build(BuildContext context) {

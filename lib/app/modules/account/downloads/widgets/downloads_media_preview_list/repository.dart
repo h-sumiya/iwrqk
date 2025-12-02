@@ -14,12 +14,11 @@ class DownloadMediaPreviewListRepository {
 
     records = StorageProvider.downloadVideoRecords.get();
 
-    var newData = records.getRange(currentPage * WidgetConst.pageLimit,
-        min((currentPage + 1) * WidgetConst.pageLimit, records.length));
-
-    return GroupResult(
-      results: newData.toList(),
-      count: records.length,
+    var newData = records.getRange(
+      currentPage * WidgetConst.pageLimit,
+      min((currentPage + 1) * WidgetConst.pageLimit, records.length),
     );
+
+    return GroupResult(results: newData.toList(), count: records.length);
   }
 }

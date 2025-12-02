@@ -75,10 +75,7 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
         _currentPage.value = 0;
       }
       _data.value = [];
-      await loadData(
-        showSplash: showSplash,
-        isRefresh: true,
-      );
+      await loadData(showSplash: showSplash, isRefresh: true);
     });
   }
 
@@ -118,8 +115,10 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
       LogUtil.warning("Failed to load data", e, stackTrace);
 
       if (showSplash) {
-        change({"state": "fail", "msg": e.toString()},
-            status: RxStatus.success());
+        change({
+          "state": "fail",
+          "msg": e.toString(),
+        }, status: RxStatus.success());
       } else {
         SmartDialog.showToast(e.toString());
         endLoading(isRefresh, IndicatorResult.fail);

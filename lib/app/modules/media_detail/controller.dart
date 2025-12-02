@@ -132,10 +132,14 @@ class MediaDetailController extends GetxController
     isOffline = Get.parameters["isOffline"]?.isNotEmpty ?? false;
 
     if (mediaType == MediaType.video) {
-      autoPlay.value =
-          setting.get(PLPlayerConfigKey.enableAutoPlay, defaultValue: true);
-      enableHA.value =
-          setting.get(PLPlayerConfigKey.enableHA, defaultValue: true);
+      autoPlay.value = setting.get(
+        PLPlayerConfigKey.enableAutoPlay,
+        defaultValue: true,
+      );
+      enableHA.value = setting.get(
+        PLPlayerConfigKey.enableHA,
+        defaultValue: true,
+      );
 
       if (GetPlatform.isAndroid) {
         floating = Floating();
@@ -166,8 +170,10 @@ class MediaDetailController extends GetxController
       if (taskData.offlineMedia.type == MediaType.video) {
         offlinePlaylistTag = "download_playlist_${taskData.offlineMedia.id}";
 
-        Get.lazyPut(() => DownloadsMediaPreviewListController(),
-            tag: offlinePlaylistTag);
+        Get.lazyPut(
+          () => DownloadsMediaPreviewListController(),
+          tag: offlinePlaylistTag,
+        );
 
         getOfflineMedia(taskData.taskId);
       } else {
@@ -224,22 +230,22 @@ class MediaDetailController extends GetxController
 
   void generateColorScheme(String uri) {
     ColorScheme.fromImageProvider(
-      provider: CachedNetworkImageProvider(uri),
-      brightness: Get.theme.brightness,
-    ).then((value) {
-      Get.engine.addPostFrameCallback((_) {
-        dominantColorScheme.value = value;
-      });
-    }).catchError((e) {
-      LogUtil.error("Failed to generate color scheme", e);
-    });
+          provider: CachedNetworkImageProvider(uri),
+          brightness: Get.theme.brightness,
+        )
+        .then((value) {
+          Get.engine.addPostFrameCallback((_) {
+            dominantColorScheme.value = value;
+          });
+        })
+        .catchError((e) {
+          LogUtil.error("Failed to generate color scheme", e);
+        });
   }
 
   /// 更新画质、音质
   /// TODO 继续进度播放
-  void updatePlayer({
-    String? video,
-  }) {
+  void updatePlayer({String? video}) {
     defaultST = plPlayerController.position.value;
     plPlayerController.removeListeners();
     plPlayerController.isBuffering.value = false;
@@ -257,10 +263,12 @@ class MediaDetailController extends GetxController
     _isLoadingPlayer.value = true;
 
     /// 设置/恢复 屏幕亮度
-    if (brightness != null) {
-      ScreenBrightness().setApplicationScreenBrightness(brightness!);
-    } else {
-      ScreenBrightness().resetApplicationScreenBrightness();
+    if (!GetPlatform.isLinux) {
+      if (brightness != null) {
+        ScreenBrightness().setApplicationScreenBrightness(brightness!);
+      } else {
+        ScreenBrightness().resetApplicationScreenBrightness();
+      }
     }
 
     await plPlayerController.setDataSource(
@@ -321,19 +329,22 @@ class MediaDetailController extends GetxController
     await repository
         .getVideoResolutions(video.fileUrl!, video.getXVerison())
         .then((value) {
-      if (value.success) {
-        if (value.data!.isNotEmpty) {
-          resolutions = value.data!;
-          resolutionIndex = min(
-              setting.get(PLPlayerConfigKey.qualityIndexSaved,
-                  defaultValue: 99),
-              resolutions.length - 1);
-          playerInit();
-          return;
-        }
-      }
-      _fetchFailed.value = true;
-    });
+          if (value.success) {
+            if (value.data!.isNotEmpty) {
+              resolutions = value.data!;
+              resolutionIndex = min(
+                setting.get(
+                  PLPlayerConfigKey.qualityIndexSaved,
+                  defaultValue: 99,
+                ),
+                resolutions.length - 1,
+              );
+              playerInit();
+              return;
+            }
+          }
+          _fetchFailed.value = true;
+        });
 
     _isFectchingResolution.value = false;
   }
@@ -355,8 +366,10 @@ class MediaDetailController extends GetxController
       return;
     }
 
-    result =
-        await repository.getMoreLikeThis(mediaId: media.id, type: mediaType);
+    result = await repository.getMoreLikeThis(
+      mediaId: media.id,
+      type: mediaType,
+    );
 
     if (result.success) {
       moreLikeThis = result.data!;

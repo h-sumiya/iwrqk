@@ -45,17 +45,14 @@ class _FriendsPreviewListState extends State<FriendsPreviewList>
           controller: scrollController,
           slivers: [
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final item = data[index];
-                  return UserPreview(
-                    user: item,
-                    showFollowButton: false,
-                    showFriendButton: true,
-                  );
-                },
-                childCount: data.length,
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final item = data[index];
+                return UserPreview(
+                  user: item,
+                  showFollowButton: false,
+                  showFriendButton: true,
+                );
+              }, childCount: data.length),
             ),
           ],
         );

@@ -14,19 +14,15 @@ class PlaylistsPreviewController extends GetxController {
     super.onInit();
 
     userId = Get.parameters["userId"]!;
-    requireMyself = Get.parameters["requireMyself"] != null &&
+    requireMyself =
+        Get.parameters["requireMyself"] != null &&
         Get.parameters["requireMyself"] == "true";
 
     tag = "playlists_$userId";
 
-    Get.lazyPut(
-      () => PlaylistsPreviewListController(),
-      tag: tag,
-    );
+    Get.lazyPut(() => PlaylistsPreviewListController(), tag: tag);
 
-    _targetController = Get.find<PlaylistsPreviewListController>(
-      tag: tag,
-    );
+    _targetController = Get.find<PlaylistsPreviewListController>(tag: tag);
   }
 
   Future<void> refreshData() {

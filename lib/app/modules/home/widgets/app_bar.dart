@@ -38,8 +38,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (!_accountService.isLogin || _userService.user == null) ...[
               IconButton(
                 style: IconButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onInverseSurface,
+                ),
                 onPressed: onAvatarTap,
                 icon: const Icon(Icons.person),
               ),

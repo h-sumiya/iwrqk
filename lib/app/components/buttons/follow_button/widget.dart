@@ -43,21 +43,20 @@ class _FollowButtonState extends State<FollowButton>
           style: widget.isSmall
               ? FilledButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.outline,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onInverseSurface,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onInverseSurface,
                   minimumSize: Size.zero,
                   padding: widget.smallPadding,
                 )
               : FilledButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.outline,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onInverseSurface,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onInverseSurface,
                 ),
           onPressed: _controller.isProcessing ? null : _controller.unfollow,
-          child: AutoSizeText(
-            t.profile.following,
-            maxLines: 1,
-          ),
+          child: AutoSizeText(t.profile.following, maxLines: 1),
         );
       } else {
         return FilledButton(
@@ -68,10 +67,7 @@ class _FollowButtonState extends State<FollowButton>
                 )
               : null,
           onPressed: _controller.isProcessing ? null : _controller.follow,
-          child: AutoSizeText(
-            t.profile.follow,
-            maxLines: 1,
-          ),
+          child: AutoSizeText(t.profile.follow, maxLines: 1),
         );
       }
     });

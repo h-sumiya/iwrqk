@@ -55,7 +55,7 @@ class _HistorySearchPageState extends State<HistorySearchPage> {
             onPressed: () => _submit(),
             icon: const Icon(Icons.search_outlined, size: 22),
           ),
-          const SizedBox(width: 10)
+          const SizedBox(width: 10),
         ],
         title: TextField(
           autofocus: true,
@@ -77,10 +77,8 @@ class _HistorySearchPageState extends State<HistorySearchPage> {
         ),
       ),
       body: Obx(
-        () => HistoryMediaPreviewList(
-          tag: listTag,
-          keyword: searchKeyWord.value,
-        ),
+        () =>
+            HistoryMediaPreviewList(tag: listTag, keyword: searchKeyWord.value),
       ),
     );
   }

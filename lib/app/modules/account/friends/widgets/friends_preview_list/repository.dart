@@ -9,10 +9,9 @@ class FriendsPreviewListRepository {
     required String userId,
     required int currentPage,
   }) {
-    return ApiProvider.getFriends(
-      userId: userId,
-      pageNum: currentPage,
-    ).then((value) {
+    return ApiProvider.getFriends(userId: userId, pageNum: currentPage).then((
+      value,
+    ) {
       List<UserModel> friends = [];
       int count = 0;
 

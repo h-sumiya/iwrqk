@@ -53,55 +53,51 @@ class _PostListState extends State<PostList> {
                 slivers: [
                   Obx(
                     () => SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          int realIndex =
-                              _controller.currentPage * _controller.pageSize +
-                                  index;
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        int realIndex =
+                            _controller.currentPage * _controller.pageSize +
+                            index;
 
-                          Widget child = Post(
-                            post: data[index],
-                            index: realIndex,
-                            showDivider: index != data.length - 1,
-                            starterUserName: widget.starterUserName,
-                            isMyComment: _controller.userService.user?.id ==
-                                data[index].user.id,
-                            onUpdated: (Map data) {
-                              if (data["state"] == "delete") {
-                                _controller.deleteComment(index);
-                              } else if (data["state"] == "edit") {
-                                _controller.updateContent(
-                                    index, data["content"]);
-                              }
-                            },
-                          );
+                        Widget child = Post(
+                          post: data[index],
+                          index: realIndex,
+                          showDivider: index != data.length - 1,
+                          starterUserName: widget.starterUserName,
+                          isMyComment:
+                              _controller.userService.user?.id ==
+                              data[index].user.id,
+                          onUpdated: (Map data) {
+                            if (data["state"] == "delete") {
+                              _controller.deleteComment(index);
+                            } else if (data["state"] == "edit") {
+                              _controller.updateContent(index, data["content"]);
+                            }
+                          },
+                        );
 
-                          if (realIndex == 0) {
-                            child = Column(
-                              children: [
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  padding: const EdgeInsets.fromLTRB(
-                                    20,
-                                    16,
-                                    16,
-                                    16,
-                                  ),
-                                  child: Text(
-                                    widget.title,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
+                        if (realIndex == 0) {
+                          child = Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.fromLTRB(
+                                  20,
+                                  16,
+                                  16,
+                                  16,
                                 ),
-                                child,
-                              ],
-                            );
-                          }
+                                child: Text(
+                                  widget.title,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
+                              child,
+                            ],
+                          );
+                        }
 
-                          return child;
-                        },
-                        childCount: data.length,
-                      ),
+                        return child;
+                      }, childCount: data.length),
                     ),
                   ),
                 ],
@@ -152,10 +148,10 @@ class _PostListState extends State<PostList> {
                     IconButton(
                       onPressed:
                           _controller.currentPage + 1 == _controller.totalPage
-                              ? null
-                              : () {
-                                  _controller.nextPage();
-                                },
+                          ? null
+                          : () {
+                              _controller.nextPage();
+                            },
                       icon: const Icon(Icons.chevron_right),
                     ),
                   ],

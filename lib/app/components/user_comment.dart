@@ -54,9 +54,7 @@ class _UserCommentState extends State<UserComment>
 
   void _getTranslatedContent() async {
     if (translatedContent != null) return;
-    TranslateProvider.google(
-      text: widget.comment.body,
-    ).then((value) {
+    TranslateProvider.google(text: widget.comment.body).then((value) {
       if (value.success) {
         setState(() {
           translatedContent = value.data;
@@ -117,7 +115,7 @@ class _UserCommentState extends State<UserComment>
                   ),
                 ),
                 if (widget.uploaderUserName == widget.comment.user.username)
-                  _buildUploaderBadge(context)
+                  _buildUploaderBadge(context),
               ],
             ),
           ),
@@ -133,9 +131,7 @@ class _UserCommentState extends State<UserComment>
                 PopupMenuItem<String>(
                   value: "translate",
                   onTap: _getTranslatedContent,
-                  child: Text(
-                    t.common.translate,
-                  ),
+                  child: Text(t.common.translate),
                 ),
                 if (widget.isMyComment) ...[
                   PopupMenuItem<String>(
@@ -158,35 +154,30 @@ class _UserCommentState extends State<UserComment>
                         ),
                       );
                     },
-                    child: Text(
-                      t.comment.edit_comment,
-                    ),
+                    child: Text(t.comment.edit_comment),
                   ),
                   PopupMenuItem<String>(
                     value: "delete",
                     onTap: () {
                       final UserService userService = Get.find();
-                      userService.deleteComment(
-                        id: widget.comment.id,
-                      );
+                      userService.deleteComment(id: widget.comment.id);
                       widget.onUpdated?.call({"state": "delete"});
                     },
-                    child: Text(
-                      t.comment.delete_comment,
-                    ),
+                    child: Text(t.comment.delete_comment),
                   ),
-                ]
+                ],
               ];
             },
-          )
+          ),
         ],
       ),
     );
   }
 
   Widget _buildBottomWidget(BuildContext context) {
-    String text =
-        DisplayUtil.getDisplayTime(DateTime.parse(widget.comment.createdAt));
+    String text = DisplayUtil.getDisplayTime(
+      DateTime.parse(widget.comment.createdAt),
+    );
     if (widget.comment.createdAt != widget.comment.updatedAt) {
       text +=
           "\n${t.media.updated_at(time: DisplayUtil.getDisplayTime(DateTime.parse(widget.comment.updatedAt)))}";
@@ -196,7 +187,9 @@ class _UserCommentState extends State<UserComment>
       child: Text(
         text,
         style: TextStyle(
-            color: Theme.of(context).colorScheme.outline, fontSize: 12.5),
+          color: Theme.of(context).colorScheme.outline,
+          fontSize: 12.5,
+        ),
       ),
     );
   }
@@ -225,7 +218,7 @@ class _UserCommentState extends State<UserComment>
               const TextSpan(text: "："),
               TextSpan(
                 text: widget.comment.children[index].body.replaceAll("\n", ""),
-              )
+              ),
             ],
           ),
           style: const TextStyle(overflow: TextOverflow.ellipsis),
@@ -279,7 +272,8 @@ class _UserCommentState extends State<UserComment>
                         ),
                         child: Text(
                           t.comment.show_all_replies(
-                              numReply: widget.comment.numReplies.toString()),
+                            numReply: widget.comment.numReplies.toString(),
+                          ),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -331,7 +325,8 @@ class _UserCommentState extends State<UserComment>
           barrierColor: Colors.transparent,
           builder: (context) => Padding(
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
             child: RepliesDetail(
               uploaderUserName: widget.uploaderUserName,
               parentComment: widget.comment,
@@ -353,10 +348,7 @@ class _UserCommentState extends State<UserComment>
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildUserWidget(context),
-          _buildContent(context),
-        ],
+        children: [_buildUserWidget(context), _buildContent(context)],
       ),
     );
 
@@ -368,7 +360,8 @@ class _UserCommentState extends State<UserComment>
             onLongPress: () {
               Clipboard.setData(ClipboardData(text: widget.comment.body));
             },
-            child: child)
+            child: child,
+          )
         : child;
   }
 

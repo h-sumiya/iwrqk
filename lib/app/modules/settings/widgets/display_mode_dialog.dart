@@ -78,35 +78,33 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
           shrinkWrap: true,
           slivers: [
             if (modes.isEmpty)
-              SliverToBoxAdapter(
-                child: Text(t.display_mode.no_available),
-              ),
+              SliverToBoxAdapter(child: Text(t.display_mode.no_available)),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  final DisplayMode mode = modes[index];
+              delegate: SliverChildBuilderDelegate((
+                BuildContext context,
+                int index,
+              ) {
+                final DisplayMode mode = modes[index];
 
-                  return RadioListTile<DisplayMode>(
-                    value: mode,
-                    title: mode == DisplayMode.auto
-                        ? Text(t.display_mode.auto)
-                        : Text(
-                            '$mode${mode == active ? "  [${t.display_mode.system}]" : ""}',
-                          ),
-                    groupValue: preferred,
-                    onChanged: (DisplayMode? newMode) async {
-                      await FlutterDisplayMode.setPreferredMode(newMode!);
-                      await Future<dynamic>.delayed(
-                        const Duration(milliseconds: 100),
-                      );
-                      SmartDialog.showToast(t.message.restart_required);
-                      HapticFeedback.mediumImpact();
-                      await fetchAll();
-                    },
-                  );
-                },
-                childCount: modes.length,
-              ),
+                return RadioListTile<DisplayMode>(
+                  value: mode,
+                  title: mode == DisplayMode.auto
+                      ? Text(t.display_mode.auto)
+                      : Text(
+                          '$mode${mode == active ? "  [${t.display_mode.system}]" : ""}',
+                        ),
+                  groupValue: preferred,
+                  onChanged: (DisplayMode? newMode) async {
+                    await FlutterDisplayMode.setPreferredMode(newMode!);
+                    await Future<dynamic>.delayed(
+                      const Duration(milliseconds: 100),
+                    );
+                    SmartDialog.showToast(t.message.restart_required);
+                    HapticFeedback.mediumImpact();
+                    await fetchAll();
+                  },
+                );
+              }, childCount: modes.length),
             ),
           ],
         ),

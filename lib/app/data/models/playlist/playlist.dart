@@ -18,10 +18,6 @@ class PlaylistModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'numVideos': numVideos,
-    };
+    return {'id': id, 'title': title, 'numVideos': numVideos};
   }
 }

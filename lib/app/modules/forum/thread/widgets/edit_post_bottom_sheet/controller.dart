@@ -34,21 +34,13 @@ class EditPostBottomSheetController extends GetxController {
     _sending.value = true;
 
     if (isEdit) {
-      await _userService
-          .editPost(
-        id: editId!,
-        content: content,
-      )
-          .then((value) {
+      await _userService.editPost(id: editId!, content: content).then((value) {
         success = value;
       });
     } else {
-      await _userService
-          .sendPost(
-        threadId: threadId!,
-        content: content,
-      )
-          .then((value) {
+      await _userService.sendPost(threadId: threadId!, content: content).then((
+        value,
+      ) {
         success = value;
       });
     }

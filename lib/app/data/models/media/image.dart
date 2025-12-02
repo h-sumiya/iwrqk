@@ -33,9 +33,11 @@ class ImageModel extends MediaModel {
 
   List<String> get galleryFileUrls {
     return files
-        .map((e) => IwaraConst.galleryFileUrl
-            .replaceFirst("{id}", e.id)
-            .replaceFirst("{name}", e.name!))
+        .map(
+          (e) => IwaraConst.galleryFileUrl
+              .replaceFirst("{id}", e.id)
+              .replaceFirst("{name}", e.name!),
+        )
         .toList();
   }
 

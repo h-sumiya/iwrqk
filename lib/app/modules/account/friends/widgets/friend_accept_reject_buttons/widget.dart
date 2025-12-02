@@ -47,17 +47,13 @@ class _FriendAcceptRejectButtonsState extends State<FriendAcceptRejectButtons>
                   : const BorderSide(color: Colors.red),
             ),
             onPressed: _controller.isProcessing ? null : _controller.reject,
-            child: Text(
-              t.friend.reject,
-            ),
+            child: Text(t.friend.reject),
           ),
           const SizedBox(width: 10),
           FilledButton(
             onPressed: _controller.isProcessing ? null : _controller.accpect,
-            child: Text(
-              t.friend.accept,
-            ),
-          )
+            child: Text(t.friend.accept),
+          ),
         ],
       ),
     );

@@ -20,8 +20,8 @@ class NotificationsCountsModel {
   }
 
   Map<String, dynamic> toJson() => {
-        "messages": messages,
-        "notifications": notifications,
-        "friendRequests": friendRequests,
-      };
+    "messages": messages,
+    "notifications": notifications,
+    "friendRequests": friendRequests,
+  };
 }

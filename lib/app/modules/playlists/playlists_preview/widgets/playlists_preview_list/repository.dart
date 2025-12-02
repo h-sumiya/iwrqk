@@ -9,8 +9,9 @@ class PlaylistsPreviewListRepository {
     required String userId,
     required currentPage,
   }) {
-    return ApiProvider.getPlaylists(userId: userId, pageNum: currentPage)
-        .then((value) {
+    return ApiProvider.getPlaylists(userId: userId, pageNum: currentPage).then((
+      value,
+    ) {
       List<PlaylistModel> playlists = [];
       int count = 0;
 

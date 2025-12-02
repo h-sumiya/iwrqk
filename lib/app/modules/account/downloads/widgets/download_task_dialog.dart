@@ -52,9 +52,7 @@ class DownloadTaskDialog extends StatelessWidget {
 
         switch (taskStatus!.value.status) {
           case DownloadTaskStatus.enqueued:
-            statusWidget = Text(
-              t.download.enqueued,
-            );
+            statusWidget = Text(t.download.enqueued);
           case DownloadTaskStatus.running:
             statusWidget = Text(
               "${t.download.downloading} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
@@ -68,21 +66,18 @@ class DownloadTaskDialog extends StatelessWidget {
 
             progress = taskStatus!.value.progress / 100;
           case DownloadTaskStatus.failed:
-            statusWidget = Text(
-              t.download.failed,
-            );
+            statusWidget = Text(t.download.failed);
           case DownloadTaskStatus.complete:
             statusWidget = Text(
-                "${t.download.finished} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}");
+              "${t.download.finished} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
+            );
 
             progress = 1;
           default:
             statusWidget = Text(
               t.download.unknown,
               maxLines: 1,
-              style: const TextStyle(
-                color: Colors.red,
-              ),
+              style: const TextStyle(color: Colors.red),
             );
         }
 
@@ -90,9 +85,7 @@ class DownloadTaskDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LinearProgressIndicator(
-              value: progress,
-            ),
+            LinearProgressIndicator(value: progress),
             const SizedBox(height: 12),
             statusWidget,
           ],
@@ -102,16 +95,12 @@ class DownloadTaskDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const LinearProgressIndicator(
-              value: 0,
-            ),
+            const LinearProgressIndicator(value: 0),
             const SizedBox(height: 12),
             Text(
               t.download.unknown,
               maxLines: 1,
-              style: const TextStyle(
-                color: Colors.red,
-              ),
+              style: const TextStyle(color: Colors.red),
             ),
           ],
         );
@@ -151,8 +140,10 @@ class DownloadTaskDialog extends StatelessWidget {
                   const SizedBox(width: 8),
                   IconButton(
                     style: IconButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onInverseSurface),
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.onInverseSurface,
+                    ),
                     onPressed: () {
                       Get.back();
                     },
@@ -178,7 +169,8 @@ class DownloadTaskDialog extends StatelessWidget {
                                   imageUrl: media.coverUrl!,
                                   aspectRatio: 16 / 9,
                                   fit: BoxFit.cover,
-                                  isAdult: media.ratingType ==
+                                  isAdult:
+                                      media.ratingType ==
                                       RatingType.ecchi.value,
                                 )
                               : const AspectRatio(aspectRatio: 16 / 9),
@@ -192,7 +184,8 @@ class DownloadTaskDialog extends StatelessWidget {
                                   imageUrl: media.coverUrl!,
                                   width: 300,
                                   fit: BoxFit.cover,
-                                  isAdult: media.ratingType ==
+                                  isAdult:
+                                      media.ratingType ==
                                       RatingType.ecchi.value,
                                 )
                               : const SizedBox(width: 300),

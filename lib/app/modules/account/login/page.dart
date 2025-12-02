@@ -16,11 +16,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          t.account.login,
-        ),
-      ),
+      appBar: AppBar(title: Text(t.account.login)),
       body: Form(
         key: controller.formKey,
         child: ListView(
@@ -55,8 +51,10 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
                   constraints: constraints,
                   child: Obx(
                     () => TextFormField(
@@ -117,16 +115,14 @@ class LoginPage extends GetView<LoginController> {
                             FocusScope.of(context).requestFocus(blankNode);
                             controller.login(context);
                           },
-                          child: Text(
-                            t.account.login,
-                          ),
+                          child: Text(t.account.login),
                         ),
                       ),
                     ],
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

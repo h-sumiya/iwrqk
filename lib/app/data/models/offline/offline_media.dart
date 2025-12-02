@@ -27,20 +27,21 @@ class OfflineMediaModel {
   });
 
   Map<String, dynamic> toJson() => {
-        'type': type.toString().split('.').last,
-        'title': title,
-        'id': id,
-        'coverUrl': coverUrl,
-        'galleryLength': galleryLength,
-        'uploader': uploader.toJson(),
-        'duration': duration,
-        'ratingType': ratingType,
-      };
+    'type': type.toString().split('.').last,
+    'title': title,
+    'id': id,
+    'coverUrl': coverUrl,
+    'galleryLength': galleryLength,
+    'uploader': uploader.toJson(),
+    'duration': duration,
+    'ratingType': ratingType,
+  };
 
   factory OfflineMediaModel.fromJson(Map<String, dynamic> json) {
     return OfflineMediaModel(
-      type: MediaType.values
-          .firstWhere((e) => e.toString().split('.').last == json['type']),
+      type: MediaType.values.firstWhere(
+        (e) => e.toString().split('.').last == json['type'],
+      ),
       title: json['title'],
       id: json['id'],
       coverUrl: json['coverUrl'],
@@ -77,7 +78,8 @@ class OfflineMediaModel {
   }
 
   factory OfflineMediaModel.fromHistoryMediaPreviewData(
-      HistoryMediaModel model) {
+    HistoryMediaModel model,
+  ) {
     return OfflineMediaModel(
       type: model.type,
       title: model.title,

@@ -52,10 +52,11 @@ class HistoryMediaPreview extends StatelessWidget {
               color: Colors.red.withAlpha(160),
             ),
             child: const Center(
-                child: Text(
-              "R-18",
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            )),
+              child: Text(
+                "R-18",
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ),
+            ),
           ),
         if (duration != null)
           Container(
@@ -90,7 +91,7 @@ class HistoryMediaPreview extends StatelessWidget {
                       "$galleryLength",
                       style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -153,11 +154,12 @@ class HistoryMediaPreview extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.black.withAlpha(
-                        ((historyController.enableMultipleSelection && checked
-                                    ? 0.6
-                                    : 0) *
-                                255)
-                            .round()),
+                      ((historyController.enableMultipleSelection && checked
+                                  ? 0.6
+                                  : 0) *
+                              255)
+                          .round(),
+                    ),
                   ),
                   child: Center(
                     child: SizedBox(
@@ -171,11 +173,12 @@ class HistoryMediaPreview extends StatelessWidget {
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(32),
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Colors.white
-                                    : Colors.black)
-                                .withAlpha((0.8 * 255).round()),
+                            color:
+                                (Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.white
+                                        : Colors.black)
+                                    .withAlpha((0.8 * 255).round()),
                           ),
                           child: Icon(
                             Icons.check,
@@ -247,7 +250,7 @@ class HistoryMediaPreview extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -255,9 +258,10 @@ class HistoryMediaPreview extends StatelessWidget {
               Text(
                 media.type == MediaType.video ? t.common.video : t.common.image,
                 style: TextStyle(
-                    fontSize: 12.5,
-                    color: Theme.of(context).colorScheme.outline),
-              )
+                  fontSize: 12.5,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+              ),
           ],
         ),
       ],
@@ -296,11 +300,8 @@ class HistoryMediaPreview extends StatelessWidget {
         child: Row(
           children: Get.mediaQuery.orientation == Orientation.portrait
               ? [
-                  Flexible(
-                    flex: 5,
-                    child: _buildCover(context),
-                  ),
-                  Flexible(flex: 6, child: left)
+                  Flexible(flex: 5, child: _buildCover(context)),
+                  Flexible(flex: 6, child: left),
                 ]
               : [
                   Container(

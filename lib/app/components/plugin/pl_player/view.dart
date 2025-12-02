@@ -70,6 +70,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
   late bool enableQuickDouble;
   late bool enableBackgroundPlay;
   late double screenWidth;
+  late final bool _brightnessSupported = !GetPlatform.isLinux;
 
   // 用于记录上一次全屏切换手势触发时间，避免误触
   DateTime? lastFullScreenToggleTime;
@@ -113,15 +114,21 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     super.initState();
     screenWidth = Get.size.width;
     animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
     videoController = widget.controller.videoController!;
     widget.controller.headerControl = widget.headerControl;
     widget.controller.bottomControl = widget.bottomControl;
 
-    enableQuickDouble =
-        setting.get(PLPlayerConfigKey.enableQuickDouble, defaultValue: true);
-    enableBackgroundPlay = setting.get(PLPlayerConfigKey.enableBackgroundPlay,
-        defaultValue: false);
+    enableQuickDouble = setting.get(
+      PLPlayerConfigKey.enableQuickDouble,
+      defaultValue: true,
+    );
+    enableBackgroundPlay = setting.get(
+      PLPlayerConfigKey.enableBackgroundPlay,
+      defaultValue: false,
+    );
     Future.microtask(() async {
       try {
         FlutterVolumeController.updateShowSystemUI(true);
@@ -134,18 +141,20 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
       } catch (_) {}
     });
 
-    Future.microtask(() async {
-      try {
-        _ctr.brightnessValue.value = await ScreenBrightness().application;
-        ScreenBrightness()
-            .onApplicationScreenBrightnessChanged
-            .listen((double value) {
-          if (mounted) {
-            _ctr.brightnessValue.value = value;
-          }
-        });
-      } catch (_) {}
-    });
+    if (_brightnessSupported) {
+      Future.microtask(() async {
+        try {
+          _ctr.brightnessValue.value = await ScreenBrightness().application;
+          ScreenBrightness().onApplicationScreenBrightnessChanged.listen((
+            double value,
+          ) {
+            if (mounted) {
+              _ctr.brightnessValue.value = value;
+            }
+          });
+        } catch (_) {}
+      });
+    }
   }
 
   Future<void> setVolume(double value) async {
@@ -166,6 +175,9 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
   }
 
   Future<void> setBrightness(double value) async {
+    if (!_brightnessSupported) {
+      return;
+    }
     try {
       await ScreenBrightness().setApplicationScreenBrightness(value);
     } catch (_) {}
@@ -190,10 +202,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
   Widget build(BuildContext context) {
     final PlPlayerController c = widget.controller;
     final Color colorTheme = Theme.of(context).colorScheme.primary;
-    const TextStyle textStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 12,
-    );
+    const TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 12);
     return Stack(
       fit: StackFit.passthrough,
       children: <Widget>[
@@ -285,7 +294,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                           return Text(
                             c.sliderTempPosition.value.inMinutes >= 60
                                 ? printDurationWithHours(
-                                    c.sliderTempPosition.value)
+                                    c.sliderTempPosition.value,
+                                  )
                                 : printDuration(c.sliderTempPosition.value),
                             style: textStyle,
                           );
@@ -337,8 +347,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                         _ctr.volumeValue.value == 0.0
                             ? Icons.volume_off
                             : _ctr.volumeValue.value < 0.5
-                                ? Icons.volume_down
-                                : Icons.volume_up,
+                            ? Icons.volume_down
+                            : Icons.volume_up,
                         color: const Color(0xFFFFFFFF),
                         size: 20.0,
                       ),
@@ -388,8 +398,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                         _ctr.brightnessValue.value < 1.0 / 3.0
                             ? Icons.brightness_low
                             : _ctr.brightnessValue.value < 2.0 / 3.0
-                                ? Icons.brightness_medium
-                                : Icons.brightness_high,
+                            ? Icons.brightness_medium
+                            : Icons.brightness_high,
                         color: const Color(0xFFFFFFFF),
                         size: 18.0,
                       ),
@@ -477,10 +487,13 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                   c.sliderPosition.value.inMilliseconds;
               final double scale = 90000 / MediaQuery.sizeOf(context).width;
               final Duration pos = Duration(
-                  milliseconds:
-                      curSliderPosition + (details.delta.dx * scale).round());
-              final Duration result =
-                  pos.clamp(Duration.zero, c.duration.value);
+                milliseconds:
+                    curSliderPosition + (details.delta.dx * scale).round(),
+              );
+              final Duration result = pos.clamp(
+                Duration.zero,
+                c.duration.value,
+              );
               c.onUpdatedSliderProgress(result);
               c.onChangedSliderStart();
               // _initTapPositoin = tapPosition;
@@ -510,7 +523,11 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               }
               if (tapPosition < sectionWidth) {
                 // 左边区域 👈
-                final double level = (c.isFullScreen.value
+                if (!_brightnessSupported) {
+                  return;
+                }
+                final double level =
+                    (c.isFullScreen.value
                         ? Get.size.height
                         : screenWidth * 9 / 16) *
                     3;
@@ -540,7 +557,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                 _distance = dy;
               } else {
                 // 右边区域 👈
-                final double level = (c.isFullScreen.value
+                final double level =
+                    (c.isFullScreen.value
                         ? Get.size.height
                         : screenWidth * 9 / 16) *
                     3;
@@ -577,7 +595,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                       controller: animationController,
                       visible: !c.controlsLock.value && c.showControls.value,
                       position: 'bottom',
-                      child: widget.bottomControl ??
+                      child:
+                          widget.bottomControl ??
                           BottomControl(
                             controller: widget.controller,
                             triggerFullScreen:
@@ -592,66 +611,62 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         ),
 
         /// 进度条
-        Obx(
-          () {
-            final int value = c.sliderPositionSeconds.value;
-            final int max = c.durationSeconds.value;
-            final int buffer = c.bufferedSeconds.value;
+        Obx(() {
+          final int value = c.sliderPositionSeconds.value;
+          final int max = c.durationSeconds.value;
+          final int buffer = c.bufferedSeconds.value;
 
-            if (c.showControls.value) {
-              return const SizedBox.shrink();
-            }
+          if (c.showControls.value) {
+            return const SizedBox.shrink();
+          }
 
-            if (value > max || max <= 0) {
-              return const SizedBox.shrink();
-            }
+          if (value > max || max <= 0) {
+            return const SizedBox.shrink();
+          }
 
-            return Positioned(
-              bottom: -1.5,
-              left: 0,
-              right: 0,
-              child: ProgressBar(
-                progress: Duration(seconds: value),
-                buffered: Duration(seconds: buffer),
-                total: Duration(seconds: max),
-                progressBarColor: colorTheme,
-                baseBarColor:
-                    Colors.white.withAlpha((0.2 * 255).round()),
-                bufferedBarColor: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withAlpha((0.4 * 255).round()),
-                timeLabelLocation: TimeLabelLocation.none,
-                thumbColor: colorTheme,
-                barHeight: 3,
-                thumbRadius: 0.0,
-                // onDragStart: (duration) {
-                //   c.onChangedSliderStart();
-                // },
-                // onDragEnd: () {
-                //   c.onChangedSliderEnd();
-                // },
-                // onDragUpdate: (details) {
-                //   print(details);
-                // },
-                // onSeek: (duration) {
-                //   feedBack();
-                //   c.onChangedSlider(duration.inSeconds.toDouble());
-                //   c.seekTo(duration);
-                // },
-              ),
-              // SlideTransition(
-              //     position: Tween<Offset>(
-              //       begin: Offset.zero,
-              //       end: const Offset(0, -1),
-              //     ).animate(CurvedAnimation(
-              //       parent: animationController,
-              //       curve: Curves.easeInOut,
-              //     )),
-              //     child: ),
-            );
-          },
-        ),
+          return Positioned(
+            bottom: -1.5,
+            left: 0,
+            right: 0,
+            child: ProgressBar(
+              progress: Duration(seconds: value),
+              buffered: Duration(seconds: buffer),
+              total: Duration(seconds: max),
+              progressBarColor: colorTheme,
+              baseBarColor: Colors.white.withAlpha((0.2 * 255).round()),
+              bufferedBarColor: Theme.of(
+                context,
+              ).colorScheme.primary.withAlpha((0.4 * 255).round()),
+              timeLabelLocation: TimeLabelLocation.none,
+              thumbColor: colorTheme,
+              barHeight: 3,
+              thumbRadius: 0.0,
+              // onDragStart: (duration) {
+              //   c.onChangedSliderStart();
+              // },
+              // onDragEnd: () {
+              //   c.onChangedSliderEnd();
+              // },
+              // onDragUpdate: (details) {
+              //   print(details);
+              // },
+              // onSeek: (duration) {
+              //   feedBack();
+              //   c.onChangedSlider(duration.inSeconds.toDouble());
+              //   c.seekTo(duration);
+              // },
+            ),
+            // SlideTransition(
+            //     position: Tween<Offset>(
+            //       begin: Offset.zero,
+            //       end: const Offset(0, -1),
+            //     ).animate(CurvedAnimation(
+            //       parent: animationController,
+            //       curve: Curves.easeInOut,
+            //     )),
+            //     child: ),
+          );
+        }),
 
         // 锁
         Obx(
@@ -703,7 +718,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         /// 点击 快进/快退
         Obx(
           () => Visibility(
-            visible: _ctr.mountSeekBackwardButton.value ||
+            visible:
+                _ctr.mountSeekBackwardButton.value ||
                 _ctr.mountSeekForwardButton.value,
             child: Positioned.fill(
               child: Row(
@@ -713,16 +729,17 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                         ? TweenAnimationBuilder<double>(
                             tween: Tween<double>(
                               begin: 0.0,
-                              end:
-                                  _ctr.hideSeekBackwardButton.value ? 0.0 : 1.0,
+                              end: _ctr.hideSeekBackwardButton.value
+                                  ? 0.0
+                                  : 1.0,
                             ),
                             duration: const Duration(milliseconds: 500),
-                            builder: (BuildContext context, double value,
-                                    Widget? child) =>
-                                Opacity(
-                              opacity: value,
-                              child: child,
-                            ),
+                            builder:
+                                (
+                                  BuildContext context,
+                                  double value,
+                                  Widget? child,
+                                ) => Opacity(opacity: value, child: child),
                             onEnd: () {
                               if (_ctr.hideSeekBackwardButton.value) {
                                 _ctr.hideSeekBackwardButton.value = false;
@@ -762,12 +779,12 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                               end: _ctr.hideSeekForwardButton.value ? 0.0 : 1.0,
                             ),
                             duration: const Duration(milliseconds: 500),
-                            builder: (BuildContext context, double value,
-                                    Widget? child) =>
-                                Opacity(
-                              opacity: value,
-                              child: child,
-                            ),
+                            builder:
+                                (
+                                  BuildContext context,
+                                  double value,
+                                  Widget? child,
+                                ) => Opacity(opacity: value, child: child),
                             onEnd: () {
                               if (_ctr.hideSeekForwardButton.value) {
                                 _ctr.hideSeekForwardButton.value = false;

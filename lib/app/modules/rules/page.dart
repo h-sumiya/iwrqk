@@ -12,8 +12,9 @@ class RulesPage extends GetView<RulesController> {
 
   Widget _buildMarkdown(BuildContext context, String data) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final config =
-        isDark ? MarkdownConfig.darkConfig : MarkdownConfig.defaultConfig;
+    final config = isDark
+        ? MarkdownConfig.darkConfig
+        : MarkdownConfig.defaultConfig;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -61,8 +62,8 @@ class RulesPage extends GetView<RulesController> {
               Text(
                 "${controller.rules.indexOf(rule) + 1}. ${rule.title[language] ?? ''}",
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               _buildMarkdown(context, rule.body[language] ?? ''),
             ],
@@ -150,9 +151,7 @@ class RulesPage extends GetView<RulesController> {
             ),
           );
         },
-        onLoading: const Center(
-          child: CircularProgressIndicator(),
-        ),
+        onLoading: const Center(child: CircularProgressIndicator()),
       ),
     );
   }

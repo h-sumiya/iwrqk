@@ -17,8 +17,8 @@ class NotificationsSettings {
       );
 
   Map<String, dynamic> toJson() => {
-        "mention": mention,
-        "reply": reply,
-        "comment": comment,
-      };
+    "mention": mention,
+    "reply": reply,
+    "comment": comment,
+  };
 }

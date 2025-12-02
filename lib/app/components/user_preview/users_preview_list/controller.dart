@@ -22,7 +22,10 @@ class UsersPreviewListController extends IwrRefreshController<UserModel> {
   bool initializated = false;
 
   void initConfig(
-      UsersSortSetting sortSetting, UsersSourceType sourceType, bool isSearch) {
+    UsersSortSetting sortSetting,
+    UsersSourceType sourceType,
+    bool isSearch,
+  ) {
     _sortSetting = sortSetting;
     _sourceType = sourceType;
 

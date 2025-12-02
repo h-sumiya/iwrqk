@@ -163,33 +163,39 @@ class SettingsController extends GetxController {
     await ConfigProvider.getLatestVersion().then((value) async {
       if (value.success) {
         if (compareVersion(currentVersion, value.data!) < 0) {
-          Get.dialog(AlertDialog(
-            title: Text(t.message.update.update_available),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(t.message.update.current_version(version: currentVersion)),
-                Text(t.message.update.latest_version(version: value.data!)),
+          Get.dialog(
+            AlertDialog(
+              title: Text(t.message.update.update_available),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    t.message.update.current_version(version: currentVersion),
+                  ),
+                  Text(t.message.update.latest_version(version: value.data!)),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(t.notifications.cancel),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    Get.back();
+                    launchUrlString(
+                      ConfigConst.updateUrl,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  child: Text(t.message.update.view_update),
+                ),
               ],
             ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text(t.notifications.cancel),
-              ),
-              TextButton(
-                onPressed: () async {
-                  Get.back();
-                  launchUrlString(ConfigConst.updateUrl,
-                      mode: LaunchMode.externalApplication);
-                },
-                child: Text(t.message.update.view_update),
-              ),
-            ],
-          ));
+          );
         } else {
           SmartDialog.showToast(t.message.update.already_latest_version);
         }

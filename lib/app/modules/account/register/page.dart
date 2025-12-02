@@ -16,11 +16,7 @@ class RegisterPage extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          t.account.register,
-        ),
-      ),
+      appBar: AppBar(title: Text(t.account.register)),
       body: controller.obx(
         (state) {
           return Form(
@@ -58,7 +54,9 @@ class RegisterPage extends GetView<RegisterController> {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 16),
+                        horizontal: 20,
+                        vertical: 16,
+                      ),
                       constraints: constraints,
                       child: ClipRRect(
                         child: AspectRatio(
@@ -93,7 +91,9 @@ class RegisterPage extends GetView<RegisterController> {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 24),
+                        horizontal: 20,
+                        vertical: 24,
+                      ),
                       constraints: constraints,
                       width: double.infinity,
                       child: FilledButton(
@@ -101,9 +101,7 @@ class RegisterPage extends GetView<RegisterController> {
                           FocusScope.of(context).requestFocus(blankNode);
                           controller.register();
                         },
-                        child: Text(
-                          t.account.register,
-                        ),
+                        child: Text(t.account.register),
                       ),
                     ),
                   ],
@@ -114,10 +112,7 @@ class RegisterPage extends GetView<RegisterController> {
         },
         onLoading: const Center(child: CircularProgressIndicator()),
         onError: (error) => Center(
-          child: LoadFail(
-            errorMessage: error!,
-            onRefresh: controller.loadData,
-          ),
+          child: LoadFail(errorMessage: error!, onRefresh: controller.loadData),
         ),
       ),
     );

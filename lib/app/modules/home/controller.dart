@@ -25,16 +25,15 @@ class TabPages {
     "subscription_tab",
     "videos_tab",
     "images_tab",
-    "forum_tab"
+    "forum_tab",
   ];
 
   Map<String, Widget> get tabPages => <String, Widget>{
-        AppRoutes.subscription:
-            SubscriptionTabPage(tabTag: scrollableTabTags[0]),
-        AppRoutes.videos: VideosTabPage(tabTag: scrollableTabTags[1]),
-        AppRoutes.images: ImagesTabPage(tabTag: scrollableTabTags[2]),
-        AppRoutes.forum: ForumTabPage(tabTag: scrollableTabTags[3]),
-      };
+    AppRoutes.subscription: SubscriptionTabPage(tabTag: scrollableTabTags[0]),
+    AppRoutes.videos: VideosTabPage(tabTag: scrollableTabTags[1]),
+    AppRoutes.images: ImagesTabPage(tabTag: scrollableTabTags[2]),
+    AppRoutes.forum: ForumTabPage(tabTag: scrollableTabTags[3]),
+  };
 
   final Map<String, IconData> iconDatas = <String, IconData>{
     AppRoutes.subscription: Icons.subscriptions_outlined,
@@ -57,11 +56,11 @@ class TabPages {
       activeIconDatas.map((key, value) => MapEntry(key, Icon(value)));
 
   Map<String, String> get tabTitles => <String, String>{
-        AppRoutes.subscription: t.nav.subscriptions,
-        AppRoutes.videos: t.nav.videos,
-        AppRoutes.images: t.nav.images,
-        AppRoutes.forum: t.nav.forum,
-      };
+    AppRoutes.subscription: t.nav.subscriptions,
+    AppRoutes.videos: t.nav.videos,
+    AppRoutes.images: t.nav.images,
+    AppRoutes.forum: t.nav.forum,
+  };
 
   List<String> tabNameList = <String>[
     AppRoutes.subscription,
@@ -192,11 +191,12 @@ class HomeController extends GetxController {
       return;
     }
 
-    ReceiveSharingIntent.instance
-        .getInitialMedia()
-        .then((List<SharedMediaFile> value) {
-      final textFiles =
-          value.where((file) => file.type == SharedMediaType.text).toList();
+    ReceiveSharingIntent.instance.getInitialMedia().then((
+      List<SharedMediaFile> value,
+    ) {
+      final textFiles = value
+          .where((file) => file.type == SharedMediaType.text)
+          .toList();
 
       if (textFiles.isNotEmpty) {
         final rawText = textFiles.first.path;
@@ -208,25 +208,28 @@ class HomeController extends GetxController {
       ReceiveSharingIntent.instance.reset();
     });
 
-    _intentDataStreamSubscription =
-        ReceiveSharingIntent.instance.getMediaStream().listen(
-      (List<SharedMediaFile> mediaList) {
-        final textFiles = mediaList
-            .where((file) =>
-                file.type == SharedMediaType.text ||
-                file.type == SharedMediaType.url)
-            .toList();
+    _intentDataStreamSubscription = ReceiveSharingIntent.instance
+        .getMediaStream()
+        .listen(
+          (List<SharedMediaFile> mediaList) {
+            final textFiles = mediaList
+                .where(
+                  (file) =>
+                      file.type == SharedMediaType.text ||
+                      file.type == SharedMediaType.url,
+                )
+                .toList();
 
-        for (final file in textFiles) {
-          final url = file.path;
-          if (url.isNotEmpty) {
-            UrlUtil.jumpTo(url);
-          }
-        }
-      },
-      onError: (e, stackTrace) {
-        LogUtil.error('ReceiveSharingIntent Error!', e, stackTrace);
-      },
-    );
+            for (final file in textFiles) {
+              final url = file.path;
+              if (url.isNotEmpty) {
+                UrlUtil.jumpTo(url);
+              }
+            }
+          },
+          onError: (e, stackTrace) {
+            LogUtil.error('ReceiveSharingIntent Error!', e, stackTrace);
+          },
+        );
   }
 }

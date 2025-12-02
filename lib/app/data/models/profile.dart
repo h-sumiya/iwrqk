@@ -22,7 +22,8 @@ class ProfileModel {
   String get bannerUrl {
     if (header == null) return IwaraConst.defaultBannerUrl;
 
-    bool animated = header!.mime == "image/gif" ||
+    bool animated =
+        header!.mime == "image/gif" ||
         header!.mime == "image/webp" ||
         header!.mime == "image/apng";
 
@@ -38,8 +39,9 @@ class ProfileModel {
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       body: json['body'] ?? "",
-      header:
-          json['header'] != null ? ImageModel.fromJson(json['header']) : null,
+      header: json['header'] != null
+          ? ImageModel.fromJson(json['header'])
+          : null,
       user: json['user'] != null ? UserModel.fromJson(json['user']) : null,
       seenAt: json['seenAt'],
       createdAt: json['createdAt'],
@@ -54,7 +56,7 @@ class ProfileModel {
       'user': user?.toJson(),
       'seenAt': seenAt,
       'createdAt': createdAt,
-      'updatedAt': updatedAt
+      'updatedAt': updatedAt,
     };
   }
 }

@@ -7,20 +7,20 @@ import '../../../data/models/user.dart';
 
 class UploadedMediaController extends GetxController {
   List<String> get tabNameList => [
-        t.sort.latest,
-        t.sort.trending,
-        t.sort.popularity,
-        t.sort.most_views,
-        t.sort.most_likes,
-      ];
+    t.sort.latest,
+    t.sort.trending,
+    t.sort.popularity,
+    t.sort.most_views,
+    t.sort.most_likes,
+  ];
 
   List<OrderType> get orderTypeList => [
-        OrderType.date,
-        OrderType.trending,
-        OrderType.popularity,
-        OrderType.views,
-        OrderType.likes
-      ];
+    OrderType.date,
+    OrderType.trending,
+    OrderType.popularity,
+    OrderType.views,
+    OrderType.likes,
+  ];
 
   late List<String> tabTagList;
 

@@ -84,11 +84,7 @@ class _GuestbookPageState extends State<GuestbookPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: _buildTitle(),
-        titleSpacing: 0,
-      ),
+      appBar: AppBar(centerTitle: false, title: _buildTitle(), titleSpacing: 0),
       body: CommentsList(
         tag: commentsListTag,
         scrollController: scrollController,
@@ -98,13 +94,16 @@ class _GuestbookPageState extends State<GuestbookPage>
         showBottomPagination: true,
       ),
       floatingActionButton: SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, 2),
-          end: const Offset(0, 0),
-        ).animate(CurvedAnimation(
-          parent: fabAnimationController,
-          curve: Curves.easeInOut,
-        )),
+        position:
+            Tween<Offset>(
+              begin: const Offset(0, 2),
+              end: const Offset(0, 0),
+            ).animate(
+              CurvedAnimation(
+                parent: fabAnimationController,
+                curve: Curves.easeInOut,
+              ),
+            ),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 64),
           child: FloatingActionButton(
@@ -114,13 +113,15 @@ class _GuestbookPageState extends State<GuestbookPage>
                 isScrollControlled: true,
                 builder: (context) => Padding(
                   padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
                   child: EditCommentBottomSheet(
                     sourceId: widget.user.id,
                     sourceType: CommentsSourceType.profile,
                     onChanged: (_) {
-                      CommentsListController controller =
-                          Get.find(tag: commentsListTag);
+                      CommentsListController controller = Get.find(
+                        tag: commentsListTag,
+                      );
                       controller.updateAfterSend();
                     },
                   ),

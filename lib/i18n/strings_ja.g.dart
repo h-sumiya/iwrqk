@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsJa extends Translations {
+class TranslationsJa extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -704,287 +705,289 @@ class _TranslationsErrorAccountJa extends TranslationsErrorAccountEn {
 	@override String get invalid_captcha => '無効なキャプチャ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsJa {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'nav.subscriptions': return 'サブスク';
-			case 'nav.videos': return '動画';
-			case 'nav.images': return '画像';
-			case 'nav.forum': return 'フォーラム';
-			case 'nav.search': return '検索';
-			case 'rules.title': return 'ルール';
-			case 'rules.accept': return '同意する';
-			case 'rules.accept_desc': return '私はルールを読み、これに同意し、今後のルール変更についても、最新の情報を確認することに同意します。';
-			case 'common.video': return '動画';
-			case 'common.image': return '画像';
-			case 'common.collapse': return '折りたたむ';
-			case 'common.expand': return '展開';
-			case 'common.translate': return '翻訳';
-			case 'common.open': return '開く';
-			case 'refresh.empty': return '何もありません';
-			case 'refresh.drag_to_load': return '引っ張って読み込む';
-			case 'refresh.release_to_load': return 'リリースして読み込む';
-			case 'refresh.success': return '読み込み成功';
-			case 'refresh.failed': return '読み込み失敗';
-			case 'refresh.no_more': return 'これ以上なし';
-			case 'refresh.last_load': return '前回の読み込み： %T';
-			case 'records.select_all': return 'すべて選択';
-			case 'records.select_inverse': return '逆選択';
-			case 'records.selected_num': return ({required Object num}) => '選択済み ${num} 項目';
-			case 'records.multiple_selection_mode': return '複数選択モード';
-			case 'records.delete': return '削除';
-			case 'records.delete_all': return 'すべて削除';
-			case 'account.captcha': return 'キャプチャ';
-			case 'account.login': return 'ログイン';
-			case 'account.logout': return 'ログアウト';
-			case 'account.register': return '登録';
-			case 'account.email': return 'メール';
-			case 'account.email_or_username': return 'メールまたはユーザー名';
-			case 'account.password': return 'パスワード';
-			case 'account.forgot_password': return 'パスワードを忘れた';
-			case 'account.require_login': return 'ログインしてください';
-			case 'profile.profile': return 'プロフィール';
-			case 'profile.follow': return 'フォロー';
-			case 'profile.followers': return 'フォロワー';
-			case 'profile.following': return 'フォロー中';
-			case 'profile.nickname': return 'ニックネーム';
-			case 'profile.username': return 'ユーザー名';
-			case 'profile.user_id': return 'ユーザーID';
-			case 'profile.description': return '自己紹介';
-			case 'profile.no_description': return '自分の周りに謎の空気を漂わせるのが好きです。';
-			case 'profile.join_date': return '参加日';
-			case 'profile.last_active_time': return '最終アクティブ時間';
-			case 'profile.online': return 'オンライン';
-			case 'profile.message': return 'メッセージ';
-			case 'profile.guestbook': return 'ゲストブック';
-			case 'profile.view_more': return 'もっと見る';
-			case 'sort.latest': return '最新';
-			case 'sort.trending': return 'トレンド';
-			case 'sort.popularity': return '人気順';
-			case 'sort.most_views': return '閲覧数';
-			case 'sort.most_likes': return 'お気に入り数';
-			case 'filter.all': return 'すべて';
-			case 'filter.filter': return 'フィルター';
-			case 'filter.rating': return 'レーティング';
-			case 'filter.tag': return 'タグ';
-			case 'filter.tags': return 'タグ';
-			case 'filter.date': return '日付';
-			case 'filter.general': return '一般';
-			case 'filter.ecchi': return 'エッチ';
-			case 'filter.select_rating': return 'レーティングを選択';
-			case 'filter.select_year': return '年を選択';
-			case 'filter.select_month': return '月を選択';
-			case 'search.users': return 'ユーザー';
-			case 'search.search': return '検索';
-			case 'search.history.delete': return 'すべての記録を削除';
-			case 'time.seconds_ago': return ({required Object time}) => '${time} 秒前';
-			case 'time.minutes_ago': return ({required Object time}) => '${time} 分前';
-			case 'time.hours_ago': return ({required Object time}) => '${time} 時間前';
-			case 'time.days_ago': return ({required Object time}) => '${time} 日前';
-			case 'media.private': return 'プライベート';
-			case 'media.add_to_playlist': return 'プレイリストに追加';
-			case 'media.external_video': return '外部動画';
-			case 'media.share': return '共有';
-			case 'media.download': return 'ダウンロード';
-			case 'media.more_from': return ({required Object username}) => '${username} からのその他';
-			case 'media.more_like_this': return '同様の作品';
-			case 'media.updated_at': return ({required Object time}) => '${time} に更新';
-			case 'media.detail': return '詳細';
-			case 'media.comments': return 'コメント';
-			case 'player.current_item': return ({required Object item}) => '現在：${item}';
-			case 'player.quality': return '画質';
-			case 'player.select_quality': return '画質を選択';
-			case 'player.playback_speed': return '再生速度';
-			case 'player.select_playback_speed': return '再生速度を選択';
-			case 'player.aspect_ratio': return 'アスペクト比';
-			case 'player.select_aspect_ratio': return 'アスペクト比を選択';
-			case 'player.aspect_ratios.contain': return '含む';
-			case 'player.aspect_ratios.cover': return 'カバー';
-			case 'player.aspect_ratios.fill': return 'フィル';
-			case 'player.aspect_ratios.fit_height': return '高さに合わせる';
-			case 'player.aspect_ratios.fit_width': return '幅に合わせる';
-			case 'player.aspect_ratios.scale_down': return '縮小';
-			case 'player.seconds': return ({required Object value}) => '${value} 秒';
-			case 'player.double_speed': return '2 倍';
-			case 'comment.comment': return 'コメント';
-			case 'comment.comments': return 'コメント';
-			case 'comment.comment_detail': return 'コメントの詳細';
-			case 'comment.edit_comment': return 'コメントの編集';
-			case 'comment.delete_comment': return 'コメントの削除';
-			case 'comment.reply': return '返信';
-			case 'comment.replies_in_total': return ({required Object numReply}) => '合計 ${numReply} 件の返信';
-			case 'comment.show_all_replies': return ({required Object numReply}) => 'すべての ${numReply} 件の返信を表示';
-			case 'user.following': return 'フォロー中';
-			case 'user.history': return '履歴';
-			case 'user.blocked_tags': return 'ブロックされたタグ';
-			case 'user.friends': return '友達';
-			case 'user.downloads': return 'ダウンロード';
-			case 'user.favorites': return 'お気に入り';
-			case 'user.playlists': return 'プレイリスト';
-			case 'user.settings': return '設定';
-			case 'user.about': return 'について';
-			case 'friend.friend_requests': return '友達リクエスト';
-			case 'friend.add_friend': return '友達に追加';
-			case 'friend.pending': return '保留中';
-			case 'friend.unfriend': return '友達解除';
-			case 'friend.accept': return '承認';
-			case 'friend.reject': return '拒否';
-			case 'blocked_tags.add_blocked_tag': return 'ブロックされたタグを追加';
-			case 'blocked_tags.blocked_tag': return 'ブロックされたタグ';
-			case 'download.create_download_task': return 'ダウンロードタスクの作成';
-			case 'download.unknown': return '不明';
-			case 'download.enqueued': return '待機中';
-			case 'download.downloading': return 'ダウンロード中';
-			case 'download.paused': return '一時停止済み';
-			case 'download.finished': return '完了';
-			case 'download.failed': return 'ダウンロード失敗';
-			case 'download.retry': return '再試行';
-			case 'download.delete': return '削除';
-			case 'download.pause': return '一時停止';
-			case 'download.resume': return '再開';
-			case 'download.open_with': return '開く';
-			case 'download.jump_to_detail': return '詳細ページに移動';
-			case 'playlist.title': return 'プレイリストのタイトル';
-			case 'playlist.create': return 'プレイリストの作成';
-			case 'playlist.select': return 'プレイリストの選択';
-			case 'playlist.edit_title': return 'タイトルを編集';
-			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 本のビデオ';
-			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 本のビデオ';
-			case 'channel.administration': return '管理者';
-			case 'channel.announcements': return 'お知らせ';
-			case 'channel.feedback': return 'フィードバック';
-			case 'channel.support': return 'サポート';
-			case 'channel.global': return '一般';
-			case 'channel.general': return '一般';
-			case 'channel.guides': return 'ガイド';
-			case 'channel.questions': return 'ヘルプ/質問';
-			case 'channel.requests': return 'リクエスト';
-			case 'channel.sharing': return '共有';
-			case 'channel.label': return ({required Object numThread, required Object numPosts}) => '${numThread} 本のスレッド ${numPosts} 本の返信';
-			case 'create_thread.create_thread': return 'スレッドの作成';
-			case 'create_thread.title': return 'タイトル';
-			case 'create_thread.content': return '内容';
-			case 'notifications.ok': return 'OK';
-			case 'notifications.success': return '成功';
-			case 'notifications.error': return 'エラー';
-			case 'notifications.loading': return '読み込み中...';
-			case 'notifications.cancel': return 'キャンセル';
-			case 'notifications.confirm': return '確認';
-			case 'notifications.apply': return '適用';
-			case 'settings.appearance': return '外観設定';
-			case 'settings.theme': return 'テーマ';
-			case 'settings.theme_desc': return 'アプリのテーマを設定します';
-			case 'settings.dynamic_color': return 'ダイナミックカラー';
-			case 'settings.dynamic_color_desc': return 'コンテンツに応じてアプリの色を変更します';
-			case 'settings.custom_color': return 'カスタムカラー';
-			case 'settings.custom_color_desc': return 'アプリのテーマカラーをカスタマイズします';
-			case 'settings.language': return '言語';
-			case 'settings.language_desc': return 'アプリの言語を設定します';
-			case 'settings.display_mode': return '表示モード';
-			case 'settings.display_mode_desc': return 'アプリの表示モードを設定します';
-			case 'settings.work_mode': return '作業モード';
-			case 'settings.work_mode_desc': return 'NSFW コンテンツのカバーを非表示にします';
-			case 'settings.network': return 'ネットワーク設定';
-			case 'settings.enable_proxy': return 'プロキシを有効にする';
-			case 'settings.enable_proxy_desc': return 'プロキシサービスを有効にします';
-			case 'settings.proxy': return 'プロキシ設定';
-			case 'settings.proxy_desc': return 'プロキシサーバーを設定します';
-			case 'settings.player': return 'プレイヤー設定';
-			case 'settings.autoplay': return '自動再生';
-			case 'settings.autoplay_desc': return 'ビデオページを開くときに自動でビデオを再生します';
-			case 'settings.background_play': return 'バックグラウンド再生';
-			case 'settings.background_play_desc': return 'アプリをバックグラウンドでビデオを再生することを許可します';
-			case 'settings.download': return 'ダウンロード設定';
-			case 'settings.download_path': return 'ダウンロードパス';
-			case 'settings.allow_media_scan': return 'メディアスキャンを許可';
-			case 'settings.allow_media_scan_desc': return 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します';
-			case 'settings.logging': return 'ログ';
-			case 'settings.enable_logging': return 'ログを有効にする';
-			case 'settings.enable_logging_desc': return 'アプリのログを有効にします';
-			case 'settings.clear_log': return 'ログをクリア';
-			case 'settings.clear_log_desc': return ({required Object size}) => '現在のログサイズ：${size}';
-			case 'settings.enable_verbose_logging': return '詳細なログを有効にする';
-			case 'settings.enable_verbose_logging_desc': return 'より詳細なログを記録します';
-			case 'settings.about': return '情報';
-			case 'settings.check_update': return '更新を確認';
-			case 'settings.check_update_desc': return '新しいバージョンが利用可能かどうかを確認します';
-			case 'settings.third_party_license': return 'サードパーティのライセンス';
-			case 'settings.third_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
-			case 'theme.system': return 'システムに従う';
-			case 'theme.light': return 'ライト';
-			case 'theme.dark': return 'ダーク';
-			case 'colors.pink': return 'ピンク';
-			case 'colors.red': return '赤';
-			case 'colors.orange': return 'オレンジ';
-			case 'colors.amber': return 'アンバー';
-			case 'colors.yellow': return '黄';
-			case 'colors.lime': return 'ライム';
-			case 'colors.lightGreen': return 'ライトグリーン';
-			case 'colors.green': return '緑';
-			case 'colors.teal': return 'ティール';
-			case 'colors.cyan': return 'シアン';
-			case 'colors.lightBlue': return 'ライトブルー';
-			case 'colors.blue': return '青';
-			case 'colors.indigo': return 'インディゴ';
-			case 'colors.purple': return '紫';
-			case 'colors.deepPurple': return 'ディープパープル';
-			case 'colors.blueGrey': return 'ブルーグレー';
-			case 'colors.brown': return '茶色';
-			case 'colors.grey': return 'グレー';
-			case 'display_mode.no_available': return '利用可能な表示モードはありません';
-			case 'display_mode.auto': return '自動';
-			case 'display_mode.system': return 'システム';
-			case 'proxy.host': return 'ホスト名';
-			case 'proxy.port': return 'ポート';
-			case 'message.exit_app': return 'アプリを終了するにはもう一度押してください';
-			case 'message.are_you_sure_to_do_that': return 'それを行うことを確認していますか？';
-			case 'message.restart_required': return '再起動後に有効';
-			case 'message.please_type_host': return 'ホスト名を入力してください';
-			case 'message.please_type_port': return 'ポートを入力してください';
-			case 'message.account.login_success': return 'ログイン成功！';
-			case 'message.account.register_success': return '登録が成功しました。メールでアカウントを有効にしてください。';
-			case 'message.account.login_password_longer_than_6': return 'パスワードは少なくとも6文字である必要があります';
-			case 'message.account.please_type_email': return 'メールアドレスを入力してください';
-			case 'message.account.please_type_email_or_username': return 'メールアドレスまたはユーザー名を入力してください';
-			case 'message.account.please_type_valid_email': return '正しいメールアドレスを入力してください';
-			case 'message.account.please_type_password': return 'パスワードを入力してください';
-			case 'message.account.please_type_captcha': return 'キャプチャを入力してください';
-			case 'message.comment.content_empty': return '内容は空であってはいけません。';
-			case 'message.comment.content_too_long': return '内容は1000文字を超えてはいけません。';
-			case 'message.comment.sent': return '返信が送信されました。';
-			case 'message.create_thread.title_empty': return 'タイトルは空であってはいけません。';
-			case 'message.create_thread.title_too_long': return 'タイトルは長すぎてはいけません。';
-			case 'message.create_thread.content_empty': return '内容は空であってはいけません。';
-			case 'message.create_thread.content_too_long': return '内容は20000文字を超えてはいけません。';
-			case 'message.create_thread.created': return 'スレッドが送信されました。';
-			case 'message.blocked_tags.save_confirm': return 'タグのブロックを保存しますか？';
-			case 'message.blocked_tags.saved': return 'ブロックされたタグが保存されました。';
-			case 'message.blocked_tags.reached_limit': return 'ブロックされたタグの数が上限に達しました。';
-			case 'message.playlist.empty_playlist_title': return 'プレイリストのタイトルは空であってはいけません。';
-			case 'message.playlist.playlist_created': return 'プレイリストが作成されました。';
-			case 'message.playlist.playlist_title_edited': return 'プレイリストのタイトルが編集されました。';
-			case 'message.download.no_provide_storage_permission': return 'ストレージの許可がありません。';
-			case 'message.download.task_already_exists': return 'ダウンロードタスクはすでに存在します。';
-			case 'message.download.task_created': return 'ダウンロードタスクが作成されました。';
-			case 'message.download.maximum_simultaneous_download_reached': return '最大同時ダウンロード数に達しました。';
-			case 'message.update.check_update_failed': return '更新の確認に失敗しました';
-			case 'message.update.update_available': return '新しいバージョンが利用可能です';
-			case 'message.update.already_latest_version': return 'すでに最新バージョンです';
-			case 'message.update.current_version': return ({required Object version}) => '現在のバージョン：${version}';
-			case 'message.update.latest_version': return ({required Object version}) => '最新バージョン：${version}';
-			case 'message.update.view_update': return '更新を表示';
-			case 'error.retry': return '読み込みに失敗しました。再試行する';
-			case 'error.fetch_failed': return 'ビデオリンクを取得できません';
-			case 'error.fetch_user_info_failed': return 'ユーザー情報を取得できません';
-			case 'error.invalid_path': return '無効なパス';
-			case 'error.intercept_app_exit': return 'アプリの終了をブロック';
-			case 'error.account.invalid_login': return '無効なメールアドレスまたはパスワード';
-			case 'error.account.invalid_host': return '無効なホスト名';
-			case 'error.account.invalid_captcha': return '無効なキャプチャ';
-			default: return null;
-		}
+		return switch (path) {
+			'nav.subscriptions' => 'サブスク',
+			'nav.videos' => '動画',
+			'nav.images' => '画像',
+			'nav.forum' => 'フォーラム',
+			'nav.search' => '検索',
+			'rules.title' => 'ルール',
+			'rules.accept' => '同意する',
+			'rules.accept_desc' => '私はルールを読み、これに同意し、今後のルール変更についても、最新の情報を確認することに同意します。',
+			'common.video' => '動画',
+			'common.image' => '画像',
+			'common.collapse' => '折りたたむ',
+			'common.expand' => '展開',
+			'common.translate' => '翻訳',
+			'common.open' => '開く',
+			'refresh.empty' => '何もありません',
+			'refresh.drag_to_load' => '引っ張って読み込む',
+			'refresh.release_to_load' => 'リリースして読み込む',
+			'refresh.success' => '読み込み成功',
+			'refresh.failed' => '読み込み失敗',
+			'refresh.no_more' => 'これ以上なし',
+			'refresh.last_load' => '前回の読み込み： %T',
+			'records.select_all' => 'すべて選択',
+			'records.select_inverse' => '逆選択',
+			'records.selected_num' => ({required Object num}) => '選択済み ${num} 項目',
+			'records.multiple_selection_mode' => '複数選択モード',
+			'records.delete' => '削除',
+			'records.delete_all' => 'すべて削除',
+			'account.captcha' => 'キャプチャ',
+			'account.login' => 'ログイン',
+			'account.logout' => 'ログアウト',
+			'account.register' => '登録',
+			'account.email' => 'メール',
+			'account.email_or_username' => 'メールまたはユーザー名',
+			'account.password' => 'パスワード',
+			'account.forgot_password' => 'パスワードを忘れた',
+			'account.require_login' => 'ログインしてください',
+			'profile.profile' => 'プロフィール',
+			'profile.follow' => 'フォロー',
+			'profile.followers' => 'フォロワー',
+			'profile.following' => 'フォロー中',
+			'profile.nickname' => 'ニックネーム',
+			'profile.username' => 'ユーザー名',
+			'profile.user_id' => 'ユーザーID',
+			'profile.description' => '自己紹介',
+			'profile.no_description' => '自分の周りに謎の空気を漂わせるのが好きです。',
+			'profile.join_date' => '参加日',
+			'profile.last_active_time' => '最終アクティブ時間',
+			'profile.online' => 'オンライン',
+			'profile.message' => 'メッセージ',
+			'profile.guestbook' => 'ゲストブック',
+			'profile.view_more' => 'もっと見る',
+			'sort.latest' => '最新',
+			'sort.trending' => 'トレンド',
+			'sort.popularity' => '人気順',
+			'sort.most_views' => '閲覧数',
+			'sort.most_likes' => 'お気に入り数',
+			'filter.all' => 'すべて',
+			'filter.filter' => 'フィルター',
+			'filter.rating' => 'レーティング',
+			'filter.tag' => 'タグ',
+			'filter.tags' => 'タグ',
+			'filter.date' => '日付',
+			'filter.general' => '一般',
+			'filter.ecchi' => 'エッチ',
+			'filter.select_rating' => 'レーティングを選択',
+			'filter.select_year' => '年を選択',
+			'filter.select_month' => '月を選択',
+			'search.users' => 'ユーザー',
+			'search.search' => '検索',
+			'search.history.delete' => 'すべての記録を削除',
+			'time.seconds_ago' => ({required Object time}) => '${time} 秒前',
+			'time.minutes_ago' => ({required Object time}) => '${time} 分前',
+			'time.hours_ago' => ({required Object time}) => '${time} 時間前',
+			'time.days_ago' => ({required Object time}) => '${time} 日前',
+			'media.private' => 'プライベート',
+			'media.add_to_playlist' => 'プレイリストに追加',
+			'media.external_video' => '外部動画',
+			'media.share' => '共有',
+			'media.download' => 'ダウンロード',
+			'media.more_from' => ({required Object username}) => '${username} からのその他',
+			'media.more_like_this' => '同様の作品',
+			'media.updated_at' => ({required Object time}) => '${time} に更新',
+			'media.detail' => '詳細',
+			'media.comments' => 'コメント',
+			'player.current_item' => ({required Object item}) => '現在：${item}',
+			'player.quality' => '画質',
+			'player.select_quality' => '画質を選択',
+			'player.playback_speed' => '再生速度',
+			'player.select_playback_speed' => '再生速度を選択',
+			'player.aspect_ratio' => 'アスペクト比',
+			'player.select_aspect_ratio' => 'アスペクト比を選択',
+			'player.aspect_ratios.contain' => '含む',
+			'player.aspect_ratios.cover' => 'カバー',
+			'player.aspect_ratios.fill' => 'フィル',
+			'player.aspect_ratios.fit_height' => '高さに合わせる',
+			'player.aspect_ratios.fit_width' => '幅に合わせる',
+			'player.aspect_ratios.scale_down' => '縮小',
+			'player.seconds' => ({required Object value}) => '${value} 秒',
+			'player.double_speed' => '2 倍',
+			'comment.comment' => 'コメント',
+			'comment.comments' => 'コメント',
+			'comment.comment_detail' => 'コメントの詳細',
+			'comment.edit_comment' => 'コメントの編集',
+			'comment.delete_comment' => 'コメントの削除',
+			'comment.reply' => '返信',
+			'comment.replies_in_total' => ({required Object numReply}) => '合計 ${numReply} 件の返信',
+			'comment.show_all_replies' => ({required Object numReply}) => 'すべての ${numReply} 件の返信を表示',
+			'user.following' => 'フォロー中',
+			'user.history' => '履歴',
+			'user.blocked_tags' => 'ブロックされたタグ',
+			'user.friends' => '友達',
+			'user.downloads' => 'ダウンロード',
+			'user.favorites' => 'お気に入り',
+			'user.playlists' => 'プレイリスト',
+			'user.settings' => '設定',
+			'user.about' => 'について',
+			'friend.friend_requests' => '友達リクエスト',
+			'friend.add_friend' => '友達に追加',
+			'friend.pending' => '保留中',
+			'friend.unfriend' => '友達解除',
+			'friend.accept' => '承認',
+			'friend.reject' => '拒否',
+			'blocked_tags.add_blocked_tag' => 'ブロックされたタグを追加',
+			'blocked_tags.blocked_tag' => 'ブロックされたタグ',
+			'download.create_download_task' => 'ダウンロードタスクの作成',
+			'download.unknown' => '不明',
+			'download.enqueued' => '待機中',
+			'download.downloading' => 'ダウンロード中',
+			'download.paused' => '一時停止済み',
+			'download.finished' => '完了',
+			'download.failed' => 'ダウンロード失敗',
+			'download.retry' => '再試行',
+			'download.delete' => '削除',
+			'download.pause' => '一時停止',
+			'download.resume' => '再開',
+			'download.open_with' => '開く',
+			'download.jump_to_detail' => '詳細ページに移動',
+			'playlist.title' => 'プレイリストのタイトル',
+			'playlist.create' => 'プレイリストの作成',
+			'playlist.select' => 'プレイリストの選択',
+			'playlist.edit_title' => 'タイトルを編集',
+			'playlist.videos_count' => ({required Object numVideo}) => '${numVideo} 本のビデオ',
+			'playlist.videos_count_plural' => ({required Object numVideo}) => '${numVideo} 本のビデオ',
+			'channel.administration' => '管理者',
+			'channel.announcements' => 'お知らせ',
+			'channel.feedback' => 'フィードバック',
+			'channel.support' => 'サポート',
+			'channel.global' => '一般',
+			'channel.general' => '一般',
+			'channel.guides' => 'ガイド',
+			'channel.questions' => 'ヘルプ/質問',
+			'channel.requests' => 'リクエスト',
+			'channel.sharing' => '共有',
+			'channel.label' => ({required Object numThread, required Object numPosts}) => '${numThread} 本のスレッド ${numPosts} 本の返信',
+			'create_thread.create_thread' => 'スレッドの作成',
+			'create_thread.title' => 'タイトル',
+			'create_thread.content' => '内容',
+			'notifications.ok' => 'OK',
+			'notifications.success' => '成功',
+			'notifications.error' => 'エラー',
+			'notifications.loading' => '読み込み中...',
+			'notifications.cancel' => 'キャンセル',
+			'notifications.confirm' => '確認',
+			'notifications.apply' => '適用',
+			'settings.appearance' => '外観設定',
+			'settings.theme' => 'テーマ',
+			'settings.theme_desc' => 'アプリのテーマを設定します',
+			'settings.dynamic_color' => 'ダイナミックカラー',
+			'settings.dynamic_color_desc' => 'コンテンツに応じてアプリの色を変更します',
+			'settings.custom_color' => 'カスタムカラー',
+			'settings.custom_color_desc' => 'アプリのテーマカラーをカスタマイズします',
+			'settings.language' => '言語',
+			'settings.language_desc' => 'アプリの言語を設定します',
+			'settings.display_mode' => '表示モード',
+			'settings.display_mode_desc' => 'アプリの表示モードを設定します',
+			'settings.work_mode' => '作業モード',
+			'settings.work_mode_desc' => 'NSFW コンテンツのカバーを非表示にします',
+			'settings.network' => 'ネットワーク設定',
+			'settings.enable_proxy' => 'プロキシを有効にする',
+			'settings.enable_proxy_desc' => 'プロキシサービスを有効にします',
+			'settings.proxy' => 'プロキシ設定',
+			'settings.proxy_desc' => 'プロキシサーバーを設定します',
+			'settings.player' => 'プレイヤー設定',
+			'settings.autoplay' => '自動再生',
+			'settings.autoplay_desc' => 'ビデオページを開くときに自動でビデオを再生します',
+			'settings.background_play' => 'バックグラウンド再生',
+			'settings.background_play_desc' => 'アプリをバックグラウンドでビデオを再生することを許可します',
+			'settings.download' => 'ダウンロード設定',
+			'settings.download_path' => 'ダウンロードパス',
+			'settings.allow_media_scan' => 'メディアスキャンを許可',
+			'settings.allow_media_scan_desc' => 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します',
+			'settings.logging' => 'ログ',
+			'settings.enable_logging' => 'ログを有効にする',
+			'settings.enable_logging_desc' => 'アプリのログを有効にします',
+			'settings.clear_log' => 'ログをクリア',
+			'settings.clear_log_desc' => ({required Object size}) => '現在のログサイズ：${size}',
+			'settings.enable_verbose_logging' => '詳細なログを有効にする',
+			'settings.enable_verbose_logging_desc' => 'より詳細なログを記録します',
+			'settings.about' => '情報',
+			'settings.check_update' => '更新を確認',
+			'settings.check_update_desc' => '新しいバージョンが利用可能かどうかを確認します',
+			'settings.third_party_license' => 'サードパーティのライセンス',
+			'settings.third_party_license_desc' => 'サードパーティのライブラリのライセンスを確認します',
+			'theme.system' => 'システムに従う',
+			'theme.light' => 'ライト',
+			'theme.dark' => 'ダーク',
+			'colors.pink' => 'ピンク',
+			'colors.red' => '赤',
+			'colors.orange' => 'オレンジ',
+			'colors.amber' => 'アンバー',
+			'colors.yellow' => '黄',
+			'colors.lime' => 'ライム',
+			'colors.lightGreen' => 'ライトグリーン',
+			'colors.green' => '緑',
+			'colors.teal' => 'ティール',
+			'colors.cyan' => 'シアン',
+			'colors.lightBlue' => 'ライトブルー',
+			'colors.blue' => '青',
+			'colors.indigo' => 'インディゴ',
+			'colors.purple' => '紫',
+			'colors.deepPurple' => 'ディープパープル',
+			'colors.blueGrey' => 'ブルーグレー',
+			'colors.brown' => '茶色',
+			'colors.grey' => 'グレー',
+			'display_mode.no_available' => '利用可能な表示モードはありません',
+			'display_mode.auto' => '自動',
+			'display_mode.system' => 'システム',
+			'proxy.host' => 'ホスト名',
+			'proxy.port' => 'ポート',
+			'message.exit_app' => 'アプリを終了するにはもう一度押してください',
+			'message.are_you_sure_to_do_that' => 'それを行うことを確認していますか？',
+			'message.restart_required' => '再起動後に有効',
+			'message.please_type_host' => 'ホスト名を入力してください',
+			'message.please_type_port' => 'ポートを入力してください',
+			'message.account.login_success' => 'ログイン成功！',
+			'message.account.register_success' => '登録が成功しました。メールでアカウントを有効にしてください。',
+			'message.account.login_password_longer_than_6' => 'パスワードは少なくとも6文字である必要があります',
+			'message.account.please_type_email' => 'メールアドレスを入力してください',
+			'message.account.please_type_email_or_username' => 'メールアドレスまたはユーザー名を入力してください',
+			'message.account.please_type_valid_email' => '正しいメールアドレスを入力してください',
+			'message.account.please_type_password' => 'パスワードを入力してください',
+			'message.account.please_type_captcha' => 'キャプチャを入力してください',
+			'message.comment.content_empty' => '内容は空であってはいけません。',
+			'message.comment.content_too_long' => '内容は1000文字を超えてはいけません。',
+			'message.comment.sent' => '返信が送信されました。',
+			'message.create_thread.title_empty' => 'タイトルは空であってはいけません。',
+			'message.create_thread.title_too_long' => 'タイトルは長すぎてはいけません。',
+			'message.create_thread.content_empty' => '内容は空であってはいけません。',
+			'message.create_thread.content_too_long' => '内容は20000文字を超えてはいけません。',
+			'message.create_thread.created' => 'スレッドが送信されました。',
+			'message.blocked_tags.save_confirm' => 'タグのブロックを保存しますか？',
+			'message.blocked_tags.saved' => 'ブロックされたタグが保存されました。',
+			'message.blocked_tags.reached_limit' => 'ブロックされたタグの数が上限に達しました。',
+			'message.playlist.empty_playlist_title' => 'プレイリストのタイトルは空であってはいけません。',
+			'message.playlist.playlist_created' => 'プレイリストが作成されました。',
+			'message.playlist.playlist_title_edited' => 'プレイリストのタイトルが編集されました。',
+			'message.download.no_provide_storage_permission' => 'ストレージの許可がありません。',
+			'message.download.task_already_exists' => 'ダウンロードタスクはすでに存在します。',
+			'message.download.task_created' => 'ダウンロードタスクが作成されました。',
+			'message.download.maximum_simultaneous_download_reached' => '最大同時ダウンロード数に達しました。',
+			'message.update.check_update_failed' => '更新の確認に失敗しました',
+			'message.update.update_available' => '新しいバージョンが利用可能です',
+			'message.update.already_latest_version' => 'すでに最新バージョンです',
+			'message.update.current_version' => ({required Object version}) => '現在のバージョン：${version}',
+			'message.update.latest_version' => ({required Object version}) => '最新バージョン：${version}',
+			'message.update.view_update' => '更新を表示',
+			'error.retry' => '読み込みに失敗しました。再試行する',
+			'error.fetch_failed' => 'ビデオリンクを取得できません',
+			'error.fetch_user_info_failed' => 'ユーザー情報を取得できません',
+			'error.invalid_path' => '無効なパス',
+			'error.intercept_app_exit' => 'アプリの終了をブロック',
+			'error.account.invalid_login' => '無効なメールアドレスまたはパスワード',
+			'error.account.invalid_host' => '無効なホスト名',
+			'error.account.invalid_captcha' => '無効なキャプチャ',
+			_ => null,
+		};
 	}
 }
-

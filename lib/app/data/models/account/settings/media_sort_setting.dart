@@ -5,9 +5,5 @@ class MediaSortSettingModel {
   final String? userId;
   final bool subscribed;
 
-  MediaSortSettingModel({
-    this.orderType,
-    this.userId,
-    this.subscribed = false,
-  });
+  MediaSortSettingModel({this.orderType, this.userId, this.subscribed = false});
 }

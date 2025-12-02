@@ -2,10 +2,7 @@ class ResolutionSourceModel {
   final String view;
   final String download;
 
-  ResolutionSourceModel({
-    required this.view,
-    required this.download,
-  });
+  ResolutionSourceModel({required this.view, required this.download});
 
   String get viewUrl => "https:$view";
 
@@ -19,10 +16,7 @@ class ResolutionSourceModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'view': view,
-      'download': download,
-    };
+    return {'view': view, 'download': download};
   }
 }
 
@@ -30,10 +24,7 @@ class ResolutionModel {
   final String name;
   final ResolutionSourceModel src;
 
-  ResolutionModel({
-    required this.name,
-    required this.src,
-  });
+  ResolutionModel({required this.name, required this.src});
 
   factory ResolutionModel.fromJson(Map<String, dynamic> json) {
     return ResolutionModel(
@@ -43,9 +34,6 @@ class ResolutionModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'src': src.toJson(),
-    };
+    return {'name': name, 'src': src.toJson()};
   }
 }

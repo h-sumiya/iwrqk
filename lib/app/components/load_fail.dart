@@ -23,7 +23,7 @@ class LoadFail extends StatelessWidget {
             textAlign: TextAlign.left,
             style: TextStyle(color: Theme.of(context).colorScheme.outline),
           ),
-        )
+        ),
       ],
     );
   }

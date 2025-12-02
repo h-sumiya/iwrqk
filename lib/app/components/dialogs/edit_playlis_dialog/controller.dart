@@ -38,9 +38,11 @@ class EditPlaylistDialogController extends GetxController {
 
     if (success) {
       Get.back();
-      SmartDialog.showToast(isEdit
-          ? t.message.playlist.playlist_title_edited
-          : t.message.playlist.playlist_created);
+      SmartDialog.showToast(
+        isEdit
+            ? t.message.playlist.playlist_title_edited
+            : t.message.playlist.playlist_created,
+      );
       onChanged?.call();
     }
   }

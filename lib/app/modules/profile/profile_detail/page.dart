@@ -12,17 +12,12 @@ import '../../../utils/display_util.dart';
 class ProfileDetailPage extends StatelessWidget {
   final ProfileModel profile;
 
-  const ProfileDetailPage({
-    super.key,
-    required this.profile,
-  });
+  const ProfileDetailPage({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(profile.user!.name),
-      ),
+      appBar: AppBar(title: Text(profile.user!.name)),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         shrinkWrap: false,
@@ -50,49 +45,31 @@ class ProfileDetailPage extends StatelessWidget {
           ),
           Text(
             t.profile.nickname,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 0, 16),
-            child: SelectableText(
-              profile.user!.name,
-            ),
+            child: SelectableText(profile.user!.name),
           ),
           Text(
             t.profile.username,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 0, 16),
-            child: SelectableText(
-              "@${profile.user!.username}",
-            ),
+            child: SelectableText("@${profile.user!.username}"),
           ),
           Text(
             t.profile.user_id,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 0, 16),
-            child: SelectableText(
-              profile.user!.id,
-            ),
+            child: SelectableText(profile.user!.id),
           ),
           Text(
             t.profile.join_date,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 0, 16),
@@ -105,10 +82,7 @@ class ProfileDetailPage extends StatelessWidget {
           if (profile.user!.seenAt != null)
             Text(
               t.profile.last_active_time,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           if (profile.user!.seenAt != null)
             Padding(
@@ -121,14 +95,15 @@ class ProfileDetailPage extends StatelessWidget {
             ),
           Text(
             t.profile.description,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(
-                8, 8, 0, Get.mediaQuery.padding.bottom + 16),
+              8,
+              8,
+              0,
+              Get.mediaQuery.padding.bottom + 16,
+            ),
             child: IwrMarkdown(
               selectable: true,
               data: profile.body.isEmpty
@@ -152,16 +127,13 @@ class FullScreenAvatar extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
       ),
       body: PhotoView(
         imageProvider: CachedNetworkImageProvider(avatarUrl),
-        loadingBuilder: (context, event) => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        loadingBuilder: (context, event) =>
+            const Center(child: CircularProgressIndicator()),
       ),
     );
   }

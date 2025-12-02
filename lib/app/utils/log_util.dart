@@ -11,8 +11,10 @@ import 'display_util.dart';
 class _LogFilter extends LogFilter {
   @override
   bool shouldLog(LogEvent event) {
-    if (StorageProvider.config
-        .get(StorageKey.verboseLoggingEnable, defaultValue: false)) {
+    if (StorageProvider.config.get(
+      StorageKey.verboseLoggingEnable,
+      defaultValue: false,
+    )) {
       return event.level.index >= level!.index;
     }
     return event.level.index >= level!.index && event.level != Level.trace;
@@ -27,12 +29,16 @@ class LogUtil {
   static late File _waringLogFile;
   static late File _downloadLogFile;
 
-  static final String logDirPath =
-      path.join(PathUtil.getVisibleDir().path, 'logs');
+  static final String logDirPath = path.join(
+    PathUtil.getVisibleDir().path,
+    'logs',
+  );
 
   static Future<void> init() async {
-    if (!StorageProvider.config
-        .get(StorageKey.loggingEnable, defaultValue: true)) {
+    if (!StorageProvider.config.get(
+      StorageKey.loggingEnable,
+      defaultValue: true,
+    )) {
       return;
     }
 
@@ -40,36 +46,53 @@ class LogUtil {
       Directory(logDirPath).createSync();
     }
 
-    LogPrinter devPrinter =
-        PrettyPrinter(stackTraceBeginIndex: 0, methodCount: 6);
+    LogPrinter devPrinter = PrettyPrinter(
+      stackTraceBeginIndex: 0,
+      methodCount: 6,
+    );
     LogPrinter prodPrinterWithBox = PrettyPrinter(
-        stackTraceBeginIndex: 0,
-        methodCount: 6,
-        colors: false,
-        dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart);
+      stackTraceBeginIndex: 0,
+      methodCount: 6,
+      colors: false,
+      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+    );
     LogPrinter prodPrinterWithoutBox = PrettyPrinter(
-        stackTraceBeginIndex: 0,
-        methodCount: 6,
-        colors: false,
-        noBoxingByDefault: true);
+      stackTraceBeginIndex: 0,
+      methodCount: 6,
+      colors: false,
+      noBoxingByDefault: true,
+    );
 
     _consoleLogger = Logger(printer: devPrinter);
 
     _verboseFileLogger = Logger(
-      printer: HybridPrinter(prodPrinterWithBox,
-          trace: prodPrinterWithoutBox,
-          debug: prodPrinterWithoutBox,
-          info: prodPrinterWithoutBox),
+      printer: HybridPrinter(
+        prodPrinterWithBox,
+        trace: prodPrinterWithoutBox,
+        debug: prodPrinterWithoutBox,
+        info: prodPrinterWithoutBox,
+      ),
       filter: _LogFilter(),
       output: FileOutput(
-          file: File(path.join(logDirPath,
-              '${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log'))),
+        file: File(
+          path.join(
+            logDirPath,
+            '${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log',
+          ),
+        ),
+      ),
     );
 
-    if (StorageProvider.config
-        .get(StorageKey.verboseLoggingEnable, defaultValue: false)) {
-      _waringLogFile = File(path.join(logDirPath,
-          '${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}_error.log'));
+    if (StorageProvider.config.get(
+      StorageKey.verboseLoggingEnable,
+      defaultValue: false,
+    )) {
+      _waringLogFile = File(
+        path.join(
+          logDirPath,
+          '${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}_error.log',
+        ),
+      );
       _warningFileLogger = Logger(
         level: Level.warning,
         printer: prodPrinterWithBox,
@@ -77,8 +100,12 @@ class LogUtil {
         output: FileOutput(file: _waringLogFile),
       );
 
-      _downloadLogFile = File(path.join(logDirPath,
-          '${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}_download.log'));
+      _downloadLogFile = File(
+        path.join(
+          logDirPath,
+          '${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}_download.log',
+        ),
+      );
       _downloadFileLogger = Logger(
         printer: prodPrinterWithoutBox,
         filter: ProductionFilter(),
@@ -135,12 +162,14 @@ class LogUtil {
           }
 
           return logDirectory.list().fold<int>(
-              0,
-              (previousValue, element) =>
-                  previousValue += (element as File).lengthSync());
+            0,
+            (previousValue, element) =>
+                previousValue += (element as File).lengthSync(),
+          );
         })
         .then<String>(
-            (totalBytes) => DisplayUtil.getDisplayFileSizeWithUnit(totalBytes))
+          (totalBytes) => DisplayUtil.getDisplayFileSizeWithUnit(totalBytes),
+        )
         .onError((e, stackTrace) {
           LogUtil.error('getSizeFailed', error, stackTrace);
           return 'N/A';
@@ -157,13 +186,10 @@ class LogUtil {
     _downloadFileLogger = null;
 
     /// need to wait for log file close
-    return Future.delayed(
-      const Duration(milliseconds: 500),
-      () {
-        if (Directory(logDirPath).existsSync()) {
-          Directory(logDirPath).deleteSync(recursive: true);
-        }
-      },
-    );
+    return Future.delayed(const Duration(milliseconds: 500), () {
+      if (Directory(logDirPath).existsSync()) {
+        Directory(logDirPath).deleteSync(recursive: true);
+      }
+    });
   }
 }

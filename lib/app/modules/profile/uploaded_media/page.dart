@@ -26,11 +26,7 @@ class _UploadedMediaPageState extends State<UploadedMediaPage> {
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.label,
         splashBorderRadius: BorderRadius.circular(8),
-        tabs: _controller.tabNameList
-            .map((e) => Tab(
-                  text: e,
-                ))
-            .toList(),
+        tabs: _controller.tabNameList.map((e) => Tab(text: e)).toList(),
       ),
     );
   }
@@ -55,11 +51,7 @@ class _UploadedMediaPageState extends State<UploadedMediaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: _buildTitle(),
-        titleSpacing: 0,
-      ),
+      appBar: AppBar(centerTitle: false, title: _buildTitle(), titleSpacing: 0),
       body: DefaultTabController(
         length: _controller.tabNameList.length,
         child: Column(

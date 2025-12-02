@@ -40,14 +40,18 @@ Future<void> main() async {
 
   initGetx();
 
-  await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarDividerColor: Colors.transparent,
-    statusBarColor: Colors.transparent,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      statusBarColor: Colors.transparent,
+    ),
+  );
 
   // Set language
   bool firstRun;
@@ -55,7 +59,8 @@ Future<void> main() async {
 
   if (!firstRun) {
     LocaleSettings.setLocaleRaw(
-        StorageProvider.config.get(ConfigKey.localeCode, defaultValue: "en"));
+      StorageProvider.config.get(ConfigKey.localeCode, defaultValue: "en"),
+    );
   } else {
     StorageProvider.config[DynamicConfigKey.firstRun] = false;
     StorageProvider.config[ConfigKey.localeCode] =
@@ -78,9 +83,7 @@ Future<void> main() async {
     });
   }
 
-  runApp(TranslationProvider(
-    child: const MainApp(),
-  ));
+  runApp(TranslationProvider(child: const MainApp()));
 }
 
 class MainApp extends StatefulWidget {
@@ -105,8 +108,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         late List modes;
         FlutterDisplayMode.supported.then((value) {
           modes = value;
-          var storageDisplay =
-              _configService.setting.get(ConfigKey.displayMode);
+          var storageDisplay = _configService.setting.get(
+            ConfigKey.displayMode,
+          );
           DisplayMode f = DisplayMode.auto;
           if (storageDisplay != null) {
             f = modes.firstWhere((e) => e.toString() == storageDisplay);
@@ -167,52 +171,49 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     NetworkProvider().setContext(context);
 
     Widget mainApp() => DynamicColorBuilder(
-          builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-            return Obx(() {
-              ColorScheme? lightColorScheme;
-              ColorScheme? darkColorScheme;
+      builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        return Obx(() {
+          ColorScheme? lightColorScheme;
+          ColorScheme? darkColorScheme;
 
-              Color defaultColor =
-                  colorThemeTypes[_configService.customColor]['color'];
+          Color defaultColor =
+              colorThemeTypes[_configService.customColor]['color'];
 
-              if (lightDynamic != null &&
-                  darkDynamic != null &&
-                  _configService.enableDynamicColor) {
-                lightColorScheme = lightDynamic.harmonized();
-                darkColorScheme = darkDynamic.harmonized();
-              } else {
-                lightColorScheme = ColorScheme.fromSeed(
-                  seedColor: defaultColor,
-                  brightness: Brightness.light,
-                );
-                darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: defaultColor,
-                  brightness: Brightness.dark,
-                );
-              }
+          if (lightDynamic != null &&
+              darkDynamic != null &&
+              _configService.enableDynamicColor) {
+            lightColorScheme = lightDynamic.harmonized();
+            darkColorScheme = darkDynamic.harmonized();
+          } else {
+            lightColorScheme = ColorScheme.fromSeed(
+              seedColor: defaultColor,
+              brightness: Brightness.light,
+            );
+            darkColorScheme = ColorScheme.fromSeed(
+              seedColor: defaultColor,
+              brightness: Brightness.dark,
+            );
+          }
 
-              return GetMaterialApp(
-                locale: TranslationProvider.of(context).flutterLocale,
-                builder: _buildToast,
-                debugShowCheckedModeBanner: false,
-                supportedLocales: AppLocaleUtils.supportedLocales,
-                localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                initialRoute: AppRoutes.splash,
-                defaultTransition: Transition.native,
-                getPages: AppPages.pages,
-                navigatorObservers: [
-                  MediaDetailPage.routeObserver,
-                ],
-                theme: ThemeData(
-                  colorScheme: lightColorScheme,
-                  useMaterial3: true,
-                ).copyWith(
+          return GetMaterialApp(
+            locale: TranslationProvider.of(context).flutterLocale,
+            builder: _buildToast,
+            debugShowCheckedModeBanner: false,
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            initialRoute: AppRoutes.splash,
+            defaultTransition: Transition.native,
+            getPages: AppPages.pages,
+            navigatorObservers: [MediaDetailPage.routeObserver],
+            theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: true)
+                .copyWith(
                   actionIconTheme: ActionIconThemeData(
                     backButtonIconBuilder: (BuildContext context) =>
                         const Icon(Icons.arrow_back),
                   ),
                 ),
-                darkTheme: ThemeData(
+            darkTheme:
+                ThemeData(
                   colorScheme: darkColorScheme,
                   useMaterial3: true,
                 ).copyWith(
@@ -221,11 +222,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
                         const Icon(Icons.arrow_back),
                   ),
                 ),
-                themeMode: _configService.themeMode,
-              );
-            });
-          }),
-        );
+            themeMode: _configService.themeMode,
+          );
+        });
+      }),
+    );
 
     return mainApp();
   }

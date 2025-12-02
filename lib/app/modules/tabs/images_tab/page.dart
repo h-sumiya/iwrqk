@@ -10,10 +10,7 @@ import 'controller.dart';
 class ImagesTabPage extends GetView<ImagesTabController> {
   final String tabTag;
 
-  const ImagesTabPage({
-    super.key,
-    required this.tabTag,
-  });
+  const ImagesTabPage({super.key, required this.tabTag});
 
   @override
   Widget build(BuildContext context) {

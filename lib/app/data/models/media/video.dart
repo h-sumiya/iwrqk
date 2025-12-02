@@ -109,12 +109,15 @@ class VideoModel extends MediaModel {
             .replaceFirst("{num}", thumbnail.toString().padLeft(2, '0'));
       } else if (embedUrl!.contains("youtu")) {
         RegExp regExp = RegExp(
-            r"(?:youtube\.com\/.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]{11})");
+          r"(?:youtube\.com\/.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]{11})",
+        );
         var match = regExp.firstMatch(embedUrl!);
         if (match != null) {
           var videoIdWithPrefix = match.group(0)!;
-          var youtubeId =
-              videoIdWithPrefix.split("/").last.replaceAll("watch?v=", "");
+          var youtubeId = videoIdWithPrefix
+              .split("/")
+              .last
+              .replaceAll("watch?v=", "");
           return IwaraConst.youtubeCoverUrl.replaceFirst('{id}', youtubeId);
         }
       }
@@ -124,8 +127,9 @@ class VideoModel extends MediaModel {
   }
 
   String getXVerison() {
-    var vid =
-        RegExp(r'file/(\w+-\w+-\w+-\w+-\w+)\?').firstMatch(fileUrl!)?.group(1);
+    var vid = RegExp(
+      r'file/(\w+-\w+-\w+-\w+-\w+)\?',
+    ).firstMatch(fileUrl!)?.group(1);
     var expires = RegExp(r'expires=(\d+)').firstMatch(fileUrl!)?.group(1);
 
     return CryptoUtil.getHash('${vid}_${expires}_${IwaraConst.salt}');

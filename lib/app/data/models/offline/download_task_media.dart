@@ -18,7 +18,9 @@ class DownloadTaskMediaModel extends OfflineMediaModel {
   });
 
   factory DownloadTaskMediaModel.fromOfflineMediaModel(
-      OfflineMediaModel mediaData, int size) {
+    OfflineMediaModel mediaData,
+    int size,
+  ) {
     return DownloadTaskMediaModel(
       type: mediaData.type,
       title: mediaData.title,

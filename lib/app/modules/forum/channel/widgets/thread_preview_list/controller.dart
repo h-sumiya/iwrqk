@@ -17,6 +17,8 @@ class ThreadPreviewListController extends IwrRefreshController<ThreadModel> {
   @override
   Future<GroupResult<ThreadModel>> getNewData(int currentPage) {
     return repository.getChannelThreads(
-        channelName: _channelName, pageNum: currentPage);
+      channelName: _channelName,
+      pageNum: currentPage,
+    );
   }
 }

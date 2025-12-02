@@ -38,19 +38,18 @@ class EditCommentBottomSheet
         ),
         color: Theme.of(context).colorScheme.surface,
       ),
-      padding: EdgeInsets.only(
-        bottom: Get.mediaQuery.padding.bottom,
-      ),
+      padding: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            constraints: const BoxConstraints(
-              maxHeight: 200,
-              minHeight: 120,
+            constraints: const BoxConstraints(maxHeight: 200, minHeight: 120),
+            padding: const EdgeInsets.only(
+              top: 12,
+              right: 16,
+              left: 16,
+              bottom: 12,
             ),
-            padding:
-                const EdgeInsets.only(top: 12, right: 16, left: 16, bottom: 12),
             child: TextField(
               focusNode: controller.contentFocusNode,
               controller: controller.contentController,
@@ -71,8 +70,9 @@ class EditCommentBottomSheet
               children: [
                 IconButton(
                   onPressed: () {
-                    FocusScope.of(context)
-                        .requestFocus(controller.contentFocusNode);
+                    FocusScope.of(
+                      context,
+                    ).requestFocus(controller.contentFocusNode);
                   },
                   icon: const Icon(Icons.keyboard),
                 ),

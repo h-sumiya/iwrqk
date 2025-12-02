@@ -115,7 +115,7 @@ class FavoritesPage extends GetView<FavoritesController> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

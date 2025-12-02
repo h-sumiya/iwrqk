@@ -75,9 +75,9 @@ class AddToPlaylistBottomSheetController extends GetxController
     _addingtoPlaylist.value = true;
 
     if (selectedPlaylists.isNotEmpty) {
-      await userService
-          .addToPlaylist(_videoId, selectedPlaylists)
-          .then((value) {
+      await userService.addToPlaylist(_videoId, selectedPlaylists).then((
+        value,
+      ) {
         success = value;
       });
     }
@@ -100,8 +100,8 @@ class AddToPlaylistBottomSheetController extends GetxController
       await userService
           .removeFromPlaylist(_videoId, playlistsNeedtoRemove)
           .then((value) {
-        success = value;
-      });
+            success = value;
+          });
     }
 
     if (success) {

@@ -17,9 +17,13 @@ class FriendsController extends GetxController {
   void onInit() {
     super.onInit();
 
-    Get.lazyPut(() => FriendsPreviewListController(),
-        tag: friendsPreviewListTag);
-    Get.lazyPut(() => FriendRequestsListController(),
-        tag: friendRequestsListTag);
+    Get.lazyPut(
+      () => FriendsPreviewListController(),
+      tag: friendsPreviewListTag,
+    );
+    Get.lazyPut(
+      () => FriendRequestsListController(),
+      tag: friendRequestsListTag,
+    );
   }
 }

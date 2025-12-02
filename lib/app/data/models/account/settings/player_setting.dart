@@ -2,10 +2,7 @@ class PlayerSetting {
   int qualityIndex;
   int volume;
 
-  PlayerSetting({
-    this.qualityIndex = 0,
-    this.volume = 100,
-  });
+  PlayerSetting({this.qualityIndex = 0, this.volume = 100});
 
   factory PlayerSetting.fromJson(Map<String, dynamic> json) {
     return PlayerSetting(
@@ -15,9 +12,6 @@ class PlayerSetting {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'qualityIndex': qualityIndex,
-      'volume': volume,
-    };
+    return {'qualityIndex': qualityIndex, 'volume': volume};
   }
 }

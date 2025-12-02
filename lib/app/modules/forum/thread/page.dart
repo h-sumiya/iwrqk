@@ -46,7 +46,8 @@ class _ThreadPageState extends State<ThreadPage> {
       ),
       subtitle: Text(
         DisplayUtil.getDisplayTime(
-            DateTime.parse(_controller.thread.createdAt)),
+          DateTime.parse(_controller.thread.createdAt),
+        ),
         style: const TextStyle(fontSize: 12),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -68,13 +69,16 @@ class _ThreadPageState extends State<ThreadPage> {
         titleSpacing: 0,
       ),
       floatingActionButton: SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, 2),
-          end: const Offset(0, 0),
-        ).animate(CurvedAnimation(
-          parent: _controller.fabAnimationController,
-          curve: Curves.easeInOut,
-        )),
+        position:
+            Tween<Offset>(
+              begin: const Offset(0, 2),
+              end: const Offset(0, 0),
+            ).animate(
+              CurvedAnimation(
+                parent: _controller.fabAnimationController,
+                curve: Curves.easeInOut,
+              ),
+            ),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 64),
           child: FloatingActionButton(
@@ -86,7 +90,8 @@ class _ThreadPageState extends State<ThreadPage> {
                       isScrollControlled: true,
                       builder: (context) => Padding(
                         padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
                         child: EditPostBottomSheet(
                           threadId: _controller.thread.id,
                           onChanged: (_) {
@@ -142,9 +147,7 @@ class _ThreadPageState extends State<ThreadPage> {
         },
         onLoading: Scaffold(
           appBar: AppBar(),
-          body: const Center(
-            child: CircularProgressIndicator(),
-          ),
+          body: const Center(child: CircularProgressIndicator()),
         ),
       );
     } else {

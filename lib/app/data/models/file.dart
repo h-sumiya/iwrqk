@@ -37,7 +37,7 @@ class FileModel {
       'duration': duration,
       'numThumbnails': numThumbnails,
       'createdAt': createdAt,
-      'updatedAt': updatedAt
+      'updatedAt': updatedAt,
     };
   }
 }

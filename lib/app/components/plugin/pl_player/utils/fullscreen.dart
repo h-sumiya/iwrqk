@@ -19,10 +19,9 @@ Future<void> landScape() async {
         DeviceOrientation.landscapeRight,
       ]);
     } else if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
-      await const MethodChannel('com.alexmercerind/media_kit_video')
-          .invokeMethod(
-        'Utils.EnterNativeFullscreen',
-      );
+      await const MethodChannel(
+        'com.alexmercerind/media_kit_video',
+      ).invokeMethod('Utils.EnterNativeFullscreen');
     }
   } catch (exception, stacktrace) {
     debugPrint(exception.toString());
@@ -35,16 +34,12 @@ Future<void> verticalScreen() async {
   if (Platform.isAndroid) {
     await AutoOrientation.portraitUpMode();
   } else {
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 }
 
 Future<void> enterFullScreen() async {
-  await SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.immersiveSticky,
-  );
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 }
 
 //退出全屏显示
@@ -65,10 +60,9 @@ Future<void> exitFullScreen() async {
       );
       await SystemChrome.setPreferredOrientations([]);
     } else if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
-      await const MethodChannel('com.alexmercerind/media_kit_video')
-          .invokeMethod(
-        'Utils.ExitNativeFullscreen',
-      );
+      await const MethodChannel(
+        'com.alexmercerind/media_kit_video',
+      ).invokeMethod('Utils.ExitNativeFullscreen');
     }
   } catch (exception, stacktrace) {
     debugPrint(exception.toString());

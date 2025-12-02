@@ -16,16 +16,18 @@ class UrlUtil {
     // iwara.tv/users/{userid}/xxx (old)
     RegExp user = RegExp(r"/users/([^/]+)");
     if (user.hasMatch(url)) {
-      String username =
-          Uri.decodeComponent(user.firstMatch(url)!.group(1)!.split("/").last);
-      return await ApiProvider.getMigrationUserName(oldUserName: username)
-          .then((value) {
-        if (value.success) {
-          Get.toNamed("/profile?userName=${value.data}");
-          return true;
-        }
-        return false;
-      });
+      String username = Uri.decodeComponent(
+        user.firstMatch(url)!.group(1)!.split("/").last,
+      );
+      return await ApiProvider.getMigrationUserName(oldUserName: username).then(
+        (value) {
+          if (value.success) {
+            Get.toNamed("/profile?userName=${value.data}");
+            return true;
+          }
+          return false;
+        },
+      );
     }
     // iwara.tv/video/{videoid}/xxx (new)
     // iwara.tv/videos/{videoid}/xxx (old)
@@ -73,10 +75,11 @@ class UrlUtil {
     RegExp threadTitle = RegExp(r"/forums?/([^/]+)");
     if (threadTitle.hasMatch(url)) {
       String oldThreadTitle = Uri.decodeComponent(
-          threadTitle.firstMatch(url)!.group(1)!.split("/").last);
+        threadTitle.firstMatch(url)!.group(1)!.split("/").last,
+      );
       return await ApiProvider.getMigrationThreadUrl(
-              oldThreadTitle: oldThreadTitle)
-          .then((value) {
+        oldThreadTitle: oldThreadTitle,
+      ).then((value) {
         if (value.success) {
           String channelName = value.data!.split("/").elementAt(2);
           String threadId = value.data!.split("/").last;

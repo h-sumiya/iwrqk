@@ -83,8 +83,10 @@ class ThreadController extends GetxController
     String? message;
     bool success = true;
 
-    await ApiProvider.getThread(channelName: channelName, threadId: threadId!)
-        .then((value) {
+    await ApiProvider.getThread(
+      channelName: channelName,
+      threadId: threadId!,
+    ).then((value) {
       success = value.success;
       if (!success) {
         message = value.message;

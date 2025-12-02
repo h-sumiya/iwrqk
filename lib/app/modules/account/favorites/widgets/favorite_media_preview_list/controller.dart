@@ -35,10 +35,11 @@ class FavoriteMediaPreviewListController
 
   Future<void> unfavoriteAll() {
     showLoading();
-    return Future.wait(data.map((e) => userService.unfavoriteMedia(e.id)))
-        .then((value) {
-      refreshData(showSplash: true);
-    });
+    return Future.wait(data.map((e) => userService.unfavoriteMedia(e.id))).then(
+      (value) {
+        refreshData(showSplash: true);
+      },
+    );
   }
 
   @override

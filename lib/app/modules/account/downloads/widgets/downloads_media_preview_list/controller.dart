@@ -43,8 +43,11 @@ class DownloadsMediaPreviewListController
     await downloadService.deleteTaskRecord(taskId);
   }
 
-  Future<void> deleteVideoTask(int index, String taskId,
-      [bool retrying = false]) async {
+  Future<void> deleteVideoTask(
+    int index,
+    String taskId, [
+    bool retrying = false,
+  ]) async {
     String? path = await downloadService.getTaskFilePath(taskId);
     if (!retrying) {
       await StorageProvider.downloadVideoRecords.deleteByIndex(index);
@@ -83,31 +86,34 @@ class DownloadsMediaPreviewListController
           DateTime.now().millisecondsSinceEpoch ~/ 1000) {
         VideoModel? video =
             await ApiProvider.getVideo(videoTask.offlineMedia.id).then((value) {
-          if (value.success) {
-            return value.data! as VideoModel;
-          } else {
-            return null;
-          }
-        });
+              if (value.success) {
+                return value.data! as VideoModel;
+              } else {
+                return null;
+              }
+            });
 
         if (video == null) {
           return;
         }
 
-        String? url = await ApiProvider.getVideoResolutions(
-                video.fileUrl!, video.getXVerison())
-            .then((value) {
-          if (value.success) {
-            if (value.data!.isNotEmpty) {
-              return value.data!
-                  .firstWhere(
-                      (element) => element.name == videoTask.resolutionName)
-                  .src
-                  .downloadUrl;
-            }
-          }
-          return null;
-        });
+        String? url =
+            await ApiProvider.getVideoResolutions(
+              video.fileUrl!,
+              video.getXVerison(),
+            ).then((value) {
+              if (value.success) {
+                if (value.data!.isNotEmpty) {
+                  return value.data!
+                      .firstWhere(
+                        (element) => element.name == videoTask.resolutionName,
+                      )
+                      .src
+                      .downloadUrl;
+                }
+              }
+              return null;
+            });
 
         if (url == null) {
           return;
@@ -115,12 +121,12 @@ class DownloadsMediaPreviewListController
 
         deleteVideoTask(index, taskId, true);
 
-        VideoDownloadTask? newTask =
-            await downloadService.createVideoDownloadTask(
-          url: url,
-          resolutionName: videoTask.resolutionName,
-          offlineMedia: videoTask.offlineMedia,
-        );
+        VideoDownloadTask? newTask = await downloadService
+            .createVideoDownloadTask(
+              url: url,
+              resolutionName: videoTask.resolutionName,
+              offlineMedia: videoTask.offlineMedia,
+            );
 
         if (newTask == null) {
           return;

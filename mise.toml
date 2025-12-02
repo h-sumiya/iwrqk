@@ -1,0 +1,11 @@
+[tasks.slang]
+run = "dart run slang"
+
+[tasks.watch]
+run = "dart run build_runner watch -d"
+
+[tasks.genAppIcons]
+run = "flutter packages pub run flutter_launcher_icons:main"
+
+[tasks.format]
+run = "dart format ."

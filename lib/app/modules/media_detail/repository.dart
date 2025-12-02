@@ -42,7 +42,9 @@ class MediaDetailRepository {
     required MediaType type,
   }) async {
     ApiResult<GroupResult<MediaModel>> result = await ApiProvider.getMedia(
-        path: "/${type.value}/$mediaId/related", type: type);
+      path: "/${type.value}/$mediaId/related",
+      type: type,
+    );
 
     return ApiResult(
       data: result.data?.results,

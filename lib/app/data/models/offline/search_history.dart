@@ -7,10 +7,7 @@ class SearchHistoryModel {
   SearchHistoryModel({required this.keyword, required this.source});
 
   Map<String, dynamic> toJson() {
-    return {
-      'keyword': keyword,
-      'source': source.index,
-    };
+    return {'keyword': keyword, 'source': source.index};
   }
 
   factory SearchHistoryModel.fromJson(Map<String, dynamic> json) {

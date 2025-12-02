@@ -39,13 +39,7 @@ class UserDrawer extends StatelessWidget {
               Flexible(
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 32,
-                      height: 36,
-                      child: Center(
-                        child: icon,
-                      ),
-                    ),
+                    SizedBox(width: 32, height: 36, child: Center(child: icon)),
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(left: 8),
@@ -72,13 +66,8 @@ class UserDrawer extends StatelessWidget {
     return Card(
       elevation: 0,
       clipBehavior: Clip.antiAlias,
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 16,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       color: Theme.of(context).colorScheme.secondaryContainer.withAlpha(115),
       child: InkWell(
         onTap: () {
@@ -89,22 +78,14 @@ class UserDrawer extends StatelessWidget {
           }
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 child: Row(
                   children: [
-                    ClipOval(
-                      child: UserAvatar(
-                        width: 48,
-                        height: 48,
-                      ),
-                    ),
+                    ClipOval(child: UserAvatar(width: 48, height: 48)),
                     Expanded(
                       child: Obx(
                         () => Container(
@@ -123,7 +104,7 @@ class UserDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -136,10 +117,8 @@ class UserDrawer extends StatelessWidget {
                     Get.toNamed(AppRoutes.login);
                   }
                 },
-                icon: const Icon(
-                  Icons.logout,
-                ),
-              )
+                icon: const Icon(Icons.logout),
+              ),
             ],
           ),
         ),
@@ -163,67 +142,46 @@ class UserDrawer extends StatelessWidget {
                     _buildUserItem(
                       context,
                       title: t.user.friends,
-                      icon: const Icon(
-                        Icons.people,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.people, size: 24),
                       routeName: AppRoutes.friends,
                     ),
                     _buildUserItem(
                       context,
                       title: t.user.blocked_tags,
-                      icon: const Icon(
-                        Icons.block,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.block, size: 24),
                       routeName: AppRoutes.blockedTags,
                     ),
                     _buildUserItem(
                       context,
                       title: t.user.following,
-                      icon: const Icon(
-                        Icons.subscriptions,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.subscriptions, size: 24),
                       routeName:
                           "/followersFollowing?type=following&userId=${_userService.user?.id}",
                     ),
                     _buildUserItem(
                       context,
                       title: t.user.history,
-                      icon: const Icon(
-                        Icons.history,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.history, size: 24),
                       routeName: AppRoutes.history,
                       requireLogin: false,
                     ),
                     _buildUserItem(
                       context,
                       title: t.user.downloads,
-                      icon: const Icon(
-                        Icons.download,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.download, size: 24),
                       routeName: AppRoutes.downloads,
                       requireLogin: false,
                     ),
                     _buildUserItem(
                       context,
                       title: t.user.favorites,
-                      icon: const Icon(
-                        Icons.favorite,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.favorite, size: 24),
                       routeName: AppRoutes.favorites,
                     ),
                     _buildUserItem(
                       context,
                       title: t.user.playlists,
-                      icon: const Icon(
-                        Icons.playlist_play,
-                        size: 24,
-                      ),
+                      icon: const Icon(Icons.playlist_play, size: 24),
                       routeName:
                           "/playlistsPreview?userId=${_userService.user?.id}&requireMyself=true",
                     ),
@@ -232,10 +190,7 @@ class UserDrawer extends StatelessWidget {
                       child: _buildUserItem(
                         context,
                         title: t.user.settings,
-                        icon: const Icon(
-                          Icons.settings,
-                          size: 24,
-                        ),
+                        icon: const Icon(Icons.settings, size: 24),
                         routeName: AppRoutes.settings,
                         requireLogin: false,
                       ),

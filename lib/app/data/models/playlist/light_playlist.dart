@@ -21,11 +21,6 @@ class LightPlaylistModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'numVideos': numVideos,
-      'added': added,
-    };
+    return {'id': id, 'title': title, 'numVideos': numVideos, 'added': added};
   }
 }

@@ -24,29 +24,20 @@ class AppBarAni extends StatelessWidget implements PreferredSizeWidget {
       position: Tween<Offset>(
         begin: Offset.zero,
         end: Offset(0, position! == 'top' ? -1 : 1),
-      ).animate(CurvedAnimation(
-        parent: controller,
-        curve: Curves.linear,
-      )),
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.linear)),
       child: Container(
         decoration: BoxDecoration(
           gradient: position! == 'top'
               ? const LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: <Color>[
-                    Colors.transparent,
-                    Colors.black54,
-                  ],
+                  colors: <Color>[Colors.transparent, Colors.black54],
                   tileMode: TileMode.mirror,
                 )
               : const LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    Colors.transparent,
-                    Colors.black54,
-                  ],
+                  colors: <Color>[Colors.transparent, Colors.black54],
                   tileMode: TileMode.mirror,
                 ),
         ),

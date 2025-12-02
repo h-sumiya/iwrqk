@@ -31,7 +31,8 @@ class PlaylistDetailController extends GetxController {
     super.onInit();
 
     playlistId = Get.parameters["playlistId"]!;
-    requireMyself = Get.parameters["requireMyself"] != null &&
+    requireMyself =
+        Get.parameters["requireMyself"] != null &&
         Get.parameters["requireMyself"] == "true";
     title = Get.arguments["title"];
 

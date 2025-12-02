@@ -11,8 +11,6 @@ class SplashPage extends GetView<SplashController> {
   Widget build(BuildContext context) {
     controller.init(context);
 
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

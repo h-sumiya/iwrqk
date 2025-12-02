@@ -33,8 +33,10 @@ class FavoritesController extends GetxController
 
     tabController = TabController(length: 2, vsync: this);
 
-    childrenControllerTags =
-        List.generate(2, (index) => "favorite_list_$index");
+    childrenControllerTags = List.generate(
+      2,
+      (index) => "favorite_list_$index",
+    );
 
     for (String tag in childrenControllerTags) {
       Get.lazyPut(() => FavoriteMediaPreviewListController(), tag: tag);

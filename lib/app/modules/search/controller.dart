@@ -42,8 +42,10 @@ class SearchController extends GetxController {
   }
 
   Future<void> addSearchHistoryItem(String text) async {
-    SearchHistoryModel newItem =
-        SearchHistoryModel(keyword: text, source: SearchSource.offical);
+    SearchHistoryModel newItem = SearchHistoryModel(
+      keyword: text,
+      source: SearchSource.offical,
+    );
     StorageProvider.searchHistoryList.add(newItem);
     _refreshSearchHistoryList();
   }

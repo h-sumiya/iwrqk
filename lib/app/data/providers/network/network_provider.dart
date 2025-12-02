@@ -73,8 +73,10 @@ class NetworkProvider {
 
   void _reinitializeWithContext() {
     if (_context != null) {
-      final cookieJar =
-          _dio.interceptors.whereType<CookieManager>().firstOrNull?.cookieJar;
+      final cookieJar = _dio.interceptors
+          .whereType<CookieManager>()
+          .firstOrNull
+          ?.cookieJar;
       _dio.interceptors.removeWhere(
         (interceptor) => interceptor is CloudflareInterceptor,
       );
@@ -97,12 +99,11 @@ class NetworkProvider {
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
-  }) =>
-      getFullUrl(
-        "https://${IwaraConst.apiHost}$path",
-        queryParameters: queryParameters,
-        headers: headers,
-      );
+  }) => getFullUrl(
+    "https://${IwaraConst.apiHost}$path",
+    queryParameters: queryParameters,
+    headers: headers,
+  );
 
   Future<Response<dynamic>> getFullUrl(
     String url, {
@@ -155,13 +156,12 @@ class NetworkProvider {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     dynamic data,
-  }) =>
-      postFullUrl(
-        "https://${IwaraConst.apiHost}$path",
-        queryParameters: queryParameters,
-        headers: headers,
-        data: data,
-      );
+  }) => postFullUrl(
+    "https://${IwaraConst.apiHost}$path",
+    queryParameters: queryParameters,
+    headers: headers,
+    data: data,
+  );
 
   Future<Response> putFullUrl(
     String url, {
@@ -184,13 +184,12 @@ class NetworkProvider {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     dynamic data,
-  }) =>
-      putFullUrl(
-        "https://${IwaraConst.apiHost}$path",
-        queryParameters: queryParameters,
-        headers: headers,
-        data: data,
-      );
+  }) => putFullUrl(
+    "https://${IwaraConst.apiHost}$path",
+    queryParameters: queryParameters,
+    headers: headers,
+    data: data,
+  );
 
   Future<Response> deleteFullUrl(
     String url, {
@@ -213,11 +212,10 @@ class NetworkProvider {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     dynamic data,
-  }) =>
-      deleteFullUrl(
-        "https://${IwaraConst.apiHost}$path",
-        queryParameters: queryParameters,
-        headers: headers,
-        data: data,
-      );
+  }) => deleteFullUrl(
+    "https://${IwaraConst.apiHost}$path",
+    queryParameters: queryParameters,
+    headers: headers,
+    data: data,
+  );
 }

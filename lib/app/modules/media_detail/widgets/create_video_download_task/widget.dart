@@ -49,9 +49,7 @@ class CreateVideoDownloadDialog
                     controller.currentResolutionIndex = index;
                   } else {
                     Clipboard.setData(
-                      ClipboardData(
-                        text: resolutions[index].src.downloadUrl,
-                      ),
+                      ClipboardData(text: resolutions[index].src.downloadUrl),
                     );
                   }
                 },
@@ -83,7 +81,7 @@ class CreateVideoDownloadDialog
                   },
             child: Text(t.notifications.confirm),
           ),
-        )
+        ),
       ],
     );
   }

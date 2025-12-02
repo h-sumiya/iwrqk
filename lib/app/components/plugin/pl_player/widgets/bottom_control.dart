@@ -18,10 +18,7 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     Color colorTheme = Theme.of(context).colorScheme.primary;
     final c = controller!;
-    const textStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 12,
-    );
+    const textStyle = TextStyle(color: Colors.white, fontSize: 12);
 
     return Container(
       color: Colors.transparent,
@@ -30,60 +27,58 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Obx(
-            () {
-              final int value = c.sliderPositionSeconds.value;
-              final int max = c.durationSeconds.value;
-              final int buffer = c.bufferedSeconds.value;
-              if (value > max || max <= 0) {
-                return const SizedBox.shrink();
-              }
-              return Padding(
-                padding: const EdgeInsets.only(left: 6, right: 6),
-                child: ProgressBar(
-                  progress: Duration(seconds: value),
-                  buffered: Duration(seconds: buffer),
-                  total: Duration(seconds: max),
-                  progressBarColor: colorTheme,
-                  baseBarColor:
-                      Colors.white.withAlpha((0.2 * 255).round()),
-                  bufferedBarColor:
-                      colorTheme.withAlpha((0.4 * 255).round()),
-                  timeLabelLocation: TimeLabelLocation.none,
-                  thumbColor: colorTheme,
-                  barHeight: 3.5,
-                  thumbRadius: 7,
-                  onDragStart: (duration) {
-                    HapticFeedback.lightImpact();
-                    c.onChangedSliderStart();
-                  },
-                  onDragUpdate: (duration) {
-                    c.onUpdatedSliderProgress(duration.timeStamp);
-                  },
-                  onSeek: (duration) {
-                    c.onChangedSliderEnd();
-                    c.onChangedSlider(duration.inSeconds.toDouble());
-                    c.seekTo(Duration(seconds: duration.inSeconds),
-                        type: 'slider');
-                  },
-                ),
-              );
-            },
-          ),
+          Obx(() {
+            final int value = c.sliderPositionSeconds.value;
+            final int max = c.durationSeconds.value;
+            final int buffer = c.bufferedSeconds.value;
+            if (value > max || max <= 0) {
+              return const SizedBox.shrink();
+            }
+            return Padding(
+              padding: const EdgeInsets.only(left: 6, right: 6),
+              child: ProgressBar(
+                progress: Duration(seconds: value),
+                buffered: Duration(seconds: buffer),
+                total: Duration(seconds: max),
+                progressBarColor: colorTheme,
+                baseBarColor: Colors.white.withAlpha((0.2 * 255).round()),
+                bufferedBarColor: colorTheme.withAlpha((0.4 * 255).round()),
+                timeLabelLocation: TimeLabelLocation.none,
+                thumbColor: colorTheme,
+                barHeight: 3.5,
+                thumbRadius: 7,
+                onDragStart: (duration) {
+                  HapticFeedback.lightImpact();
+                  c.onChangedSliderStart();
+                },
+                onDragUpdate: (duration) {
+                  c.onUpdatedSliderProgress(duration.timeStamp);
+                },
+                onSeek: (duration) {
+                  c.onChangedSliderEnd();
+                  c.onChangedSlider(duration.inSeconds.toDouble());
+                  c.seekTo(
+                    Duration(seconds: duration.inSeconds),
+                    type: 'slider',
+                  );
+                },
+              ),
+            );
+          }),
           Row(
             children: [
-              PlayOrPauseButton(
-                controller: c,
-              ),
+              PlayOrPauseButton(controller: c),
               const SizedBox(width: 4),
               // 播放时间
               Obx(() {
                 return Text(
                   c.durationSeconds.value >= 3600
                       ? printDurationWithHours(
-                          Duration(seconds: c.positionSeconds.value))
+                          Duration(seconds: c.positionSeconds.value),
+                        )
                       : printDuration(
-                          Duration(seconds: c.positionSeconds.value)),
+                          Duration(seconds: c.positionSeconds.value),
+                        ),
                   style: textStyle,
                 );
               }),
@@ -94,9 +89,11 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
                 () => Text(
                   c.durationSeconds.value >= 3600
                       ? printDurationWithHours(
-                          Duration(seconds: c.durationSeconds.value))
+                          Duration(seconds: c.durationSeconds.value),
+                        )
                       : printDuration(
-                          Duration(seconds: c.durationSeconds.value)),
+                          Duration(seconds: c.durationSeconds.value),
+                        ),
                   style: textStyle,
                 ),
               ),
@@ -136,8 +133,10 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           SizedBox(
-              height:
-                  Get.mediaQuery.orientation == Orientation.landscape ? 12 : 6),
+            height: Get.mediaQuery.orientation == Orientation.landscape
+                ? 12
+                : 6,
+          ),
         ],
       ),
     );

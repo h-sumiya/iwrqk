@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsZhCn extends Translations {
+class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZhCn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -704,287 +705,289 @@ class _TranslationsErrorAccountZhCn extends TranslationsErrorAccountEn {
 	@override String get invalid_captcha => '验证码错误';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <zh-CN>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsZhCn {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'nav.subscriptions': return '订阅';
-			case 'nav.videos': return '视频';
-			case 'nav.images': return '图片';
-			case 'nav.forum': return '论坛';
-			case 'nav.search': return '搜索';
-			case 'rules.title': return '规则';
-			case 'rules.accept': return '接受';
-			case 'rules.accept_desc': return '我同意：已阅读规则并且会随时留意未来的规则变更。';
-			case 'common.video': return '视频';
-			case 'common.image': return '图片';
-			case 'common.collapse': return '收起';
-			case 'common.expand': return '展开';
-			case 'common.translate': return '翻译';
-			case 'common.open': return '打开';
-			case 'refresh.empty': return '空空如也';
-			case 'refresh.drag_to_load': return '下拉加载';
-			case 'refresh.release_to_load': return '释放加载';
-			case 'refresh.success': return '加载成功';
-			case 'refresh.failed': return '加载失败';
-			case 'refresh.no_more': return '没有更多了';
-			case 'refresh.last_load': return '上次加载于 %T';
-			case 'records.select_all': return '全选';
-			case 'records.select_inverse': return '反选';
-			case 'records.selected_num': return ({required Object num}) => '已选 ${num} 项';
-			case 'records.multiple_selection_mode': return '多选模式';
-			case 'records.delete': return '删除';
-			case 'records.delete_all': return '删除所有';
-			case 'account.captcha': return '验证码';
-			case 'account.login': return '登录';
-			case 'account.logout': return '登出';
-			case 'account.register': return '注册';
-			case 'account.email': return '邮箱';
-			case 'account.email_or_username': return '邮箱或用户名';
-			case 'account.password': return '密码';
-			case 'account.forgot_password': return '忘记密码';
-			case 'account.require_login': return '请先登录';
-			case 'profile.profile': return '个人资料';
-			case 'profile.follow': return '关注';
-			case 'profile.followers': return '粉丝';
-			case 'profile.following': return '关注中';
-			case 'profile.nickname': return '昵称';
-			case 'profile.username': return '用户名';
-			case 'profile.user_id': return '用户 ID';
-			case 'profile.description': return '个人简介';
-			case 'profile.no_description': return '该用户是个神秘人，不喜欢被人围观。';
-			case 'profile.join_date': return '加入时间';
-			case 'profile.last_active_time': return '最后在线时间';
-			case 'profile.online': return '在线';
-			case 'profile.message': return '私信';
-			case 'profile.guestbook': return '留言板';
-			case 'profile.view_more': return '查看更多';
-			case 'sort.latest': return '最新';
-			case 'sort.trending': return '流行';
-			case 'sort.popularity': return '人气';
-			case 'sort.most_views': return '最多观看';
-			case 'sort.most_likes': return '最多点赞';
-			case 'filter.all': return '全部';
-			case 'filter.filter': return '筛选';
-			case 'filter.rating': return '分级';
-			case 'filter.tag': return '标签';
-			case 'filter.tags': return '标签';
-			case 'filter.date': return '日期';
-			case 'filter.general': return '全年龄';
-			case 'filter.ecchi': return '成人';
-			case 'filter.select_rating': return '选择分级';
-			case 'filter.select_year': return '选择年份';
-			case 'filter.select_month': return '选择月份';
-			case 'search.users': return '用户';
-			case 'search.search': return '搜索';
-			case 'search.history.delete': return '删除所有记录';
-			case 'time.seconds_ago': return ({required Object time}) => '${time} 秒前';
-			case 'time.minutes_ago': return ({required Object time}) => '${time} 分钟前';
-			case 'time.hours_ago': return ({required Object time}) => '${time} 小时前';
-			case 'time.days_ago': return ({required Object time}) => '${time} 天前';
-			case 'media.private': return '私有';
-			case 'media.add_to_playlist': return '添加到播放列表';
-			case 'media.external_video': return '外部视频';
-			case 'media.share': return '分享';
-			case 'media.download': return '下载';
-			case 'media.more_from': return ({required Object username}) => '更多来自 ${username}';
-			case 'media.more_like_this': return '类似作品';
-			case 'media.updated_at': return ({required Object time}) => '更新于 ${time}';
-			case 'media.detail': return '详细';
-			case 'media.comments': return '评论';
-			case 'player.current_item': return ({required Object item}) => '当前: ${item}';
-			case 'player.quality': return '画质';
-			case 'player.select_quality': return '选择画质';
-			case 'player.playback_speed': return '播放速度';
-			case 'player.select_playback_speed': return '选择播放速度';
-			case 'player.aspect_ratio': return '宽高比';
-			case 'player.select_aspect_ratio': return '选择宽高比';
-			case 'player.aspect_ratios.contain': return '包含';
-			case 'player.aspect_ratios.cover': return '覆盖';
-			case 'player.aspect_ratios.fill': return '填充';
-			case 'player.aspect_ratios.fit_height': return '适应高度';
-			case 'player.aspect_ratios.fit_width': return '适应宽度';
-			case 'player.aspect_ratios.scale_down': return '缩小适应';
-			case 'player.seconds': return ({required Object value}) => '${value} 秒';
-			case 'player.double_speed': return '2 倍';
-			case 'comment.comment': return '评论';
-			case 'comment.comments': return '评论';
-			case 'comment.comment_detail': return '评论详情';
-			case 'comment.edit_comment': return '编辑评论';
-			case 'comment.delete_comment': return '删除评论';
-			case 'comment.reply': return '回复';
-			case 'comment.replies_in_total': return ({required Object numReply}) => '共 ${numReply} 条回复';
-			case 'comment.show_all_replies': return ({required Object numReply}) => '显示全部 ${numReply} 条回复';
-			case 'user.following': return '关注中';
-			case 'user.history': return '历史记录';
-			case 'user.blocked_tags': return '屏蔽标签';
-			case 'user.friends': return '好友';
-			case 'user.downloads': return '缓存';
-			case 'user.favorites': return '收藏';
-			case 'user.playlists': return '播放列表';
-			case 'user.settings': return '设置';
-			case 'user.about': return '关于';
-			case 'friend.friend_requests': return '好友请求';
-			case 'friend.add_friend': return '添加好友';
-			case 'friend.pending': return '待处理';
-			case 'friend.unfriend': return '解除好友';
-			case 'friend.accept': return '接受';
-			case 'friend.reject': return '拒绝';
-			case 'blocked_tags.add_blocked_tag': return '添加屏蔽标签';
-			case 'blocked_tags.blocked_tag': return '屏蔽标签';
-			case 'download.create_download_task': return '创建下载任务';
-			case 'download.unknown': return '未知';
-			case 'download.enqueued': return '等待中';
-			case 'download.downloading': return '下载中';
-			case 'download.paused': return '已暂停';
-			case 'download.finished': return '已完成';
-			case 'download.failed': return '下载失败';
-			case 'download.retry': return '重新下载';
-			case 'download.delete': return '删除下载任务';
-			case 'download.pause': return '暂停';
-			case 'download.resume': return '继续';
-			case 'download.open_with': return '用...打开';
-			case 'download.jump_to_detail': return '查看详情页';
-			case 'playlist.title': return '播放列表标题';
-			case 'playlist.create': return '创建播放列表';
-			case 'playlist.select': return '选择播放列表';
-			case 'playlist.edit_title': return '编辑标题';
-			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 个视频';
-			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 个视频';
-			case 'channel.administration': return '管理者';
-			case 'channel.announcements': return '公告';
-			case 'channel.feedback': return '反馈';
-			case 'channel.support': return '支持';
-			case 'channel.global': return '常规';
-			case 'channel.general': return '普通';
-			case 'channel.guides': return '指南';
-			case 'channel.questions': return '帮助/问题';
-			case 'channel.requests': return '请求';
-			case 'channel.sharing': return '分享';
-			case 'channel.label': return ({required Object numThread, required Object numPosts}) => '${numThread} 个帖子 ${numPosts} 个回复';
-			case 'create_thread.create_thread': return '发帖';
-			case 'create_thread.title': return '标题';
-			case 'create_thread.content': return '内容';
-			case 'notifications.ok': return '好的';
-			case 'notifications.success': return '成功';
-			case 'notifications.error': return '错误';
-			case 'notifications.loading': return '加载中...';
-			case 'notifications.cancel': return '取消';
-			case 'notifications.confirm': return '确认';
-			case 'notifications.apply': return '应用';
-			case 'settings.appearance': return '外观设置';
-			case 'settings.theme': return '主题';
-			case 'settings.theme_desc': return '设置应用的主题';
-			case 'settings.dynamic_color': return '动态取色';
-			case 'settings.dynamic_color_desc': return '根据内容动态更改应用的颜色';
-			case 'settings.custom_color': return '自定义颜色';
-			case 'settings.custom_color_desc': return '自定义应用的主题色';
-			case 'settings.language': return '语言';
-			case 'settings.language_desc': return '设置应用的语言';
-			case 'settings.display_mode': return '显示模式';
-			case 'settings.display_mode_desc': return '设置应用的显示模式';
-			case 'settings.work_mode': return '工作模式';
-			case 'settings.work_mode_desc': return '隐藏所有 NSFW 内容的封面';
-			case 'settings.network': return '网络设置';
-			case 'settings.enable_proxy': return '启用代理';
-			case 'settings.enable_proxy_desc': return '启用代理服务';
-			case 'settings.proxy': return '代理设置';
-			case 'settings.proxy_desc': return '设置代理服务器';
-			case 'settings.player': return '播放器设置';
-			case 'settings.autoplay': return '自动播放';
-			case 'settings.autoplay_desc': return '打开视频页面时自动播放视频';
-			case 'settings.background_play': return '后台播放';
-			case 'settings.background_play_desc': return '允许应用在后台播放视频';
-			case 'settings.download': return '下载设置';
-			case 'settings.download_path': return '下载路径';
-			case 'settings.allow_media_scan': return '允许媒体扫描';
-			case 'settings.allow_media_scan_desc': return '允许媒体扫描程序读取下载的媒体文件';
-			case 'settings.logging': return '日志设置';
-			case 'settings.enable_logging': return '启用日志';
-			case 'settings.enable_logging_desc': return '启用应用的日志记录';
-			case 'settings.clear_log': return '清除日志';
-			case 'settings.clear_log_desc': return ({required Object size}) => '当前日志大小: ${size}';
-			case 'settings.enable_verbose_logging': return '启用详细日志';
-			case 'settings.enable_verbose_logging_desc': return '记录更详细的日志';
-			case 'settings.about': return '关于';
-			case 'settings.check_update': return '检查更新';
-			case 'settings.check_update_desc': return '检查是否有新版本可用';
-			case 'settings.third_party_license': return '第三方库许可';
-			case 'settings.third_party_license_desc': return '查看第三方库的许可证';
-			case 'theme.system': return '跟随系统';
-			case 'theme.light': return '浅色';
-			case 'theme.dark': return '深色';
-			case 'colors.pink': return '粉红';
-			case 'colors.red': return '红色';
-			case 'colors.orange': return '橙色';
-			case 'colors.amber': return '琥珀';
-			case 'colors.yellow': return '黄色';
-			case 'colors.lime': return '绿黄';
-			case 'colors.lightGreen': return '浅绿';
-			case 'colors.green': return '绿色';
-			case 'colors.teal': return '青色';
-			case 'colors.cyan': return '青绿';
-			case 'colors.lightBlue': return '浅蓝';
-			case 'colors.blue': return '蓝色';
-			case 'colors.indigo': return '靛蓝';
-			case 'colors.purple': return '紫色';
-			case 'colors.deepPurple': return '深紫';
-			case 'colors.blueGrey': return '蓝灰';
-			case 'colors.brown': return '棕色';
-			case 'colors.grey': return '灰色';
-			case 'display_mode.no_available': return '无可用显示模式';
-			case 'display_mode.auto': return '自动';
-			case 'display_mode.system': return '系统';
-			case 'proxy.host': return '主机名';
-			case 'proxy.port': return '端口';
-			case 'message.exit_app': return '再按一次退出应用';
-			case 'message.are_you_sure_to_do_that': return '你确定要这么做吗？';
-			case 'message.restart_required': return '重启后生效';
-			case 'message.please_type_host': return '请输入主机名';
-			case 'message.please_type_port': return '请输入端口';
-			case 'message.account.login_success': return '登入成功！';
-			case 'message.account.register_success': return '注册成功，请查看邮箱激活账号。';
-			case 'message.account.login_password_longer_than_6': return '密码长度至少为 6 位';
-			case 'message.account.please_type_email': return '请输入邮箱';
-			case 'message.account.please_type_email_or_username': return '请输入邮箱或用户名';
-			case 'message.account.please_type_valid_email': return '请输入正确的邮箱';
-			case 'message.account.please_type_password': return '请输入密码';
-			case 'message.account.please_type_captcha': return '请输入验证码';
-			case 'message.comment.content_empty': return '内容不能为空。';
-			case 'message.comment.content_too_long': return '内容不能超过 1000 个字符。';
-			case 'message.comment.sent': return '回复已发送。';
-			case 'message.create_thread.title_empty': return '标题不能为空。';
-			case 'message.create_thread.title_too_long': return '标题不能过长。';
-			case 'message.create_thread.content_empty': return '内容不能为空。';
-			case 'message.create_thread.content_too_long': return '内容不能超过 20000 个字符。';
-			case 'message.create_thread.created': return '帖子已发送。';
-			case 'message.blocked_tags.save_confirm': return '确定保存屏蔽标签吗？';
-			case 'message.blocked_tags.saved': return '屏蔽标签已保存。';
-			case 'message.blocked_tags.reached_limit': return '屏蔽标签数量已达到上限。';
-			case 'message.playlist.empty_playlist_title': return '播放列表标题不能为空。';
-			case 'message.playlist.playlist_created': return '播放列表已创建。';
-			case 'message.playlist.playlist_title_edited': return '播放列表标题已修改。';
-			case 'message.download.no_provide_storage_permission': return '未提供存储权限。';
-			case 'message.download.task_already_exists': return '下载任务已存在。';
-			case 'message.download.task_created': return '下载任务已创建。';
-			case 'message.download.maximum_simultaneous_download_reached': return '已达到最大同时下载数。';
-			case 'message.update.check_update_failed': return '检查更新失败';
-			case 'message.update.update_available': return '有新版本可用';
-			case 'message.update.already_latest_version': return '已是最新版本';
-			case 'message.update.current_version': return ({required Object version}) => '当前版本：${version}';
-			case 'message.update.latest_version': return ({required Object version}) => '最新版本：${version}';
-			case 'message.update.view_update': return '查看更新';
-			case 'error.retry': return '加载失败，点击重试';
-			case 'error.fetch_failed': return '无法获取视频链接';
-			case 'error.fetch_user_info_failed': return '无法获取用户信息';
-			case 'error.invalid_path': return '无效的路径';
-			case 'error.intercept_app_exit': return '拦截应用退出';
-			case 'error.account.invalid_login': return '邮箱或密码错误';
-			case 'error.account.invalid_host': return '无效的主机名';
-			case 'error.account.invalid_captcha': return '验证码错误';
-			default: return null;
-		}
+		return switch (path) {
+			'nav.subscriptions' => '订阅',
+			'nav.videos' => '视频',
+			'nav.images' => '图片',
+			'nav.forum' => '论坛',
+			'nav.search' => '搜索',
+			'rules.title' => '规则',
+			'rules.accept' => '接受',
+			'rules.accept_desc' => '我同意：已阅读规则并且会随时留意未来的规则变更。',
+			'common.video' => '视频',
+			'common.image' => '图片',
+			'common.collapse' => '收起',
+			'common.expand' => '展开',
+			'common.translate' => '翻译',
+			'common.open' => '打开',
+			'refresh.empty' => '空空如也',
+			'refresh.drag_to_load' => '下拉加载',
+			'refresh.release_to_load' => '释放加载',
+			'refresh.success' => '加载成功',
+			'refresh.failed' => '加载失败',
+			'refresh.no_more' => '没有更多了',
+			'refresh.last_load' => '上次加载于 %T',
+			'records.select_all' => '全选',
+			'records.select_inverse' => '反选',
+			'records.selected_num' => ({required Object num}) => '已选 ${num} 项',
+			'records.multiple_selection_mode' => '多选模式',
+			'records.delete' => '删除',
+			'records.delete_all' => '删除所有',
+			'account.captcha' => '验证码',
+			'account.login' => '登录',
+			'account.logout' => '登出',
+			'account.register' => '注册',
+			'account.email' => '邮箱',
+			'account.email_or_username' => '邮箱或用户名',
+			'account.password' => '密码',
+			'account.forgot_password' => '忘记密码',
+			'account.require_login' => '请先登录',
+			'profile.profile' => '个人资料',
+			'profile.follow' => '关注',
+			'profile.followers' => '粉丝',
+			'profile.following' => '关注中',
+			'profile.nickname' => '昵称',
+			'profile.username' => '用户名',
+			'profile.user_id' => '用户 ID',
+			'profile.description' => '个人简介',
+			'profile.no_description' => '该用户是个神秘人，不喜欢被人围观。',
+			'profile.join_date' => '加入时间',
+			'profile.last_active_time' => '最后在线时间',
+			'profile.online' => '在线',
+			'profile.message' => '私信',
+			'profile.guestbook' => '留言板',
+			'profile.view_more' => '查看更多',
+			'sort.latest' => '最新',
+			'sort.trending' => '流行',
+			'sort.popularity' => '人气',
+			'sort.most_views' => '最多观看',
+			'sort.most_likes' => '最多点赞',
+			'filter.all' => '全部',
+			'filter.filter' => '筛选',
+			'filter.rating' => '分级',
+			'filter.tag' => '标签',
+			'filter.tags' => '标签',
+			'filter.date' => '日期',
+			'filter.general' => '全年龄',
+			'filter.ecchi' => '成人',
+			'filter.select_rating' => '选择分级',
+			'filter.select_year' => '选择年份',
+			'filter.select_month' => '选择月份',
+			'search.users' => '用户',
+			'search.search' => '搜索',
+			'search.history.delete' => '删除所有记录',
+			'time.seconds_ago' => ({required Object time}) => '${time} 秒前',
+			'time.minutes_ago' => ({required Object time}) => '${time} 分钟前',
+			'time.hours_ago' => ({required Object time}) => '${time} 小时前',
+			'time.days_ago' => ({required Object time}) => '${time} 天前',
+			'media.private' => '私有',
+			'media.add_to_playlist' => '添加到播放列表',
+			'media.external_video' => '外部视频',
+			'media.share' => '分享',
+			'media.download' => '下载',
+			'media.more_from' => ({required Object username}) => '更多来自 ${username}',
+			'media.more_like_this' => '类似作品',
+			'media.updated_at' => ({required Object time}) => '更新于 ${time}',
+			'media.detail' => '详细',
+			'media.comments' => '评论',
+			'player.current_item' => ({required Object item}) => '当前: ${item}',
+			'player.quality' => '画质',
+			'player.select_quality' => '选择画质',
+			'player.playback_speed' => '播放速度',
+			'player.select_playback_speed' => '选择播放速度',
+			'player.aspect_ratio' => '宽高比',
+			'player.select_aspect_ratio' => '选择宽高比',
+			'player.aspect_ratios.contain' => '包含',
+			'player.aspect_ratios.cover' => '覆盖',
+			'player.aspect_ratios.fill' => '填充',
+			'player.aspect_ratios.fit_height' => '适应高度',
+			'player.aspect_ratios.fit_width' => '适应宽度',
+			'player.aspect_ratios.scale_down' => '缩小适应',
+			'player.seconds' => ({required Object value}) => '${value} 秒',
+			'player.double_speed' => '2 倍',
+			'comment.comment' => '评论',
+			'comment.comments' => '评论',
+			'comment.comment_detail' => '评论详情',
+			'comment.edit_comment' => '编辑评论',
+			'comment.delete_comment' => '删除评论',
+			'comment.reply' => '回复',
+			'comment.replies_in_total' => ({required Object numReply}) => '共 ${numReply} 条回复',
+			'comment.show_all_replies' => ({required Object numReply}) => '显示全部 ${numReply} 条回复',
+			'user.following' => '关注中',
+			'user.history' => '历史记录',
+			'user.blocked_tags' => '屏蔽标签',
+			'user.friends' => '好友',
+			'user.downloads' => '缓存',
+			'user.favorites' => '收藏',
+			'user.playlists' => '播放列表',
+			'user.settings' => '设置',
+			'user.about' => '关于',
+			'friend.friend_requests' => '好友请求',
+			'friend.add_friend' => '添加好友',
+			'friend.pending' => '待处理',
+			'friend.unfriend' => '解除好友',
+			'friend.accept' => '接受',
+			'friend.reject' => '拒绝',
+			'blocked_tags.add_blocked_tag' => '添加屏蔽标签',
+			'blocked_tags.blocked_tag' => '屏蔽标签',
+			'download.create_download_task' => '创建下载任务',
+			'download.unknown' => '未知',
+			'download.enqueued' => '等待中',
+			'download.downloading' => '下载中',
+			'download.paused' => '已暂停',
+			'download.finished' => '已完成',
+			'download.failed' => '下载失败',
+			'download.retry' => '重新下载',
+			'download.delete' => '删除下载任务',
+			'download.pause' => '暂停',
+			'download.resume' => '继续',
+			'download.open_with' => '用...打开',
+			'download.jump_to_detail' => '查看详情页',
+			'playlist.title' => '播放列表标题',
+			'playlist.create' => '创建播放列表',
+			'playlist.select' => '选择播放列表',
+			'playlist.edit_title' => '编辑标题',
+			'playlist.videos_count' => ({required Object numVideo}) => '${numVideo} 个视频',
+			'playlist.videos_count_plural' => ({required Object numVideo}) => '${numVideo} 个视频',
+			'channel.administration' => '管理者',
+			'channel.announcements' => '公告',
+			'channel.feedback' => '反馈',
+			'channel.support' => '支持',
+			'channel.global' => '常规',
+			'channel.general' => '普通',
+			'channel.guides' => '指南',
+			'channel.questions' => '帮助/问题',
+			'channel.requests' => '请求',
+			'channel.sharing' => '分享',
+			'channel.label' => ({required Object numThread, required Object numPosts}) => '${numThread} 个帖子 ${numPosts} 个回复',
+			'create_thread.create_thread' => '发帖',
+			'create_thread.title' => '标题',
+			'create_thread.content' => '内容',
+			'notifications.ok' => '好的',
+			'notifications.success' => '成功',
+			'notifications.error' => '错误',
+			'notifications.loading' => '加载中...',
+			'notifications.cancel' => '取消',
+			'notifications.confirm' => '确认',
+			'notifications.apply' => '应用',
+			'settings.appearance' => '外观设置',
+			'settings.theme' => '主题',
+			'settings.theme_desc' => '设置应用的主题',
+			'settings.dynamic_color' => '动态取色',
+			'settings.dynamic_color_desc' => '根据内容动态更改应用的颜色',
+			'settings.custom_color' => '自定义颜色',
+			'settings.custom_color_desc' => '自定义应用的主题色',
+			'settings.language' => '语言',
+			'settings.language_desc' => '设置应用的语言',
+			'settings.display_mode' => '显示模式',
+			'settings.display_mode_desc' => '设置应用的显示模式',
+			'settings.work_mode' => '工作模式',
+			'settings.work_mode_desc' => '隐藏所有 NSFW 内容的封面',
+			'settings.network' => '网络设置',
+			'settings.enable_proxy' => '启用代理',
+			'settings.enable_proxy_desc' => '启用代理服务',
+			'settings.proxy' => '代理设置',
+			'settings.proxy_desc' => '设置代理服务器',
+			'settings.player' => '播放器设置',
+			'settings.autoplay' => '自动播放',
+			'settings.autoplay_desc' => '打开视频页面时自动播放视频',
+			'settings.background_play' => '后台播放',
+			'settings.background_play_desc' => '允许应用在后台播放视频',
+			'settings.download' => '下载设置',
+			'settings.download_path' => '下载路径',
+			'settings.allow_media_scan' => '允许媒体扫描',
+			'settings.allow_media_scan_desc' => '允许媒体扫描程序读取下载的媒体文件',
+			'settings.logging' => '日志设置',
+			'settings.enable_logging' => '启用日志',
+			'settings.enable_logging_desc' => '启用应用的日志记录',
+			'settings.clear_log' => '清除日志',
+			'settings.clear_log_desc' => ({required Object size}) => '当前日志大小: ${size}',
+			'settings.enable_verbose_logging' => '启用详细日志',
+			'settings.enable_verbose_logging_desc' => '记录更详细的日志',
+			'settings.about' => '关于',
+			'settings.check_update' => '检查更新',
+			'settings.check_update_desc' => '检查是否有新版本可用',
+			'settings.third_party_license' => '第三方库许可',
+			'settings.third_party_license_desc' => '查看第三方库的许可证',
+			'theme.system' => '跟随系统',
+			'theme.light' => '浅色',
+			'theme.dark' => '深色',
+			'colors.pink' => '粉红',
+			'colors.red' => '红色',
+			'colors.orange' => '橙色',
+			'colors.amber' => '琥珀',
+			'colors.yellow' => '黄色',
+			'colors.lime' => '绿黄',
+			'colors.lightGreen' => '浅绿',
+			'colors.green' => '绿色',
+			'colors.teal' => '青色',
+			'colors.cyan' => '青绿',
+			'colors.lightBlue' => '浅蓝',
+			'colors.blue' => '蓝色',
+			'colors.indigo' => '靛蓝',
+			'colors.purple' => '紫色',
+			'colors.deepPurple' => '深紫',
+			'colors.blueGrey' => '蓝灰',
+			'colors.brown' => '棕色',
+			'colors.grey' => '灰色',
+			'display_mode.no_available' => '无可用显示模式',
+			'display_mode.auto' => '自动',
+			'display_mode.system' => '系统',
+			'proxy.host' => '主机名',
+			'proxy.port' => '端口',
+			'message.exit_app' => '再按一次退出应用',
+			'message.are_you_sure_to_do_that' => '你确定要这么做吗？',
+			'message.restart_required' => '重启后生效',
+			'message.please_type_host' => '请输入主机名',
+			'message.please_type_port' => '请输入端口',
+			'message.account.login_success' => '登入成功！',
+			'message.account.register_success' => '注册成功，请查看邮箱激活账号。',
+			'message.account.login_password_longer_than_6' => '密码长度至少为 6 位',
+			'message.account.please_type_email' => '请输入邮箱',
+			'message.account.please_type_email_or_username' => '请输入邮箱或用户名',
+			'message.account.please_type_valid_email' => '请输入正确的邮箱',
+			'message.account.please_type_password' => '请输入密码',
+			'message.account.please_type_captcha' => '请输入验证码',
+			'message.comment.content_empty' => '内容不能为空。',
+			'message.comment.content_too_long' => '内容不能超过 1000 个字符。',
+			'message.comment.sent' => '回复已发送。',
+			'message.create_thread.title_empty' => '标题不能为空。',
+			'message.create_thread.title_too_long' => '标题不能过长。',
+			'message.create_thread.content_empty' => '内容不能为空。',
+			'message.create_thread.content_too_long' => '内容不能超过 20000 个字符。',
+			'message.create_thread.created' => '帖子已发送。',
+			'message.blocked_tags.save_confirm' => '确定保存屏蔽标签吗？',
+			'message.blocked_tags.saved' => '屏蔽标签已保存。',
+			'message.blocked_tags.reached_limit' => '屏蔽标签数量已达到上限。',
+			'message.playlist.empty_playlist_title' => '播放列表标题不能为空。',
+			'message.playlist.playlist_created' => '播放列表已创建。',
+			'message.playlist.playlist_title_edited' => '播放列表标题已修改。',
+			'message.download.no_provide_storage_permission' => '未提供存储权限。',
+			'message.download.task_already_exists' => '下载任务已存在。',
+			'message.download.task_created' => '下载任务已创建。',
+			'message.download.maximum_simultaneous_download_reached' => '已达到最大同时下载数。',
+			'message.update.check_update_failed' => '检查更新失败',
+			'message.update.update_available' => '有新版本可用',
+			'message.update.already_latest_version' => '已是最新版本',
+			'message.update.current_version' => ({required Object version}) => '当前版本：${version}',
+			'message.update.latest_version' => ({required Object version}) => '最新版本：${version}',
+			'message.update.view_update' => '查看更新',
+			'error.retry' => '加载失败，点击重试',
+			'error.fetch_failed' => '无法获取视频链接',
+			'error.fetch_user_info_failed' => '无法获取用户信息',
+			'error.invalid_path' => '无效的路径',
+			'error.intercept_app_exit' => '拦截应用退出',
+			'error.account.invalid_login' => '邮箱或密码错误',
+			'error.account.invalid_host' => '无效的主机名',
+			'error.account.invalid_captcha' => '验证码错误',
+			_ => null,
+		};
 	}
 }
-

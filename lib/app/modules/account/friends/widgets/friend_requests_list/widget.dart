@@ -46,21 +46,16 @@ class _FriendRequestsListState extends State<FriendRequestsList>
           controller: scrollController,
           slivers: [
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final item = data[index];
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final item = data[index];
 
-                  return UserPreview(
-                    user: item.user,
-                    showFollowButton: false,
-                    showFriendButton: false,
-                    customButton: FriendAcceptRejectButtons(
-                      user: item.user,
-                    ),
-                  );
-                },
-                childCount: data.length,
-              ),
+                return UserPreview(
+                  user: item.user,
+                  showFollowButton: false,
+                  showFriendButton: false,
+                  customButton: FriendAcceptRejectButtons(user: item.user),
+                );
+              }, childCount: data.length),
             ),
           ],
         );

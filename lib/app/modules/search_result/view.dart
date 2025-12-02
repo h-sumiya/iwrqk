@@ -13,20 +13,20 @@ class SearchResultPage extends GetView<SearchResultController> {
   const SearchResultPage({super.key});
 
   List<String> get tabNameList => [
-        t.sort.latest,
-        t.sort.trending,
-        t.sort.popularity,
-        t.sort.most_views,
-        t.sort.most_likes,
-      ];
+    t.sort.latest,
+    t.sort.trending,
+    t.sort.popularity,
+    t.sort.most_views,
+    t.sort.most_likes,
+  ];
 
   List<OrderType> get orderTypeList => [
-        OrderType.date,
-        OrderType.trending,
-        OrderType.popularity,
-        OrderType.views,
-        OrderType.likes
-      ];
+    OrderType.date,
+    OrderType.trending,
+    OrderType.popularity,
+    OrderType.views,
+    OrderType.likes,
+  ];
 
   Widget _buildTabBar(BuildContext context) {
     return Container(
@@ -38,11 +38,7 @@ class SearchResultPage extends GetView<SearchResultController> {
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.label,
         splashBorderRadius: BorderRadius.circular(8),
-        tabs: tabNameList
-            .map((e) => Tab(
-                  text: e,
-                ))
-            .toList(),
+        tabs: tabNameList.map((e) => Tab(text: e)).toList(),
       ),
     );
   }
@@ -65,7 +61,8 @@ class SearchResultPage extends GetView<SearchResultController> {
                     orderType: orderTypeList[index],
                   ),
                   isHorizontal: true,
-                  tag: controller.childrenMediaControllerTags[0] +
+                  tag:
+                      controller.childrenMediaControllerTags[0] +
                       controller.tabTagList[index],
                 ),
               ),
@@ -94,7 +91,8 @@ class SearchResultPage extends GetView<SearchResultController> {
                     orderType: orderTypeList[index],
                   ),
                   isHorizontal: true,
-                  tag: controller.childrenMediaControllerTags[1] +
+                  tag:
+                      controller.childrenMediaControllerTags[1] +
                       controller.tabTagList[index],
                 ),
               ),
@@ -149,8 +147,10 @@ class SearchResultPage extends GetView<SearchResultController> {
                 ],
                 isScrollable: true,
                 indicatorWeight: 0,
-                indicatorPadding:
-                    const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
+                indicatorPadding: const EdgeInsets.symmetric(
+                  horizontal: 3,
+                  vertical: 8,
+                ),
                 indicator: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondaryContainer,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),

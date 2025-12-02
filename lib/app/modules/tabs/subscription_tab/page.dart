@@ -8,10 +8,7 @@ import 'controller.dart';
 class SubscriptionTabPage extends GetView<SubscriptionTabController> {
   final String tabTag;
 
-  const SubscriptionTabPage({
-    super.key,
-    required this.tabTag,
-  });
+  const SubscriptionTabPage({super.key, required this.tabTag});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +20,7 @@ class SubscriptionTabPage extends GetView<SubscriptionTabController> {
       tabTagList: controller.tabTagList,
       customSourceTypeList: const [
         MediaSourceType.subscribedVideos,
-        MediaSourceType.subscribedImages
+        MediaSourceType.subscribedImages,
       ],
       tabAlignment: TabAlignment.center,
     );

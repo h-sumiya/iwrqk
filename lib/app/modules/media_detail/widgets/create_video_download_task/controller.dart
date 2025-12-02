@@ -37,9 +37,11 @@ class CreateVideoDownloadDialogController extends GetxController {
 
     _creatingDownloadTask.value = true;
 
-    if (StorageProvider.downloadVideoRecords.containsWhere((element) =>
-        element.offlineMedia.id == _previewData.id &&
-        _resolutions[currentResolutionIndex].name == element.resolutionName)) {
+    if (StorageProvider.downloadVideoRecords.containsWhere(
+      (element) =>
+          element.offlineMedia.id == _previewData.id &&
+          _resolutions[currentResolutionIndex].name == element.resolutionName,
+    )) {
       SmartDialog.showToast(t.message.download.task_already_exists);
       _creatingDownloadTask.value = false;
       return;
@@ -65,20 +67,23 @@ class CreateVideoDownloadDialogController extends GetxController {
       success = value < _downloadService.maxDownloadingCount;
       if (!success) {
         SmartDialog.showToast(
-            t.message.download.maximum_simultaneous_download_reached);
+          t.message.download.maximum_simultaneous_download_reached,
+        );
       }
     });
 
     await _downloadService
         .addVideoDownloadTask(
-      url: downloadUrl,
-      offlineMedia:
-          DownloadTaskMediaModel.fromOfflineMediaModel(_previewData, size),
-      resolutionName: _resolutions[currentResolutionIndex].name,
-    )
+          url: downloadUrl,
+          offlineMedia: DownloadTaskMediaModel.fromOfflineMediaModel(
+            _previewData,
+            size,
+          ),
+          resolutionName: _resolutions[currentResolutionIndex].name,
+        )
         .then((value) {
-      success &= value;
-    });
+          success &= value;
+        });
 
     _creatingDownloadTask.value = false;
 

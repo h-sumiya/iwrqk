@@ -64,15 +64,17 @@ class RefreshTokenInterceptor extends Interceptor {
       });
 
       if (success) {
-        return handler.resolve(await _dio.request(
-          response.requestOptions.path,
-          data: response.requestOptions.data,
-          queryParameters: response.requestOptions.queryParameters,
-          options: Options(
-            method: response.requestOptions.method,
-            headers: response.requestOptions.headers,
+        return handler.resolve(
+          await _dio.request(
+            response.requestOptions.path,
+            data: response.requestOptions.data,
+            queryParameters: response.requestOptions.queryParameters,
+            options: Options(
+              method: response.requestOptions.method,
+              headers: response.requestOptions.headers,
+            ),
           ),
-        ));
+        );
       } else {
         return handler.next(response);
       }

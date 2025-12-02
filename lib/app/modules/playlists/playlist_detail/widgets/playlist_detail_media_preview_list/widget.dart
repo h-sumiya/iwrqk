@@ -69,11 +69,12 @@ class _PlaylistDetailMediaPreviewListState
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.black.withAlpha(
-                    ((_parentController.enableMultipleSelection && checked
-                                ? 0.6
-                                : 0) *
-                            255)
-                        .round()),
+                  ((_parentController.enableMultipleSelection && checked
+                              ? 0.6
+                              : 0) *
+                          255)
+                      .round(),
+                ),
               ),
               child: Center(
                 child: SizedBox(
@@ -87,10 +88,11 @@ class _PlaylistDetailMediaPreviewListState
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(32),
-                        color: (Theme.of(context).brightness == Brightness.light
-                                ? Colors.white
-                                : Colors.black)
-                            .withAlpha((0.8 * 255).round()),
+                        color:
+                            (Theme.of(context).brightness == Brightness.light
+                                    ? Colors.white
+                                    : Colors.black)
+                                .withAlpha((0.8 * 255).round()),
                       ),
                       child: Icon(
                         Icons.check,
@@ -119,14 +121,11 @@ class _PlaylistDetailMediaPreviewListState
           slivers: [
             Obx(
               () => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return _buildPlaylistMediaPreview(data[index]);
-                  },
-                  childCount: data.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return _buildPlaylistMediaPreview(data[index]);
+                }, childCount: data.length),
               ),
-            )
+            ),
           ],
         );
       },

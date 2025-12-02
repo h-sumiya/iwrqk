@@ -57,9 +57,9 @@ class DownloadService extends GetxService {
               _downloadTasksStatus[update.task.taskId]?.value.progress ?? 0;
           _downloadTasksStatus[update.task.taskId]?.value =
               IwrDownloadTaskStatus(
-            status: _convertBgStatus(update.status),
-            progress: progress,
-          );
+                status: _convertBgStatus(update.status),
+                progress: progress,
+              );
 
           if (update.status == bg.TaskStatus.enqueued) {
             currentDownloading++;
@@ -455,8 +455,8 @@ class DownloadService extends GetxService {
   Future<int> get currentDownloadingCount async {
     if (GetPlatform.isDesktop) {
       var records = await bg.FileDownloader().database.allRecordsWithStatus(
-            bg.TaskStatus.running,
-          );
+        bg.TaskStatus.running,
+      );
       return records.length;
     }
 

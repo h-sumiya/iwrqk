@@ -51,54 +51,51 @@ class _HistoryMediaPreviewListState extends State<HistoryMediaPreviewList>
           slivers: [
             Obx(
               () => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final item = data[index];
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final item = data[index];
 
-                    if (widget.keyword != null) {
-                      if (widget.keyword!.isEmpty ||
-                          !item.contains(widget.keyword!)) {
-                        return const SizedBox.shrink();
-                      }
+                  if (widget.keyword != null) {
+                    if (widget.keyword!.isEmpty ||
+                        !item.contains(widget.keyword!)) {
+                      return const SizedBox.shrink();
                     }
+                  }
 
-                    if (widget.filterType != null) {
-                      if (widget.filterType != item.type) {
-                        return const SizedBox.shrink();
-                      }
+                  if (widget.filterType != null) {
+                    if (widget.filterType != item.type) {
+                      return const SizedBox.shrink();
                     }
+                  }
 
-                    return HistoryMediaPreview(
-                      historyController: _parentController,
-                      checked: _parentController.checkedList.contains(item.id),
-                      media: item,
-                      showType: widget.filterType == null,
-                      onLongPress: _parentController.enableMultipleSelection
-                          ? null
-                          : () {
-                              _parentController.enableMultipleSelection = true;
-                              _parentController.toggleChecked(item.id);
-                              setState(() {});
-                            },
-                      onTap: () {
-                        if (_parentController.enableMultipleSelection) {
-                          _parentController.toggleChecked(item.id);
-                          setState(() {});
-                        } else {
-                          Get.toNamed(
-                            "/mediaDetail?id=${item.id}",
-                            arguments: {
-                              "mediaType": item.type == MediaType.video
-                                  ? MediaType.video
-                                  : MediaType.image,
-                            },
-                          );
-                        }
-                      },
-                    );
-                  },
-                  childCount: data.length,
-                ),
+                  return HistoryMediaPreview(
+                    historyController: _parentController,
+                    checked: _parentController.checkedList.contains(item.id),
+                    media: item,
+                    showType: widget.filterType == null,
+                    onLongPress: _parentController.enableMultipleSelection
+                        ? null
+                        : () {
+                            _parentController.enableMultipleSelection = true;
+                            _parentController.toggleChecked(item.id);
+                            setState(() {});
+                          },
+                    onTap: () {
+                      if (_parentController.enableMultipleSelection) {
+                        _parentController.toggleChecked(item.id);
+                        setState(() {});
+                      } else {
+                        Get.toNamed(
+                          "/mediaDetail?id=${item.id}",
+                          arguments: {
+                            "mediaType": item.type == MediaType.video
+                                ? MediaType.video
+                                : MediaType.image,
+                          },
+                        );
+                      }
+                    },
+                  );
+                }, childCount: data.length),
               ),
             ),
           ],

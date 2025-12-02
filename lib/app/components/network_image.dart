@@ -47,11 +47,7 @@ class _NetworkImgState extends State<NetworkImg>
     final errorWidget = SizedBox(
       width: widget.width,
       height: widget.height,
-      child: const Center(
-        child: Icon(
-          Icons.image_not_supported,
-        ),
-      ),
+      child: const Center(child: Icon(Icons.image_not_supported)),
     );
 
     if (widget.aspectRatio != null) {
@@ -76,12 +72,13 @@ class _NetworkImgState extends State<NetworkImg>
           fit: widget.fit,
           progressIndicatorBuilder: (context, url, progress) {
             return Center(
-                child: Container(
-              margin: const EdgeInsets.all(5),
-              child: const CircularProgressIndicator(),
-            ));
+              child: Container(
+                margin: const EdgeInsets.all(5),
+                child: const CircularProgressIndicator(),
+              ),
+            );
           },
-          errorWidget: (_, __, ___) {
+          errorWidget: (_, _, _) {
             return errorWidget;
           },
         ),
@@ -108,12 +105,13 @@ class _NetworkImgState extends State<NetworkImg>
             : null,
         progressIndicatorBuilder: (context, url, progress) {
           return Center(
-              child: Container(
-            margin: const EdgeInsets.all(5),
-            child: const CircularProgressIndicator(),
-          ));
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              child: const CircularProgressIndicator(),
+            ),
+          );
         },
-        errorWidget: (_, __, ___) {
+        errorWidget: (_, _, _) {
           return errorWidget;
         },
       );

@@ -49,8 +49,9 @@ class RegisterController extends GetxController with StateMixin {
     Get.dialog(
       LoadingDialog(
         task: () async {
-          await ApiProvider.register(_captchaId, email!, captcha!)
-              .then((value) {
+          await ApiProvider.register(_captchaId, email!, captcha!).then((
+            value,
+          ) {
             if (!value.success) {
               throw DisplayUtil.getErrorMessage(value.message!);
             }

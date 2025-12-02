@@ -23,79 +23,72 @@ class _CustomColorPageState extends State<CustomColorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          t.settings.custom_color,
-        ),
-      ),
+      appBar: AppBar(title: Text(t.settings.custom_color)),
       body: ListView(
         children: [
-          Obx(
-            () {
-              return Padding(
-                padding:
-                    EdgeInsets.only(top: Get.height * 0.1, left: 12, right: 12),
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 22,
-                  runSpacing: 18,
-                  children: [
-                    ...colorThemeTypes.map(
-                      (e) {
-                        final index = colorThemeTypes.indexOf(e);
-                        return GestureDetector(
-                          onTap: () {
-                            _configService.customColor = index;
-                          },
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 46,
-                                height: 46,
-                                decoration: BoxDecoration(
-                                  color:
-                                      e['color'].withAlpha((0.8 * 255).round()),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: _configService.customColor == index
-                                        ? Colors.black
-                                        : e['color']
-                                            .withAlpha((0.8 * 255).round()),
-                                  ),
-                                ),
-                                child: AnimatedOpacity(
-                                  opacity: _configService.customColor == index
-                                      ? 1
-                                      : 0,
-                                  duration: const Duration(milliseconds: 200),
-                                  child: const Icon(
-                                    Icons.done,
-                                    color: Colors.black,
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 3),
-                              Text(
-                                t[e['label']],
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: _configService.customColor != index
-                                      ? Theme.of(context).colorScheme.outline
-                                      : null,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+          Obx(() {
+            return Padding(
+              padding: EdgeInsets.only(
+                top: Get.height * 0.1,
+                left: 12,
+                right: 12,
+              ),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 22,
+                runSpacing: 18,
+                children: [
+                  ...colorThemeTypes.map((e) {
+                    final index = colorThemeTypes.indexOf(e);
+                    return GestureDetector(
+                      onTap: () {
+                        _configService.customColor = index;
                       },
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 46,
+                            height: 46,
+                            decoration: BoxDecoration(
+                              color: e['color'].withAlpha((0.8 * 255).round()),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 2,
+                                color: _configService.customColor == index
+                                    ? Colors.black
+                                    : e['color'].withAlpha((0.8 * 255).round()),
+                              ),
+                            ),
+                            child: AnimatedOpacity(
+                              opacity: _configService.customColor == index
+                                  ? 1
+                                  : 0,
+                              duration: const Duration(milliseconds: 200),
+                              child: const Icon(
+                                Icons.done,
+                                color: Colors.black,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            t[e['label']],
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: _configService.customColor != index
+                                  ? Theme.of(context).colorScheme.outline
+                                  : null,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );

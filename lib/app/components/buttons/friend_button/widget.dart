@@ -46,71 +46,68 @@ class _FriendButtonState extends State<FriendButton>
             style: widget.isSmall
                 ? FilledButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.primary,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onInverseSurface,
                     minimumSize: Size.zero,
                     padding: widget.smallPadding,
                   )
                 : FilledButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.primary,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onInverseSurface,
                   ),
             onPressed: _controller.isProcessing
                 ? null
                 : () {
                     _controller.sendFriendRequest(context);
                   },
-            child: AutoSizeText(
-              t.friend.add_friend,
-              maxLines: 1,
-            ),
+            child: AutoSizeText(t.friend.add_friend, maxLines: 1),
           );
         case FriendRelationType.pending:
           return FilledButton(
             style: widget.isSmall
                 ? FilledButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.outline,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onInverseSurface,
                     minimumSize: Size.zero,
                     padding: widget.smallPadding,
                   )
                 : FilledButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.outline,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onInverseSurface,
                   ),
             onPressed: null,
-            child: AutoSizeText(
-              t.friend.pending,
-              maxLines: 1,
-            ),
+            child: AutoSizeText(t.friend.pending, maxLines: 1),
           );
         case FriendRelationType.friended:
           return FilledButton(
             style: widget.isSmall
                 ? FilledButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.outline,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onInverseSurface,
                     minimumSize: Size.zero,
                     padding: widget.smallPadding,
                   )
                 : FilledButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.outline,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.onInverseSurface,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onInverseSurface,
                   ),
             onPressed: _controller.isProcessing
                 ? null
                 : () {
                     _controller.unfriend(context);
                   },
-            child: AutoSizeText(
-              t.friend.unfriend,
-              maxLines: 1,
-            ),
+            child: AutoSizeText(t.friend.unfriend, maxLines: 1),
           );
       }
     });

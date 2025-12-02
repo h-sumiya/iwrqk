@@ -61,19 +61,13 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
                   dividerColor: Colors.transparent,
                   indicatorSize: TabBarIndicatorSize.label,
                   splashBorderRadius: BorderRadius.circular(8),
-                  tabs: widget.tabNameList
-                      .map((e) => Tab(
-                            text: e,
-                          ))
-                      .toList(),
+                  tabs: widget.tabNameList.map((e) => Tab(text: e)).toList(),
                 ),
               ),
             ),
             Visibility(
               visible: widget.showFilter,
-              child: FilterPage(
-                targetTag: widget.tag,
-              ),
+              child: FilterPage(targetTag: widget.tag),
             ),
           ],
         ),
@@ -100,9 +94,10 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
                       ? widget.customSourceTypeList![index]
                       : widget.sourceType!,
                   sortSetting: MediaSortSettingModel(
-                      orderType: widget.orderTypeList == null
-                          ? null
-                          : widget.orderTypeList![index]),
+                    orderType: widget.orderTypeList == null
+                        ? null
+                        : widget.orderTypeList![index],
+                  ),
                   tag: widget.tabTagList[index],
                   scrollController: _controller.scrollControllers[index],
                   applyFilter: true,
@@ -110,7 +105,7 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -35,8 +35,9 @@ class _IwrGalleryState extends State<IwrGallery> {
 
   Widget _buildGallery() {
     return PhotoViewGallery.builder(
-      customSize:
-          widget.isfullScreen ? null : Size.copy(MediaQuery.of(context).size),
+      customSize: widget.isfullScreen
+          ? null
+          : Size.copy(MediaQuery.of(context).size),
       builder: (BuildContext context, int index) {
         var imageProvider = CachedNetworkImageProvider(widget.imageUrls[index]);
 
@@ -47,18 +48,14 @@ class _IwrGalleryState extends State<IwrGallery> {
           filterQuality: FilterQuality.high,
           errorBuilder: (context, error, stackTrace) {
             return const Center(
-              child: Icon(
-                Icons.image_not_supported,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.image_not_supported, color: Colors.white),
             );
           },
         );
       },
       itemCount: widget.imageUrls.length,
-      loadingBuilder: (context, event) => const Center(
-        child: CircularProgressIndicator(),
-      ),
+      loadingBuilder: (context, event) =>
+          const Center(child: CircularProgressIndicator()),
       pageController: _pageController,
       onPageChanged: (index) {
         widget.onPageChanged?.call(index);
@@ -115,9 +112,7 @@ class _IwrGalleryState extends State<IwrGallery> {
       child: Text(
         "${_currentIndex + 1} / ${widget.imageUrls.length}",
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }
@@ -136,41 +131,37 @@ class _IwrGalleryState extends State<IwrGallery> {
               ? Text(
                   "${_currentIndex + 1} / ${widget.imageUrls.length}",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white),
                 )
               : null,
           centerTitle: true,
         ),
         body: Padding(
           padding: MediaQuery.of(context).padding,
-          child: Stack(
-            children: [
-              _buildGallery(),
-            ],
-          ),
+          child: Stack(children: [_buildGallery()]),
         ),
       );
     } else {
       return GestureDetector(
         onTap: () {
           HapticFeedback.mediumImpact();
-          Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
-              body: IwrGallery(
-                isfullScreen: true,
-                imageUrls: widget.imageUrls,
-                lastPage: _currentIndex,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                  _pageController.jumpToPage(_currentIndex);
-                },
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
+                body: IwrGallery(
+                  isfullScreen: true,
+                  imageUrls: widget.imageUrls,
+                  lastPage: _currentIndex,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                    _pageController.jumpToPage(_currentIndex);
+                  },
+                ),
               ),
             ),
-          ));
+          );
         },
         child: Container(
           color: Colors.black,
@@ -183,8 +174,9 @@ class _IwrGalleryState extends State<IwrGallery> {
                 top: 4,
                 child: IconButton(
                   style: IconButton.styleFrom(
-                    backgroundColor:
-                        Colors.black.withAlpha((0.3 * 255).round()),
+                    backgroundColor: Colors.black.withAlpha(
+                      (0.3 * 255).round(),
+                    ),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -199,10 +191,7 @@ class _IwrGalleryState extends State<IwrGallery> {
               if (widget.imageUrls.length > 15)
                 Positioned(bottom: 10, child: _buildTextPageFooter()),
               if (widget.imageUrls.length <= 15 && widget.imageUrls.length > 1)
-                Positioned(
-                  bottom: 10,
-                  child: _buildDotPageFooter(),
-                ),
+                Positioned(bottom: 10, child: _buildDotPageFooter()),
             ],
           ),
         ),

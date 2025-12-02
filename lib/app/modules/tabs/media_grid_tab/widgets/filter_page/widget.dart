@@ -11,10 +11,7 @@ import 'controller.dart';
 class FilterPage extends StatefulWidget {
   final String targetTag;
 
-  const FilterPage({
-    super.key,
-    required this.targetTag,
-  });
+  const FilterPage({super.key, required this.targetTag});
   @override
   State<StatefulWidget> createState() => _FilterPageState();
 }
@@ -56,99 +53,108 @@ class _FilterPageState extends State<FilterPage> {
         }
         return _controller.autoCompleteTags(textEditingValue.text);
       },
-      fieldViewBuilder: (BuildContext context,
-          TextEditingController textEditingController,
-          FocusNode focusNode,
-          VoidCallback onFieldSubmitted) {
-        return Container(
-          key: _controller.tagEditingControllerKey,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondaryContainer,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.fromLTRB(4, 6, 16, 6),
-          child: Theme(
-            data: Theme.of(context).brightness == Brightness.light
-                ? ThemeData.light()
-                : ThemeData.dark(),
-            child: TextFormField(
-              controller: textEditingController,
-              focusNode: focusNode,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return t.message.please_type_host;
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: t.filter.tag,
-                border: InputBorder.none,
+      fieldViewBuilder:
+          (
+            BuildContext context,
+            TextEditingController textEditingController,
+            FocusNode focusNode,
+            VoidCallback onFieldSubmitted,
+          ) {
+            return Container(
+              key: _controller.tagEditingControllerKey,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondaryContainer,
+                borderRadius: BorderRadius.circular(12),
               ),
-            ),
-          ),
-        );
-      },
-      optionsViewBuilder: (BuildContext context,
-          AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
-        RenderBox inputRenderBox = _controller
-            .tagEditingControllerKey.currentContext!
-            .findRenderObject() as RenderBox;
-        RenderBox tagsRenderBox = _controller.tagsBoxKey.currentContext!
-            .findRenderObject() as RenderBox;
-
-        return Transform.translate(
-          offset: const Offset(0, -12),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Container(
-              width: inputRenderBox.size.width,
-              height: options.length * 56 + 10,
-              constraints: BoxConstraints(
-                  maxHeight: tagsRenderBox.size.height -
-                      inputRenderBox.size.height -
-                      32),
-              child: Card(
-                elevation: 0,
-                margin: EdgeInsets.zero,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(8),
+              padding: const EdgeInsets.fromLTRB(4, 6, 16, 6),
+              child: Theme(
+                data: Theme.of(context).brightness == Brightness.light
+                    ? ThemeData.light()
+                    : ThemeData.dark(),
+                child: TextFormField(
+                  controller: textEditingController,
+                  focusNode: focusNode,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return t.message.please_type_host;
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: t.filter.tag,
+                    border: InputBorder.none,
                   ),
                 ),
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                clipBehavior: Clip.antiAlias,
+              ),
+            );
+          },
+      optionsViewBuilder:
+          (
+            BuildContext context,
+            AutocompleteOnSelected<String> onSelected,
+            Iterable<String> options,
+          ) {
+            RenderBox inputRenderBox =
+                _controller.tagEditingControllerKey.currentContext!
+                        .findRenderObject()
+                    as RenderBox;
+            RenderBox tagsRenderBox =
+                _controller.tagsBoxKey.currentContext!.findRenderObject()
+                    as RenderBox;
+
+            return Transform.translate(
+              offset: const Offset(0, -12),
+              child: Align(
+                alignment: Alignment.topLeft,
                 child: Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                  width: inputRenderBox.size.width,
+                  height: options.length * 56 + 10,
+                  constraints: BoxConstraints(
+                    maxHeight:
+                        tagsRenderBox.size.height -
+                        inputRenderBox.size.height -
+                        32,
+                  ),
+                  child: Card(
+                    elevation: 0,
+                    margin: EdgeInsets.zero,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(8),
+                      ),
+                    ),
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    clipBehavior: Clip.antiAlias,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 8),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                        ),
+                      ),
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: options.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final String option = options.elementAt(index);
+                          return InkWell(
+                            onTap: () {
+                              onSelected.call(option);
+                              _controller.addTag(option);
+                            },
+                            child: ListTile(title: Text(option)),
+                          );
+                        },
                       ),
                     ),
                   ),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: options.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final String option = options.elementAt(index);
-                      return InkWell(
-                        onTap: () {
-                          onSelected.call(option);
-                          _controller.addTag(option);
-                        },
-                        child: ListTile(
-                          title: Text(option),
-                        ),
-                      );
-                    },
-                  ),
                 ),
               ),
-            ),
-          ),
-        );
-      },
+            );
+          },
     );
   }
 
@@ -156,9 +162,7 @@ class _FilterPageState extends State<FilterPage> {
     String tag = _controller.selectedTags[index];
 
     return InputChip(
-      label: Text(
-        tag,
-      ),
+      label: Text(tag),
       onDeleted: () {
         _controller.removeTag(tag);
       },
@@ -198,9 +202,7 @@ class _FilterPageState extends State<FilterPage> {
     return Obx(
       () => FilterChip(
         selected: _controller.selectedYear == year,
-        label: Text(
-          year.toString(),
-        ),
+        label: Text(year.toString()),
         onSelected: (bool value) {
           if (_controller.selectedYear == year) {
             _controller.selectedYear = 0;
@@ -219,8 +221,10 @@ class _FilterPageState extends State<FilterPage> {
       () => FilterChip(
         selected: _controller.selectedMonth == month,
         label: Text(
-          DateFormat('MMM', DisplayUtil.getLocalecode())
-              .format(DateTime(2000, month)),
+          DateFormat(
+            'MMM',
+            DisplayUtil.getLocalecode(),
+          ).format(DateTime(2000, month)),
         ),
         onSelected: (bool value) {
           if (_controller.selectedMonth == month) {
@@ -239,9 +243,7 @@ class _FilterPageState extends State<FilterPage> {
     return Obx(
       () => FilterChip(
         selected: _controller.selectedRatingType == ratingType,
-        label: Text(
-          _getRatingLocalName(context, ratingType),
-        ),
+        label: Text(_getRatingLocalName(context, ratingType)),
         onSelected: (bool value) {
           _controller.selectedRatingType = ratingType;
         },
@@ -260,9 +262,7 @@ class _FilterPageState extends State<FilterPage> {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
                 t.filter.select_rating,
-                style: const TextStyle(
-                  fontSize: 17.5,
-                ),
+                style: const TextStyle(fontSize: 17.5),
               ),
             ),
             Wrap(
@@ -277,9 +277,7 @@ class _FilterPageState extends State<FilterPage> {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
                 t.filter.select_year,
-                style: const TextStyle(
-                  fontSize: 17.5,
-                ),
+                style: const TextStyle(fontSize: 17.5),
               ),
             ),
             Wrap(
@@ -295,9 +293,7 @@ class _FilterPageState extends State<FilterPage> {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
                   t.filter.select_month,
-                  style: const TextStyle(
-                    fontSize: 17.5,
-                  ),
+                  style: const TextStyle(fontSize: 17.5),
                 ),
               ),
             if (_controller.selectedYear != 0)
@@ -320,18 +316,14 @@ class _FilterPageState extends State<FilterPage> {
   Widget _buildContent(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          t.filter.filter,
-        ),
+        title: Text(t.filter.filter),
         actions: [
           TextButton(
             onPressed: () {
               _controller.applyFilter();
               Get.back();
             },
-            child: Text(
-              t.notifications.apply,
-            ),
+            child: Text(t.notifications.apply),
           ),
         ],
       ),
@@ -341,8 +333,9 @@ class _FilterPageState extends State<FilterPage> {
           child: Column(
             children: [
               Container(
-                padding:
-                    MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
+                padding: MediaQuery.of(
+                  context,
+                ).padding.copyWith(top: 0, bottom: 0),
                 child: TabBar(
                   isScrollable: true,
                   indicatorSize: TabBarIndicatorSize.label,
@@ -351,9 +344,7 @@ class _FilterPageState extends State<FilterPage> {
                   splashBorderRadius: BorderRadius.circular(8),
                   tabs: [
                     Tab(text: t.filter.tags),
-                    Tab(
-                      text: "${t.filter.rating}&${t.filter.date}",
-                    ),
+                    Tab(text: "${t.filter.rating}&${t.filter.date}"),
                   ],
                 ),
               ),
@@ -384,9 +375,7 @@ class _FilterPageState extends State<FilterPage> {
       closedBuilder: (context, action) {
         return IconButton(
           onPressed: action,
-          icon: const Icon(
-            Icons.filter_list,
-          ),
+          icon: const Icon(Icons.filter_list),
         );
       },
       openShape: Border.all(color: Colors.transparent),

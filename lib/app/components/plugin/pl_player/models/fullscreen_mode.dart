@@ -5,7 +5,7 @@ enum FullScreenMode {
   // 始终竖屏
   vertical,
   // 始终横屏
-  horizontal
+  horizontal,
 }
 
 extension FullScreenModeDesc on FullScreenMode {

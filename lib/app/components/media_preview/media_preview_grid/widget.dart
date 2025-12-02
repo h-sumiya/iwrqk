@@ -73,26 +73,21 @@ class _MediaPreviewGridState extends State<MediaPreviewGrid>
           slivers: [
             if (widget.isHorizontal)
               SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return MediaFlatPreview(media: data[index]);
-                  },
-                  childCount: data.length,
-                ),
+                delegate: SliverChildBuilderDelegate((
+                  BuildContext context,
+                  int index,
+                ) {
+                  return MediaFlatPreview(media: data[index]);
+                }, childCount: data.length),
               )
             else
               SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 sliver: Obx(
                   () => SliverGrid(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return MediaPreview(
-                          media: data[index],
-                        );
-                      },
-                      childCount: data.length,
-                    ),
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return MediaPreview(media: data[index]);
+                    }, childCount: data.length),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio:
                           _controller.configService.gridChildAspectRatio,
