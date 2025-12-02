@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../../components/iwr_refresh/widget.dart';
+import '../../../../../data/enums/download_task_status.dart';
 import '../../../../../data/models/download_task.dart';
 import '../../controller.dart';
 import '../download_media_preview.dart';

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
 import '../../../../../components/iwr_refresh/controller.dart';
@@ -74,7 +73,7 @@ class DownloadsMediaPreviewListController
     String? newTaskId;
 
     MediaDownloadTask mediaTask = data[index];
-    DownloadTask? task = await downloadService.getTask(mediaTask.taskId);
+    final task = await downloadService.getTask(mediaTask.taskId);
     if (task == null) {
       return;
     }

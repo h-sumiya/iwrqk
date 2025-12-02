@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../components/network_image.dart';
+import '../../../../data/enums/download_task_status.dart';
 import '../../../../data/enums/types.dart';
 import '../../../../data/models/download_task.dart';
 import '../../../../data/models/offline/download_task_media.dart';

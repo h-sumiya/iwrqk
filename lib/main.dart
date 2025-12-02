@@ -1,9 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -31,9 +29,6 @@ Future<void> main() async {
   await PathUtil.init();
   await StorageProvider.init();
   await LogUtil.init();
-  if (GetPlatform.isAndroid || GetPlatform.isIOS) {
-    await FlutterDownloader.initialize(debug: kDebugMode);
-  }
   ProxyUtil.init();
   await setupServiceLocator();
   ConfigProvider.init();

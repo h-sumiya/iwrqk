@@ -131,7 +131,7 @@ class SettingsController extends GetxController {
   }
 
   void changeDownloadPath() async {
-    if (!await downloadService.checkPermission(true)) return;
+    if (!await downloadService.checkPermission()) return;
 
     String? result;
 
