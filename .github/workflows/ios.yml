@@ -52,6 +52,6 @@ jobs:
           tag: ${{ github.ref_name }}
           artifacts: "build/ios/ipa/*.ipa"
           allowUpdates: true
-          replacesArtifacts: false # ← 既存の .apk を消さない
+          replacesArtifacts: false
           prerelease: contains(github.ref, 'pre')
           artifactErrorsFailBuild: true
