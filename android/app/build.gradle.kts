@@ -14,14 +14,22 @@ if (keystorePropertiesFile.exists()) {
     keystorePropertiesFile.reader().use { keystoreProperties.load(it) }
 }
 
-val keyAlias: String? = System.getenv("KEY_ALIAS") ?: keystoreProperties.getProperty("keyAlias")
-val keyPassword: String? = System.getenv("KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
-val storeFilePath: String? = System.getenv("KEYSTORE") ?: keystoreProperties.getProperty("storeFile")
-val storePassword: String? = System.getenv("KEYSTORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
-val resolvedStoreFile = storeFilePath?.let { file(it) } ?: file("keystore.jks")
-val storeFile = resolvedStoreFile.takeIf { it.exists() }
+// Use distinct names to avoid shadowing signingConfig properties in DSL blocks
+val keyAliasValue: String? =
+    System.getenv("KEY_ALIAS") ?: keystoreProperties.getProperty("keyAlias")
+val keyPasswordValue: String? =
+    System.getenv("KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
+val storeFilePathValue: String? =
+    System.getenv("KEYSTORE") ?: keystoreProperties.getProperty("storeFile")
+val storePasswordValue: String? =
+    System.getenv("KEYSTORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
+val resolvedStoreFile = storeFilePathValue?.let { file(it) } ?: file("keystore.jks")
+val storeFileFromEnv = resolvedStoreFile.takeIf { it.exists() }
 val canSign =
-    keyAlias != null && keyPassword != null && storeFile?.exists() == true && storePassword != null
+    keyAliasValue != null &&
+        keyPasswordValue != null &&
+        storeFileFromEnv?.exists() == true &&
+        storePasswordValue != null
 
 android {
     namespace = "com.iwrqk.app"
@@ -61,18 +69,18 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            storeFile?.let { this.storeFile = it }
-            storePassword?.let { this.storePassword = it }
-            keyAlias?.let { this.keyAlias = it }
-            keyPassword?.let { this.keyPassword = it }
+            storeFileFromEnv?.let { this.storeFile = it }
+            storePasswordValue?.let { this.storePassword = it }
+            keyAliasValue?.let { this.keyAlias = it }
+            keyPasswordValue?.let { this.keyPassword = it }
             enableV1Signing = true
             enableV2Signing = true
         }
         create("release") {
-            storeFile?.let { this.storeFile = it }
-            storePassword?.let { this.storePassword = it }
-            keyAlias?.let { this.keyAlias = it }
-            keyPassword?.let { this.keyPassword = it }
+            storeFileFromEnv?.let { this.storeFile = it }
+            storePasswordValue?.let { this.storePassword = it }
+            keyAliasValue?.let { this.keyAlias = it }
+            keyPasswordValue?.let { this.keyPassword = it }
             enableV1Signing = true
             enableV2Signing = true
         }
