@@ -32,7 +32,9 @@ jobs:
           cache: gradle
 
       - name: Decode keystore
-        run: echo $ENCODED_KEYSTORE | base64 -di > android/app/keystore.jks
+        run: |
+          echo "$ENCODED_KEYSTORE" | base64 -di > "${{ github.workspace }}/android/app/keystore.jks"
+          ls -l "${{ github.workspace }}/android/app/keystore.jks"
         env:
           ENCODED_KEYSTORE: ${{ secrets.ENCODED_KEYSTORE }}
 
@@ -48,6 +50,7 @@ jobs:
       - name: Build APK (release)
         run: flutter build apk --release
         env:
+          KEYSTORE: ${{ github.workspace }}/android/app/keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
