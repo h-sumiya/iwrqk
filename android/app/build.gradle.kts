@@ -34,7 +34,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -47,6 +47,7 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
+        setProperty("archivesBaseName", "iwrqk-${flutter.versionName}+${flutter.versionCode}")
     }
 
     splits {
@@ -96,14 +97,15 @@ android {
 
 androidComponents {
     onVariants(selector().all()) { variant ->
-        variant.outputs.forEach { output ->
-            val abiFilter =
-                output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
-            val suffix = abiFilter?.let { "-$it" } ?: ""
-            val versionName = variant.versionName.orNull ?: "1.0"
-            val versionCode = variant.versionCode.orNull ?: 1
-            output.outputFileName.set("iwrqk-$versionName+$versionCode$suffix.apk")
-        }
+        // TODO: AGP 8.0+ incompatible API usage.
+        // variant.outputs.forEach { output ->
+        //     val abiFilter =
+        //         output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
+        //     val suffix = abiFilter?.let { "-$it" } ?: ""
+        //     val versionName = variant.versionName.orNull ?: "1.0"
+        //     val versionCode = variant.versionCode.orNull ?: 1
+        //     output.outputFileName.set("iwrqk-$versionName+$versionCode$suffix.apk")
+        // }
     }
 }
 
