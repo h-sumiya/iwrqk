@@ -55,7 +55,15 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
+      - name: Upload APK artifact (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/apk/release/*.apk
+
       - name: Publish release (append APK)
+        if: github.event_name != 'workflow_dispatch'
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
