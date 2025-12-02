@@ -1,7 +1,7 @@
 name: iwrqk
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.1.0+1
+version: 2.2.0
 
 environment:
   sdk: ^3.11.0-93.1.beta
