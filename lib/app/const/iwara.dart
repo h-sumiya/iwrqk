@@ -4,7 +4,7 @@ class IwaraConst {
 
   static const apiHost = "apiq.iwara.tv";
 
-  static const salt = "5nFp9kmbNnHdAFhaqMvt";
+  static const salt = "mSvL05GfEmeEmsEYfGCnVpEjYgTJraJN";
 
   static const videoPageUrl = "https://www.iwara.tv/video/{id}";
   static const imagePageUrl = "https://www.iwara.tv/image/{id}";
