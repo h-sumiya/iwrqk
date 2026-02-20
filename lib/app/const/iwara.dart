@@ -2,7 +2,7 @@ class IwaraConst {
   static const referer = "https://www.iwara.tv/";
   static const origin = "https://www.iwara.tv";
 
-  static const apiHost = "api.iwara.tv";
+  static const apiHost = "apiq.iwara.tv";
 
   static const salt = "5nFp9kmbNnHdAFhaqMvt";
 
