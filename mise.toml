@@ -9,3 +9,9 @@ run = "flutter packages pub run flutter_launcher_icons:main"
 
 [tasks.format]
 run = "dart format ."
+
+[tasks.updateDeps]
+run = "flutter pub upgrade --major-versions"
+
+[tools]
+flutter = "beta"

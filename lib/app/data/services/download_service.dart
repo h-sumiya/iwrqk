@@ -320,7 +320,7 @@ class DownloadService extends GetxService {
 
     if (downloadTaskId != null) {
       VideoDownloadTask task = VideoDownloadTask(
-        taskId: downloadTaskId!,
+        taskId: downloadTaskId,
         createTime: now,
         expireTime: expireTime,
         resolutionName: resolutionName,
