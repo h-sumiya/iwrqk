@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../../../i18n/strings.g.dart';
 import '../../components/buttons/follow_button/widget.dart';
@@ -34,6 +36,49 @@ import 'widgets/add_to_playlist/widget.dart';
 import 'widgets/create_video_download_task/widget.dart';
 import 'widgets/gallery/iwr_gallery.dart';
 import 'widgets/media_desc.dart';
+
+class _WindowsPipDragMoveArea extends StatelessWidget {
+  const _WindowsPipDragMoveArea();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onPanStart: (_) {
+        unawaited(windowManager.startDragging());
+      },
+      child: const SizedBox.expand(),
+    );
+  }
+}
+
+class _WindowsPipWindowArea extends StatelessWidget {
+  const _WindowsPipWindowArea({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return DragToResizeArea(
+      child: ColoredBox(
+        color: Colors.black,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Center(child: child),
+            const Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 28,
+              child: _WindowsPipDragMoveArea(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class MediaDetailPage extends StatefulWidget {
   const MediaDetailPage({super.key});
@@ -1066,6 +1111,13 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         childWhenEnabled: childWhenEnabled,
         floating: _controller.floating,
       );
+    } else if (GetPlatform.isWindows) {
+      return Obx(() {
+        if (_controller.isWindowsPipMode) {
+          return _WindowsPipWindowArea(child: childWhenDisabled);
+        }
+        return childWhenDisabled;
+      });
     } else {
       return childWhenDisabled;
     }
