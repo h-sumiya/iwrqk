@@ -1,7 +1,4 @@
-# IwrQk 
-
-> [!NOTE]
-> **Update** Release Windows Build (experimental)
+# IwrQk
 
 ![license](https://img.shields.io/github/license/iwrqk/iwrqk.svg)
 ![total stars](https://img.shields.io/github/stars/iwrqk/iwrqk?label=total%20stars)
@@ -15,20 +12,22 @@ Now with [Material Design 3](https://m3.material.io/).
 
 ## 🚩 Features
 
- - ✅ Download manager (Only for videos)
- - ✅ Friends manager
- - ⬜ Notification and message manager 
- - ✅ Follow, subscription, favorite, playlist, comments
- - ✅ Forum
- - ✅ Player and gallery viewer
- - ✅ Login, logout, register
- - ✅ Blocklist for tags
- - ⬜ Advanced search
+- ✅ Download manager (Only for videos)
+- ✅ Friends manager
+- ⬜ Notification and message manager
+- ✅ Follow, subscription, favorite, playlist, comments
+- ✅ Forum
+- ✅ Player and gallery viewer
+- ✅ Login, logout, register
+- ✅ Blocklist for tags
+- ⬜ Advanced search
+- ✅ Discord rich presence (New!)
+- ✅ Windows PIP (New!)
 
 ## 📱 Screenshots
 
-| ![Preview](./doc/1.png) | ![Preview](./doc/2.png) | ![Preview](./doc/3.png) | 
-|:---:|:---:|:---:|
+| ![Preview](./doc/1.png) | ![Preview](./doc/2.png) | ![Preview](./doc/3.png) |
+| :---------------------: | :---------------------: | :---------------------: |
 
 ## 💻 Contributions
 
