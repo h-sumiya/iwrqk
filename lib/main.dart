@@ -63,6 +63,7 @@ Future<void> main() async {
   }
 
   if (GetPlatform.isDesktop) {
+    await windowManager.ensureInitialized();
     WindowOptions windowOptions = WindowOptions(
       center: true,
       backgroundColor: Colors.transparent,

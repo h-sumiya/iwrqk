@@ -49,6 +49,9 @@ class _HeaderControlState extends State<HeaderControl> {
   @override
   Widget build(BuildContext context) {
     final controller = widget.controller!;
+    final bool showWindowsPipButton =
+        GetPlatform.isWindows &&
+        (widget.videoDetailCtr?.canUseWindowsPip ?? false);
     const TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 12);
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -91,30 +94,40 @@ class _HeaderControlState extends State<HeaderControl> {
           ),
           const Spacer(),
           SizedBox(width: buttonSpace),
-          if (GetPlatform.isAndroid) ...<Widget>[
-            ComBtn(
-              icon: const Icon(
-                Icons.picture_in_picture,
-                size: 20,
-                color: Colors.white,
+          if (GetPlatform.isAndroid || showWindowsPipButton) ...<Widget>[
+            Obx(
+              () => ComBtn(
+                icon: Icon(
+                  showWindowsPipButton &&
+                          (widget.videoDetailCtr?.isWindowsPipMode ?? false)
+                      ? Icons.close_fullscreen
+                      : Icons.picture_in_picture,
+                  size: 20,
+                  color: Colors.white,
+                ),
+                fuc: () async {
+                  widget.controller!.hiddenControls(false);
+                  if (showWindowsPipButton) {
+                    await widget.videoDetailCtr!.toggleWindowsPip();
+                    return;
+                  }
+
+                  bool canUsePiP = false;
+                  try {
+                    canUsePiP = await widget.floating!.isPipAvailable;
+                  } on PlatformException catch (_) {
+                    canUsePiP = false;
+                  }
+                  if (canUsePiP) {
+                    final Rational aspectRatio =
+                        widget.videoDetailCtr?.aspectRatio ??
+                        const Rational(16, 9);
+                    await widget.floating!.enable(
+                      ImmediatePiP(aspectRatio: aspectRatio),
+                    );
+                  }
+                },
               ),
-              fuc: () async {
-                bool canUsePiP = false;
-                widget.controller!.hiddenControls(false);
-                try {
-                  canUsePiP = await widget.floating!.isPipAvailable;
-                } on PlatformException catch (_) {
-                  canUsePiP = false;
-                }
-                if (canUsePiP) {
-                  final Rational aspectRatio =
-                      widget.videoDetailCtr?.aspectRatio ??
-                      const Rational(16, 9);
-                  await widget.floating!.enable(
-                    ImmediatePiP(aspectRatio: aspectRatio),
-                  );
-                } else {}
-              },
             ),
             SizedBox(width: buttonSpace),
           ],

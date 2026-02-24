@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -5,6 +6,7 @@ import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../../components/comments_list/controller.dart';
 import '../../components/plugin/pl_player/index.dart';
@@ -25,6 +27,22 @@ import '../../utils/log_util.dart';
 import '../account/downloads/widgets/downloads_media_preview_list/controller.dart';
 import 'repository.dart';
 import 'widgets/header_control.dart';
+
+class _DesktopWindowSnapshot {
+  const _DesktopWindowSnapshot({
+    required this.bounds,
+    required this.alwaysOnTop,
+    required this.resizable,
+    required this.maximized,
+    required this.fullScreen,
+  });
+
+  final Rect bounds;
+  final bool alwaysOnTop;
+  final bool resizable;
+  final bool maximized;
+  final bool fullScreen;
+}
 
 class MediaDetailController extends GetxController
     with GetTickerProviderStateMixin {
@@ -123,6 +141,15 @@ class MediaDetailController extends GetxController
   Floating? floating;
 
   late PreferredSizeWidget headerControl;
+  static const double _pipAspectRatio = 16 / 9;
+  static const Size _pipSize = Size(432, 243);
+  static const double _pipWindowMargin = 16;
+  final RxBool _isWindowsPipMode = false.obs;
+  _DesktopWindowSnapshot? _desktopWindowSnapshot;
+  bool _isWindowsPipTransitioning = false;
+
+  bool get isWindowsPipMode => _isWindowsPipMode.value;
+  bool get canUseWindowsPip => GetPlatform.isWindows;
 
   @override
   void onInit() async {
@@ -192,6 +219,95 @@ class MediaDetailController extends GetxController
       currentOfflineVideoUrl = value;
       playerInit(video: value);
     });
+  }
+
+  Future<void> toggleWindowsPip() async {
+    if (isWindowsPipMode) {
+      await exitWindowsPip();
+    } else {
+      await enterWindowsPip();
+    }
+  }
+
+  Future<void> enterWindowsPip() async {
+    if (!canUseWindowsPip || _isWindowsPipTransitioning || isWindowsPipMode) {
+      return;
+    }
+
+    _isWindowsPipTransitioning = true;
+    try {
+      if (plPlayerController.isFullScreen.value) {
+        await plPlayerController.triggerFullScreen(status: false);
+      }
+
+      final bool wasFullScreen = await windowManager.isFullScreen();
+      final bool wasMaximized = await windowManager.isMaximized();
+      _desktopWindowSnapshot = _DesktopWindowSnapshot(
+        bounds: await windowManager.getBounds(),
+        alwaysOnTop: await windowManager.isAlwaysOnTop(),
+        resizable: await windowManager.isResizable(),
+        maximized: wasMaximized,
+        fullScreen: wasFullScreen,
+      );
+
+      if (wasFullScreen) {
+        await windowManager.setFullScreen(false);
+      }
+      if (wasMaximized) {
+        await windowManager.unmaximize();
+      }
+
+      await windowManager.setTitleBarStyle(
+        TitleBarStyle.hidden,
+        windowButtonVisibility: false,
+      );
+      await windowManager.setAsFrameless();
+      await windowManager.setAlwaysOnTop(true);
+      await windowManager.setResizable(true);
+      await windowManager.setAspectRatio(_pipAspectRatio);
+
+      final Rect base = _desktopWindowSnapshot!.bounds;
+      final double x = max(0.0, base.right - _pipSize.width - _pipWindowMargin);
+      final double y = max(
+        0.0,
+        base.bottom - _pipSize.height - _pipWindowMargin,
+      );
+      await windowManager.setBounds(
+        Rect.fromLTWH(x, y, _pipSize.width, _pipSize.height),
+      );
+
+      _isWindowsPipMode.value = true;
+    } finally {
+      _isWindowsPipTransitioning = false;
+    }
+  }
+
+  Future<void> exitWindowsPip() async {
+    if (!canUseWindowsPip || _isWindowsPipTransitioning || !isWindowsPipMode) {
+      return;
+    }
+
+    _isWindowsPipTransitioning = true;
+    _isWindowsPipMode.value = false;
+    try {
+      final _DesktopWindowSnapshot? snapshot = _desktopWindowSnapshot;
+      await windowManager.setAspectRatio(0);
+      await windowManager.setTitleBarStyle(TitleBarStyle.normal);
+      await windowManager.setResizable(snapshot?.resizable ?? true);
+      await windowManager.setAlwaysOnTop(snapshot?.alwaysOnTop ?? false);
+      if (snapshot != null) {
+        await windowManager.setBounds(snapshot.bounds);
+        if (snapshot.maximized) {
+          await windowManager.maximize();
+        }
+        if (snapshot.fullScreen) {
+          await windowManager.setFullScreen(true);
+        }
+      }
+      _desktopWindowSnapshot = null;
+    } finally {
+      _isWindowsPipTransitioning = false;
+    }
   }
 
   Future<void> loadData() async {
@@ -404,5 +520,13 @@ class MediaDetailController extends GetxController
         _isFavorite.value = false;
       }
     });
+  }
+
+  @override
+  void onClose() {
+    if (canUseWindowsPip && isWindowsPipMode) {
+      unawaited(exitWindowsPip());
+    }
+    super.onClose();
   }
 }
