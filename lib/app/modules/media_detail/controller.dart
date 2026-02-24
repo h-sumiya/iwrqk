@@ -20,6 +20,7 @@ import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/config_service.dart';
+import '../../data/services/discord_rpc_service.dart';
 import '../../data/services/download_service.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../data/services/user_service.dart';
@@ -53,6 +54,7 @@ class MediaDetailController extends GetxController
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
+  final DiscordRpcService discordRpcService = Get.find();
   final DownloadService _downloadService = Get.find();
 
   bool isOffline = false;
@@ -398,22 +400,36 @@ class MediaDetailController extends GetxController
       autoplay: autoplay,
       onVideoLoad: () {
         if (isOffline) {
+          final int durationSeconds =
+              plPlayerController.duration.value.inSeconds;
           videoPlayerServiceHandler.onVideoChange({
             "id": taskData.offlineMedia.id,
             "title": taskData.offlineMedia.title,
             "artist": taskData.offlineMedia.uploader.name,
-            "duration": plPlayerController.duration.value.inSeconds,
+            "duration": durationSeconds,
             if (taskData.offlineMedia.coverUrl != null)
               "cover": taskData.offlineMedia.coverUrl,
           });
+          discordRpcService.onVideoChange(
+            title: taskData.offlineMedia.title,
+            artist: taskData.offlineMedia.uploader.name,
+            durationSeconds: durationSeconds,
+          );
         } else {
+          final int durationSeconds =
+              plPlayerController.duration.value.inSeconds;
           videoPlayerServiceHandler.onVideoChange({
             "id": media.id,
             "title": media.title,
             "artist": media.user.name,
-            "duration": plPlayerController.duration.value.inSeconds,
+            "duration": durationSeconds,
             if (media.hasCover()) "cover": media.getCoverUrl(),
           });
+          discordRpcService.onVideoChange(
+            title: media.title,
+            artist: media.user.name,
+            durationSeconds: durationSeconds,
+          );
         }
       },
     );
@@ -527,6 +543,7 @@ class MediaDetailController extends GetxController
     if (canUseWindowsPip && isWindowsPipMode) {
       unawaited(exitWindowsPip());
     }
+    discordRpcService.onVideoDetailDispose();
     super.onClose();
   }
 }

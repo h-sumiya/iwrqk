@@ -459,6 +459,8 @@ class _TranslationsSettingsJa extends TranslationsSettingsEn {
 	@override String get autoplay_desc => 'ビデオページを開くときに自動でビデオを再生します';
 	@override String get background_play => 'バックグラウンド再生';
 	@override String get background_play_desc => 'アプリをバックグラウンドでビデオを再生することを許可します';
+	@override String get discord_rich_presence => 'Discord Rich Presence';
+	@override String get discord_rich_presence_desc => 'Discordで起動状態と再生中のアイテムを表示します';
 	@override String get download => 'ダウンロード設定';
 	@override String get download_path => 'ダウンロードパス';
 	@override String get allow_media_scan => 'メディアスキャンを許可';
@@ -904,6 +906,8 @@ extension on TranslationsJa {
 			'settings.autoplay_desc' => 'ビデオページを開くときに自動でビデオを再生します',
 			'settings.background_play' => 'バックグラウンド再生',
 			'settings.background_play_desc' => 'アプリをバックグラウンドでビデオを再生することを許可します',
+			'settings.discord_rich_presence' => 'Discord Rich Presence',
+			'settings.discord_rich_presence_desc' => 'Discordで起動状態と再生中のアイテムを表示します',
 			'settings.download' => 'ダウンロード設定',
 			'settings.download_path' => 'ダウンロードパス',
 			'settings.allow_media_scan' => 'メディアスキャンを許可',

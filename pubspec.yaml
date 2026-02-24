@@ -19,6 +19,8 @@ dependencies:
   cookie_jar: ^4.0.8
   crypto: ^3.0.7
   device_info_plus: ^12.3.0
+  dart_discord_rpc:
+    path: third_party/dart_discord_rpc
   dio: ^5.9.0
   dio_cookie_manager: ^3.3.0
   dynamic_color: ^1.8.1

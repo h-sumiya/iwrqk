@@ -252,6 +252,21 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
+  Widget _buildDiscordRichPresenceSetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.discord_rich_presence,
+        description: t.settings.discord_rich_presence_desc,
+        iconData: Icons.games,
+        value: controller.enableDiscordRichPresence,
+        onChanged: (value) {
+          controller.enableDiscordRichPresence = value;
+        },
+      ),
+    );
+  }
+
   Widget _buildDownloadPathSetting(BuildContext context) {
     return Obx(
       () => _buildButton(
@@ -460,6 +475,8 @@ class SettingsPage extends GetView<SettingsController> {
           SettingTitle(title: t.settings.player),
           _buildAutoPlaySetting(context),
           _buildBackgroundPlaySetting(context),
+          if (GetPlatform.isWindows || GetPlatform.isLinux)
+            _buildDiscordRichPresenceSetting(context),
           if (!GetPlatform.isIOS) SettingTitle(title: t.settings.download),
           if (!GetPlatform.isIOS) _buildDownloadPathSetting(context),
           if (GetPlatform.isAndroid) _buildMediaScanSetting(context),

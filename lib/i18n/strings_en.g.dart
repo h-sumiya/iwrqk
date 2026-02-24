@@ -833,6 +833,12 @@ class TranslationsSettingsEn {
 	/// en: 'Allow the App to play video in the background'
 	String get background_play_desc => 'Allow the App to play video in the background';
 
+	/// en: 'Discord Rich Presence'
+	String get discord_rich_presence => 'Discord Rich Presence';
+
+	/// en: 'Show app status and current playback on Discord'
+	String get discord_rich_presence_desc => 'Show app status and current playback on Discord';
+
 	/// en: 'Download'
 	String get download => 'Download';
 
@@ -1471,6 +1477,8 @@ extension on Translations {
 			'settings.autoplay_desc' => 'Autoplay video when opening a video page',
 			'settings.background_play' => 'Background Play',
 			'settings.background_play_desc' => 'Allow the App to play video in the background',
+			'settings.discord_rich_presence' => 'Discord Rich Presence',
+			'settings.discord_rich_presence_desc' => 'Show app status and current playback on Discord',
 			'settings.download' => 'Download',
 			'settings.download_path' => 'Download Path',
 			'settings.allow_media_scan' => 'Allow Media Scan',

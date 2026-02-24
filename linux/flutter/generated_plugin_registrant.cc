@@ -6,6 +6,7 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <dart_discord_rpc/dart_discord_rpc_plugin.h>
 #include <dynamic_color/dynamic_color_plugin.h>
 #include <flutter_secure_storage_linux/flutter_secure_storage_linux_plugin.h>
 #include <flutter_volume_controller/flutter_volume_controller_plugin.h>
@@ -17,6 +18,9 @@
 #include <window_manager/window_manager_plugin.h>
 
 void fl_register_plugins(FlPluginRegistry* registry) {
+  g_autoptr(FlPluginRegistrar) dart_discord_rpc_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "DartDiscordRpcPlugin");
+  dart_discord_rpc_plugin_register_with_registrar(dart_discord_rpc_registrar);
   g_autoptr(FlPluginRegistrar) dynamic_color_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "DynamicColorPlugin");
   dynamic_color_plugin_register_with_registrar(dynamic_color_registrar);

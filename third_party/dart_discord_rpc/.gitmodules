@@ -1,0 +1,3 @@
+[submodule "cxx/include/dart_api"]
+	path = cxx/include/dart_api
+	url = https://github.com/alexmercerind/dart_api.git

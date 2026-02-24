@@ -13,6 +13,7 @@ import 'package:media_kit_video/media_kit_video.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
 import '../../../data/providers/storage_provider.dart';
+import '../../../data/services/discord_rpc_service.dart';
 import '../../../data/services/plugin/pl_player/service_locator.dart';
 import '../../../utils/log_util.dart';
 import 'index.dart';
@@ -554,6 +555,9 @@ class PlPlayerController {
       // 媒体通知监听
       onPlayerStatusChanged.listen((event) {
         videoPlayerServiceHandler.onStatusChange(event, isBuffering.value);
+        if (Get.isRegistered<DiscordRpcService>()) {
+          Get.find<DiscordRpcService>().onPlayerStatusChange(event);
+        }
       }),
       onPositionChanged.listen((event) {
         EasyThrottle.throttle(
@@ -561,6 +565,9 @@ class PlPlayerController {
           const Duration(seconds: 1),
           () => videoPlayerServiceHandler.onPositionChange(event),
         );
+        if (Get.isRegistered<DiscordRpcService>()) {
+          Get.find<DiscordRpcService>().onPositionChange(event);
+        }
       }),
     ]);
   }

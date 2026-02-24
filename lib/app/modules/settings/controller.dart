@@ -13,6 +13,7 @@ import '../../data/providers/config_provider.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
 import '../../data/services/config_service.dart';
+import '../../data/services/discord_rpc_service.dart';
 import '../../data/services/download_service.dart';
 import '../../data/services/preview_service.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
@@ -22,6 +23,7 @@ import '../../utils/log_util.dart';
 
 class SettingsController extends GetxController {
   final ConfigService configService = Get.find();
+  final DiscordRpcService discordRpcService = Get.find();
   final AccountService accountService = Get.find();
   final DownloadService downloadService = Get.find();
   final PreviewService previewService = Get.find();
@@ -75,6 +77,14 @@ class SettingsController extends GetxController {
     StorageProvider.config[PLPlayerConfigKey.enableBackgroundPlay] = value;
   }
 
+  final RxBool _enableDiscordRichPresence = false.obs;
+  bool get enableDiscordRichPresence => _enableDiscordRichPresence.value;
+  set enableDiscordRichPresence(bool value) {
+    _enableDiscordRichPresence.value = value;
+    StorageProvider.config[ConfigKey.enableDiscordRichPresence] = value;
+    discordRpcService.setEnabled(value);
+  }
+
   final Rx<Directory?> _downloadPath = Rx<Directory?>(null);
   Directory? get downloadPath => _downloadPath.value;
   String get downloadPathText => _downloadPath.value?.path ?? 'N/A';
@@ -122,6 +132,9 @@ class SettingsController extends GetxController {
 
     _backgroundPlay.value =
         configService.setting[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
+
+    _enableDiscordRichPresence.value =
+        StorageProvider.config[ConfigKey.enableDiscordRichPresence] ?? false;
 
     _enableProxy.value =
         StorageProvider.config[StorageKey.proxyEnable] ?? false;

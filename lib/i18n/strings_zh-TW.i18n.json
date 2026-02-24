@@ -237,6 +237,8 @@
     "autoplay_desc": "打開影片頁面時自動播放影片",
     "background_play": "背景播放",
     "background_play_desc": "允許該軟體在後台播放影片",
+    "discord_rich_presence": "Discord Rich Presence",
+    "discord_rich_presence_desc": "在 Discord 中顯示軟體狀態與目前播放內容",
     "download": "下載設定",
     "download_path": "下載路徑",
     "allow_media_scan": "允許媒體掃描",

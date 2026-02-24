@@ -243,6 +243,8 @@
     "autoplay_desc": "Autoplay video when opening a video page",
     "background_play": "Background Play",
     "background_play_desc": "Allow the App to play video in the background",
+    "discord_rich_presence": "Discord Rich Presence",
+    "discord_rich_presence_desc": "Show app status and current playback on Discord",
     "download": "Download",
     "download_path": "Download Path",
     "allow_media_scan": "Allow Media Scan",

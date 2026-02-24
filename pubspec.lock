@@ -233,6 +233,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  dart_discord_rpc:
+    dependency: "direct main"
+    description:
+      path: "third_party/dart_discord_rpc"
+      relative: true
+    source: path
+    version: "0.0.3"
   dbus:
     dependency: transitive
     description:

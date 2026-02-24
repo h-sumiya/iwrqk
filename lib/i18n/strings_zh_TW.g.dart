@@ -459,6 +459,8 @@ class _TranslationsSettingsZhTw extends TranslationsSettingsEn {
 	@override String get autoplay_desc => '打開影片頁面時自動播放影片';
 	@override String get background_play => '背景播放';
 	@override String get background_play_desc => '允許該軟體在後台播放影片';
+	@override String get discord_rich_presence => 'Discord Rich Presence';
+	@override String get discord_rich_presence_desc => '在 Discord 中顯示軟體狀態與目前播放內容';
 	@override String get download => '下載設定';
 	@override String get download_path => '下載路徑';
 	@override String get allow_media_scan => '允許媒體掃描';
@@ -904,6 +906,8 @@ extension on TranslationsZhTw {
 			'settings.autoplay_desc' => '打開影片頁面時自動播放影片',
 			'settings.background_play' => '背景播放',
 			'settings.background_play_desc' => '允許該軟體在後台播放影片',
+			'settings.discord_rich_presence' => 'Discord Rich Presence',
+			'settings.discord_rich_presence_desc' => '在 Discord 中顯示軟體狀態與目前播放內容',
 			'settings.download' => '下載設定',
 			'settings.download_path' => '下載路徑',
 			'settings.allow_media_scan' => '允許媒體掃描',

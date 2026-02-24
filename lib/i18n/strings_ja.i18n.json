@@ -237,6 +237,8 @@
     "autoplay_desc": "ビデオページを開くときに自動でビデオを再生します",
     "background_play": "バックグラウンド再生",
     "background_play_desc": "アプリをバックグラウンドでビデオを再生することを許可します",
+    "discord_rich_presence": "Discord Rich Presence",
+    "discord_rich_presence_desc": "Discordで起動状態と再生中のアイテムを表示します",
     "download": "ダウンロード設定",
     "download_path": "ダウンロードパス",
     "allow_media_scan": "メディアスキャンを許可",

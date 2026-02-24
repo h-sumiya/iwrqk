@@ -27,6 +27,8 @@ abstract class ConfigKey {
   static const String notificationPlayer = "notificationPlayer";
 
   static const String enablePreview = "enablePreview";
+
+  static const String enableDiscordRichPresence = "enableDiscordRichPresence";
 }
 
 class ConfigService extends GetxService {
