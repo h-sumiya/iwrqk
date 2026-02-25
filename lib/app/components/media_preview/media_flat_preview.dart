@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Translations;
 import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../utils/display_util.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/preview_service.dart';
+import '../../utils/display_util.dart';
 import '../network_image.dart';
 import 'video_preview_overlay.dart';
 
@@ -175,7 +175,7 @@ class MediaFlatPreview extends StatelessWidget {
             left: 6,
             child: _buildBadges(context),
           ),
-          if (coverOverlay != null) coverOverlay!,
+          ?coverOverlay,
         ],
       ),
     );

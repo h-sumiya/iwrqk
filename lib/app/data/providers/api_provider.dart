@@ -203,10 +203,7 @@ class ApiProvider {
   }) {
     String? message;
     return networkProvider
-        .put(
-          "/user/$userId",
-          data: {if (tagBlacklist != null) "tagBlacklist": tagBlacklist},
-        )
+        .put("/user/$userId", data: {"tagBlacklist": ?tagBlacklist})
         .then((value) {
           message = value.data["message"];
         })
@@ -1376,7 +1373,7 @@ class ApiProvider {
     await networkProvider
         .post(
           "/${sourceType.value}/$sourceId/comments",
-          data: {"body": content, if (parentId != null) "parent": parentId},
+          data: {"body": content, "parent": ?parentId},
         )
         .then((value) {
           message = value.data["message"];

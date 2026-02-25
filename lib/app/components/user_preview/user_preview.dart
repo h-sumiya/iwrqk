@@ -52,7 +52,7 @@ class UserPreview extends StatelessWidget {
           children: [
             if (showFollowButton) FollowButton(user: user),
             if (showFriendButton) FriendButton(user: user),
-            if (customButton != null) customButton!,
+            ?customButton,
           ],
         ),
       ),
