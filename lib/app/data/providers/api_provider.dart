@@ -493,6 +493,16 @@ class ApiProvider {
     return ApiResult(data: image, success: message == null, message: message);
   }
 
+  static void sortResolutions(List<ResolutionModel> resolutions){
+    resolutions.sort((a, b) {
+      if (a.name == 'Source') return -1;
+      if (b.name == 'Source') return 1;
+      double valA = double.tryParse(a.name) ?? 0;
+      double valB = double.tryParse(b.name) ?? 0;
+      return valB.compareTo(valA);
+    });
+  }
+
   static Future<ApiResult<List<ResolutionModel>>> getVideoResolutions(
     String url,
     String xversion,
@@ -522,6 +532,9 @@ class ApiProvider {
         finalResolutions.add(resolution);
       }
     }
+    // sort the resolutions list to make sure
+    // the index is functional
+    sortResolutions(finalResolutions);
 
     return ApiResult(
       data: finalResolutions,
