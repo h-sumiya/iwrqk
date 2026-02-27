@@ -49,9 +49,9 @@ class _HeaderControlState extends State<HeaderControl> {
   @override
   Widget build(BuildContext context) {
     final controller = widget.controller!;
-    final bool showWindowsPipButton =
-        GetPlatform.isWindows &&
-        (widget.videoDetailCtr?.canUseWindowsPip ?? false);
+    final RxBool showWindowsPipButton =
+        (GetPlatform.isWindows &&
+        (widget.videoDetailCtr?.canUseWindowsPip ?? false)).obs;
     const TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 12);
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -92,13 +92,20 @@ class _HeaderControlState extends State<HeaderControl> {
               Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
             },
           ),
-          const Spacer(),
           SizedBox(width: buttonSpace),
-          if (GetPlatform.isAndroid || showWindowsPipButton) ...<Widget>[
+          Expanded(
+            child: Text(widget.videoDetailCtr?.media.title??"",
+                style: titleStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                textAlign: TextAlign.left,   ),
+          ),
+          SizedBox(width: buttonSpace),
+          if (GetPlatform.isAndroid || showWindowsPipButton.value) ...<Widget>[
             Obx(
               () => ComBtn(
                 icon: Icon(
-                  showWindowsPipButton &&
+                  showWindowsPipButton.value &&
                           (widget.videoDetailCtr?.isWindowsPipMode ?? false)
                       ? Icons.close_fullscreen
                       : Icons.picture_in_picture,
@@ -107,7 +114,7 @@ class _HeaderControlState extends State<HeaderControl> {
                 ),
                 fuc: () async {
                   widget.controller!.hiddenControls(false);
-                  if (showWindowsPipButton) {
+                  if (showWindowsPipButton.value) {
                     await widget.videoDetailCtr!.toggleWindowsPip();
                     return;
                   }

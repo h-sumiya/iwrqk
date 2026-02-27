@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart' hide Translations;
 import 'package:iwrqk/i18n/strings.g.dart';
 
@@ -211,29 +212,35 @@ class MediaPreview extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.person,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 2, right: 2),
-                      child: Text(
-                        media.user.name,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Theme.of(context).colorScheme.outline,
-                          overflow: TextOverflow.ellipsis,
+              child: GestureDetector(
+                onTap:(){
+                  HapticFeedback.lightImpact();
+                  Get.toNamed("/profile?userName=${media.user.username}");
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.person,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 2, right: 2),
+                        child: Text(
+                          media.user.name,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            color: Theme.of(context).colorScheme.outline,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              )
             ),
             Text(
               DisplayUtil.getDisplayDate(DateTime.parse(media.createdAt)),
